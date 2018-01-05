@@ -396,6 +396,7 @@
 		848FC6D61FFE2BBA00918CE9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84AB21CE1FFF2D17009DF659 /* homeView */,
 				848FC6D71FFE2BC200918CE9 /* PopView */,
 			);
 			path = View;
@@ -434,6 +435,13 @@
 				84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */,
 			);
 			path = PathModules;
+			sourceTree = "<group>";
+		};
+		84AB21CE1FFF2D17009DF659 /* homeView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = homeView;
 			sourceTree = "<group>";
 		};
 		C7AB7B42C2C17EF71216CFD6 /* Frameworks */ = {

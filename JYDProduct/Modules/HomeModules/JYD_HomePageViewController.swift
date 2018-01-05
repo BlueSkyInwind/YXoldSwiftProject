@@ -86,13 +86,19 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate {
             if annotationView == nil {
                 annotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: AnnotationViewID)
             }
-            annotationView?.isDraggable = false
-            annotationView?.pinColor = UInt(BMKPinAnnotationColorGreen)
             annotationView?.animatesDrop = true
+            annotationView?.image = UIImage.init(named: "storeLocation_Icon")
+            annotationView?.isDraggable = false
             annotationView?.annotation = annotation
             return annotationView
         }
         return nil
+    }
+    
+    func mapView(_ mapView: BMKMapView!, didSelect view: BMKAnnotationView!) {
+        
+        
+        
     }
     
     /*
