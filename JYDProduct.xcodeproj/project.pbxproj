@@ -49,6 +49,7 @@
 		84AB21CB1FFF15CC009DF659 /* JYD_PathDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */; };
 		84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CC1FFF1CFD009DF659 /* APPColor.swift */; };
 		84AB21D01FFF4CE6009DF659 /* GlobalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */; };
+		84AB21D21FFF4DFB009DF659 /* JYD_PaopaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D11FFF4DFB009DF659 /* JYD_PaopaoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,7 @@
 		84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PathDetailViewController.swift; sourceTree = "<group>"; };
 		84AB21CC1FFF1CFD009DF659 /* APPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPColor.swift; sourceTree = "<group>"; };
 		84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewModel.swift; sourceTree = "<group>"; };
+		84AB21D11FFF4DFB009DF659 /* JYD_PaopaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PaopaoView.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -443,6 +445,7 @@
 		84AB21CE1FFF2D17009DF659 /* homeView */ = {
 			isa = PBXGroup;
 			children = (
+				84AB21D11FFF4DFB009DF659 /* JYD_PaopaoView.swift */,
 			);
 			path = homeView;
 			sourceTree = "<group>";
@@ -707,6 +710,7 @@
 				848FC6CB1FFE291700918CE9 /* NSString+AES.m in Sources */,
 				848FC6941FFE251300918CE9 /* APPUtilityInfo.swift in Sources */,
 				84AB21C61FFF1542009DF659 /* JYD_StoreDetailViewController.swift in Sources */,
+				84AB21D21FFF4DFB009DF659 /* JYD_PaopaoView.swift in Sources */,
 				848FC68D1FFE24C300918CE9 /* APPTool.swift in Sources */,
 				848FC6591FFE182300918CE9 /* AppDelegate.swift in Sources */,
 				848FC6C91FFE291700918CE9 /* NSString+MD5Encrypt.m in Sources */,

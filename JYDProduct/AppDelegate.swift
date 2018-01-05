@@ -33,15 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BMKGeneralDelegate {
     func initBMK()  {
         
         if BMKMapManager.setCoordinateTypeUsedInBaiduMapSDK(BMK_COORDTYPE_BD09LL) {
-            DLog(message: "经纬度类型设置成功")
+            DPrint(message: "经纬度类型设置成功")
         } else {
-            DLog(message: "经纬度类型设置失败")
+            DPrint(message: "经纬度类型设置失败")
         }
         _mapManeger = BMKMapManager()
         //私有AK
         let ret = _mapManeger?.start("hDQwMqWInk63G1pcxzX4GQCC4UbI0TeG", generalDelegate: self)
         if ret == false {
-            DLog(message: "启动失败")
+            DPrint(message: "启动失败")
         }
     }
     

@@ -58,7 +58,7 @@ func obtainBarHeight_New(vc:UIViewController) -> Int{
 }
 
 // 这里 T 表示不指定 message参数类型
-func DLog<T>(message : T, file : String = #file, funcName : String = #function, lineNum : Int = #line) {
+func DPrint<T>(message : T, file : String = #file, funcName : String = #function, lineNum : Int = #line) {
     
     #if DEBUG
         // 需要在 buildSetting 中配置 swift flags的参数为:-D DEBUG, DEBUG可以自定义, 一般用 DEBUG

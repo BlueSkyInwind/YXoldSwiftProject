@@ -12,6 +12,8 @@ let appMainBg = UIColor.init(red: 77/255.0, green: 142/255.0, blue: 255.0/255.0,
 
 let webViewProgressBarTintColor = UIColor.init(red: 49/255.0, green: 152/255.0, blue: 199.0/255.0, alpha: 1)
 
+let PaopaoTitleColor = UIColor.init(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1)
+
 
 
 
