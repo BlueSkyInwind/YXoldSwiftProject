@@ -25,6 +25,16 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
 
         self.navigationController?.isNavigationBarHidden = true
         
+        let bgView = UIView()
+        bgView.backgroundColor = LOCATION_Color
+        self.view.addSubview(bgView)
+        bgView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view).offset(0)
+            make.top.equalTo(self.view).offset(-20)
+            make.right.equalTo(self.view).offset(0)
+            make.height.equalTo(20)
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = TABLEVIEWBG_Color
