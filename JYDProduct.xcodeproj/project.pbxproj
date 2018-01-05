@@ -48,6 +48,7 @@
 		84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */; };
 		84AB21CB1FFF15CC009DF659 /* JYD_PathDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */; };
 		84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CC1FFF1CFD009DF659 /* APPColor.swift */; };
+		84AB21D01FFF4CE6009DF659 /* GlobalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathViewController.swift; sourceTree = "<group>"; };
 		84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PathDetailViewController.swift; sourceTree = "<group>"; };
 		84AB21CC1FFF1CFD009DF659 /* APPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPColor.swift; sourceTree = "<group>"; };
+		84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewModel.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -281,6 +283,7 @@
 		848FC69B1FFE263100918CE9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				848FC6A11FFE266400918CE9 /* BaseViewController.swift in Sources */,
 				848FC6C81FFE291700918CE9 /* GTMBase64.m in Sources */,
 				848FC6DB1FFE2BD400918CE9 /* JYD_AlertView.swift in Sources */,
+				84AB21D01FFF4CE6009DF659 /* GlobalViewModel.swift in Sources */,
 				848FC6AE1FFE271A00918CE9 /* UIViewController+KNSemiModal.m in Sources */,
 				848FC65B1FFE182300918CE9 /* ViewController.swift in Sources */,
 				848FC6A91FFE26F400918CE9 /* MBPAlertView.swift in Sources */,
@@ -879,7 +883,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapDemo.YXMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/JYDProduct/SupportFiles/JYDProduct-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -899,7 +903,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapDemo.YXMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/JYDProduct/SupportFiles/JYDProduct-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
