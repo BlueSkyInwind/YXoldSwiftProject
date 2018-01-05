@@ -48,9 +48,9 @@
 		84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */; };
 		84AB21CB1FFF15CC009DF659 /* JYD_PathDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */; };
 		84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CC1FFF1CFD009DF659 /* APPColor.swift */; };
-		CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */; };
-		84AB21D01FFF4CE6009DF659 /* GlobalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */; };
 		84AB21D21FFF4DFB009DF659 /* JYD_PaopaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D11FFF4DFB009DF659 /* JYD_PaopaoView.swift */; };
+		CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */; };
+		CC58B0871FFF64FA00142282 /* JYD_SelectePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,10 +129,9 @@
 		84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathViewController.swift; sourceTree = "<group>"; };
 		84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PathDetailViewController.swift; sourceTree = "<group>"; };
 		84AB21CC1FFF1CFD009DF659 /* APPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPColor.swift; sourceTree = "<group>"; };
-		CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathHeaderView.swift; sourceTree = "<group>"; };
-		84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewModel.swift; sourceTree = "<group>"; };
 		84AB21D11FFF4DFB009DF659 /* JYD_PaopaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PaopaoView.swift; sourceTree = "<group>"; };
-
+		CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathHeaderView.swift; sourceTree = "<group>"; };
+		CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectePathCell.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -457,7 +456,6 @@
 		CC58B0801FFF4EA900142282 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				CC58B0811FFF4EA900142282 /* GlobalViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -466,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */,
+				CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */,
 			);
 			path = SelectPathView;
 			sourceTree = "<group>";
@@ -692,7 +691,6 @@
 			files = (
 				84AB21C11FFF14B2009DF659 /* JYD_HomePageViewController.swift in Sources */,
 				CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */,
-				CC58B0821FFF4EA900142282 /* GlobalViewModel.swift in Sources */,
 				848FC6D51FFE2B3900918CE9 /* SSKeychainQuery.m in Sources */,
 				848FC6A31FFE266400918CE9 /* BaseNavigationViewController.swift in Sources */,
 				84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */,
@@ -701,6 +699,7 @@
 				848FC6A21FFE266400918CE9 /* BaseHandler.swift in Sources */,
 				848FC6D41FFE2B3900918CE9 /* SSKeychain.m in Sources */,
 				848FC6B21FFE274800918CE9 /* GlobalParamModel.swift in Sources */,
+				CC58B0871FFF64FA00142282 /* JYD_SelectePathCell.swift in Sources */,
 				84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */,
 				84AB21C41FFF1513009DF659 /* JYD_StoreListViewController.swift in Sources */,
 				848FC6921FFE24C300918CE9 /* APPConfig.swift in Sources */,
