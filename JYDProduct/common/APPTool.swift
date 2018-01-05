@@ -191,6 +191,19 @@ class APPTool: NSObject {
         return image!
     }
     
+    class func obtainDisplaySize(size:CGFloat) -> CGFloat {
+        var fontScale:CGFloat = 1.0;
+        if (UI_IS_IPHONE5) {
+            fontScale = 1.0;
+        }else if (UI_IS_IPONE6){
+            fontScale = 1.0;
+        }else if (UI_IS_IPHONE6P){
+            fontScale = 1.17;
+        }else if (UI_IS_IPHONEX){
+            fontScale = 1.17;
+        }
+        return fontScale * size;
+    }
 }
 
 

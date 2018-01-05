@@ -14,8 +14,22 @@ import MBProgressHUD
 import HandyJSON
 import ReactiveCocoa
 import ReactiveSwift
-//MARK: 项目配置信息
 
+//MARK: 全局枚举(验证码)
+enum VerifyCode_Type : String{
+    
+    case CODE_LOGIN = "MSG_LOGIN_"   ///登陆验证码
+    case CODE_REG = "MSG_REG_"          ///注册验证码
+    case CODE_FINDPASS = "MSG_FIND_PASSWORD_"  ///密码找回验证码
+    case CODE_CHANGEPASS = "MSG_UPDATE_PASSWORD_"  ///修改密码验证码
+    case CODE_CHANGEDEVID = "MSG_CHANGE_DEVICE_"   ///设备号更改
+    case CODE_BANKMOBILE = "MSG_CHANGE_DEBIT_"   ///银行预留手机验证码(银行卡修改)
+    case CODE_DRAW = "MSG_DRAW_" ///提款
+    case CODE_ADDCARD = "MSG_BANKCARD_AUDIT_"   //新增卡
+    
+}
+
+//MARK: 项目配置信息
 //服务器识别平台号
 let PLATFORM = "1"
 
@@ -50,14 +64,15 @@ let appBundleID = "com.hfsj.jyd"
 
 let KCharacterNumber = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
-
+//MARK:为加载的html内容加上格式
 let WebView_Style = "<header><meta name='viewport' content='width=device-width, initial-scale=0.8, maximum-scale=0.8, minimum-scale=0.8, user-scalable=no'></header>"
 
+//MARK:获取nav的高度
 func obtainBarHeight_New(vc:UIViewController) -> Int{
     return Int(UIApplication.shared.statusBarFrame.size.height + (vc.navigationController?.navigationBar.frame.size.height)!)
 }
 
-// 这里 T 表示不指定 message参数类型
+//MARK:格式化输出   这里 T 表示不指定 message参数类型
 func DPrint<T>(message : T, file : String = #file, funcName : String = #function, lineNum : Int = #line) {
     
     #if DEBUG
@@ -70,19 +85,10 @@ func DPrint<T>(message : T, file : String = #file, funcName : String = #function
     #endif
 }
 
-//MARK: 全局枚举(验证码)
-enum VerifyCode_Type : String{
-    
-    case CODE_LOGIN = "MSG_LOGIN_"   ///登陆验证码
-    case CODE_REG = "MSG_REG_"          ///注册验证码
-    case CODE_FINDPASS = "MSG_FIND_PASSWORD_"  ///密码找回验证码
-    case CODE_CHANGEPASS = "MSG_UPDATE_PASSWORD_"  ///修改密码验证码
-    case CODE_CHANGEDEVID = "MSG_CHANGE_DEVICE_"   ///设备号更改
-    case CODE_BANKMOBILE = "MSG_CHANGE_DEBIT_"   ///银行预留手机验证码(银行卡修改)
-    case CODE_DRAW = "MSG_DRAW_" ///提款
-    case CODE_ADDCARD = "MSG_BANKCARD_AUDIT_"   //新增卡
 
-}
+
+
+
 
 
 
