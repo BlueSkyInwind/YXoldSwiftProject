@@ -19,7 +19,6 @@
 		848FC68E1FFE24C300918CE9 /* APPTextDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6881FFE24C300918CE9 /* APPTextDescription.swift */; };
 		848FC68F1FFE24C300918CE9 /* APPUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6891FFE24C300918CE9 /* APPUrl.swift */; };
 		848FC6901FFE24C300918CE9 /* GlobalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC68A1FFE24C300918CE9 /* GlobalConfig.swift */; };
-		848FC6911FFE24C300918CE9 /* APPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC68B1FFE24C300918CE9 /* APPColor.swift */; };
 		848FC6921FFE24C300918CE9 /* APPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC68C1FFE24C300918CE9 /* APPConfig.swift */; };
 		848FC6941FFE251300918CE9 /* APPUtilityInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6931FFE251300918CE9 /* APPUtilityInfo.swift */; };
 		848FC69A1FFE262500918CE9 /* JYDNetWorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6991FFE262500918CE9 /* JYDNetWorkManager.swift */; };
@@ -43,6 +42,12 @@
 		848FC6DA1FFE2BD400918CE9 /* JYD_VersionUpdatepop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6D81FFE2BD400918CE9 /* JYD_VersionUpdatepop.swift */; };
 		848FC6DB1FFE2BD400918CE9 /* JYD_AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6D91FFE2BD400918CE9 /* JYD_AlertView.swift */; };
 		848FC6DD1FFE2C2000918CE9 /* CommonExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848FC6DC1FFE2C2000918CE9 /* CommonExtention.swift */; };
+		84AB21C11FFF14B2009DF659 /* JYD_HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C01FFF14B2009DF659 /* JYD_HomePageViewController.swift */; };
+		84AB21C41FFF1513009DF659 /* JYD_StoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C31FFF1513009DF659 /* JYD_StoreListViewController.swift */; };
+		84AB21C61FFF1542009DF659 /* JYD_StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C51FFF1542009DF659 /* JYD_StoreDetailViewController.swift */; };
+		84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */; };
+		84AB21CB1FFF15CC009DF659 /* JYD_PathDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */; };
+		84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CC1FFF1CFD009DF659 /* APPColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +87,6 @@
 		848FC6881FFE24C300918CE9 /* APPTextDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPTextDescription.swift; sourceTree = "<group>"; };
 		848FC6891FFE24C300918CE9 /* APPUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPUrl.swift; sourceTree = "<group>"; };
 		848FC68A1FFE24C300918CE9 /* GlobalConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConfig.swift; sourceTree = "<group>"; };
-		848FC68B1FFE24C300918CE9 /* APPColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPColor.swift; sourceTree = "<group>"; };
 		848FC68C1FFE24C300918CE9 /* APPConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPConfig.swift; sourceTree = "<group>"; };
 		848FC6931FFE251300918CE9 /* APPUtilityInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPUtilityInfo.swift; sourceTree = "<group>"; };
 		848FC6991FFE262500918CE9 /* JYDNetWorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYDNetWorkManager.swift; sourceTree = "<group>"; };
@@ -116,6 +120,12 @@
 		848FC6D81FFE2BD400918CE9 /* JYD_VersionUpdatepop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYD_VersionUpdatepop.swift; sourceTree = "<group>"; };
 		848FC6D91FFE2BD400918CE9 /* JYD_AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYD_AlertView.swift; sourceTree = "<group>"; };
 		848FC6DC1FFE2C2000918CE9 /* CommonExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtention.swift; sourceTree = "<group>"; };
+		84AB21C01FFF14B2009DF659 /* JYD_HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_HomePageViewController.swift; sourceTree = "<group>"; };
+		84AB21C31FFF1513009DF659 /* JYD_StoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreListViewController.swift; sourceTree = "<group>"; };
+		84AB21C51FFF1542009DF659 /* JYD_StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDetailViewController.swift; sourceTree = "<group>"; };
+		84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathViewController.swift; sourceTree = "<group>"; };
+		84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PathDetailViewController.swift; sourceTree = "<group>"; };
+		84AB21CC1FFF1CFD009DF659 /* APPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPColor.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -219,8 +229,8 @@
 			children = (
 				848FC6B81FFE291700918CE9 /* EncryptionModules */,
 				848FC6AB1FFE271A00918CE9 /* Extension */,
-				848FC68B1FFE24C300918CE9 /* APPColor.swift */,
 				848FC68C1FFE24C300918CE9 /* APPConfig.swift */,
+				84AB21CC1FFF1CFD009DF659 /* APPColor.swift */,
 				848FC6881FFE24C300918CE9 /* APPTextDescription.swift */,
 				848FC6871FFE24C300918CE9 /* APPTool.swift */,
 				848FC6891FFE24C300918CE9 /* APPUrl.swift */,
@@ -252,6 +262,9 @@
 			isa = PBXGroup;
 			children = (
 				848FC6B31FFE27C700918CE9 /* JYDWebView */,
+				84AB21BF1FFF1471009DF659 /* HomeModules */,
+				84AB21C21FFF14E4009DF659 /* StoreModules */,
+				84AB21C71FFF155B009DF659 /* PathModules */,
 				848FC69C1FFE266400918CE9 /* baseClass */,
 			);
 			path = Modules;
@@ -395,6 +408,32 @@
 				848FC6D91FFE2BD400918CE9 /* JYD_AlertView.swift */,
 			);
 			path = PopView;
+			sourceTree = "<group>";
+		};
+		84AB21BF1FFF1471009DF659 /* HomeModules */ = {
+			isa = PBXGroup;
+			children = (
+				84AB21C01FFF14B2009DF659 /* JYD_HomePageViewController.swift */,
+			);
+			path = HomeModules;
+			sourceTree = "<group>";
+		};
+		84AB21C21FFF14E4009DF659 /* StoreModules */ = {
+			isa = PBXGroup;
+			children = (
+				84AB21C31FFF1513009DF659 /* JYD_StoreListViewController.swift */,
+				84AB21C51FFF1542009DF659 /* JYD_StoreDetailViewController.swift */,
+			);
+			path = StoreModules;
+			sourceTree = "<group>";
+		};
+		84AB21C71FFF155B009DF659 /* PathModules */ = {
+			isa = PBXGroup;
+			children = (
+				84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */,
+				84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */,
+			);
+			path = PathModules;
 			sourceTree = "<group>";
 		};
 		C7AB7B42C2C17EF71216CFD6 /* Frameworks */ = {
@@ -590,9 +629,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JYDProduct/Pods-JYDProduct-resources.sh",
 				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
-				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/Required/ShareSDK.bundle",
-				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle",
-				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/Optional/ShareSDKUI.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -628,13 +664,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AB21C11FFF14B2009DF659 /* JYD_HomePageViewController.swift in Sources */,
 				848FC6D51FFE2B3900918CE9 /* SSKeychainQuery.m in Sources */,
 				848FC6A31FFE266400918CE9 /* BaseNavigationViewController.swift in Sources */,
+				84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */,
 				848FC6B11FFE274800918CE9 /* GlobalModel.swift in Sources */,
 				848FC68F1FFE24C300918CE9 /* APPUrl.swift in Sources */,
 				848FC6A21FFE266400918CE9 /* BaseHandler.swift in Sources */,
 				848FC6D41FFE2B3900918CE9 /* SSKeychain.m in Sources */,
 				848FC6B21FFE274800918CE9 /* GlobalParamModel.swift in Sources */,
+				84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */,
+				84AB21C41FFF1513009DF659 /* JYD_StoreListViewController.swift in Sources */,
 				848FC6921FFE24C300918CE9 /* APPConfig.swift in Sources */,
 				848FC6A11FFE266400918CE9 /* BaseViewController.swift in Sources */,
 				848FC6C81FFE291700918CE9 /* GTMBase64.m in Sources */,
@@ -645,6 +685,7 @@
 				848FC6901FFE24C300918CE9 /* GlobalConfig.swift in Sources */,
 				848FC6A41FFE266400918CE9 /* BaseTabBarViewController.swift in Sources */,
 				848FC68E1FFE24C300918CE9 /* APPTextDescription.swift in Sources */,
+				84AB21CB1FFF15CC009DF659 /* JYD_PathDetailViewController.swift in Sources */,
 				848FC6CC1FFE291700918CE9 /* NSData+AES.m in Sources */,
 				848FC69A1FFE262500918CE9 /* JYDNetWorkManager.swift in Sources */,
 				848FC6DD1FFE2C2000918CE9 /* CommonExtention.swift in Sources */,
@@ -653,7 +694,7 @@
 				848FC6DA1FFE2BD400918CE9 /* JYD_VersionUpdatepop.swift in Sources */,
 				848FC6CB1FFE291700918CE9 /* NSString+AES.m in Sources */,
 				848FC6941FFE251300918CE9 /* APPUtilityInfo.swift in Sources */,
-				848FC6911FFE24C300918CE9 /* APPColor.swift in Sources */,
+				84AB21C61FFF1542009DF659 /* JYD_StoreDetailViewController.swift in Sources */,
 				848FC68D1FFE24C300918CE9 /* APPTool.swift in Sources */,
 				848FC6591FFE182300918CE9 /* AppDelegate.swift in Sources */,
 				848FC6C91FFE291700918CE9 /* NSString+MD5Encrypt.m in Sources */,
@@ -829,6 +870,7 @@
 				INFOPLIST_FILE = JYDProduct/SupportFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/JYDProduct/SupportFiles/JYDProduct-Bridging-Header.h";
@@ -848,6 +890,7 @@
 				INFOPLIST_FILE = JYDProduct/SupportFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/JYDProduct/SupportFiles/JYDProduct-Bridging-Header.h";

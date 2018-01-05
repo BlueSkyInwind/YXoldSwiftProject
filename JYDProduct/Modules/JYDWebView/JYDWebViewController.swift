@@ -21,7 +21,7 @@ class JYDWebViewController: BaseViewController,WKNavigationDelegate,WKUIDelegate
         let navigationBarBounds = self?.navigationController?.navigationBar.bounds
         let progressBarFrame = CGRect.init(x: 0, y: (navigationBarBounds?.size.height)! - progressBarHeight, width: (navigationBarBounds?.size.width)!, height: progressBarHeight)
         let  progressView = UIProgressView.init(frame: progressBarFrame)
-        progressView.tintColor = UIColor.webViewProgressBarTintColor()
+        progressView.tintColor = webViewProgressBarTintColor
         progressView.trackTintColor = UIColor.white
         return progressView
     

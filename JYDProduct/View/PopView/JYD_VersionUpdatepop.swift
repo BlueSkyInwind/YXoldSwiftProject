@@ -68,6 +68,7 @@ class JYD_VersionUpdatepop: UIView {
         // Drawing code
     }
     */
+    
 }
 
 extension JYD_VersionUpdatepop{
@@ -89,7 +90,7 @@ extension JYD_VersionUpdatepop{
         titleLabel = UILabel()
         titleLabel?.text = "发现新版本"
         titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        titleLabel?.textColor = APPColor.shareInstance.appMainBg
+        titleLabel?.textColor = appMainBg
         self.backImageView?.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
             make.centerX.equalTo((self.backImageView?.snp.centerX)!)

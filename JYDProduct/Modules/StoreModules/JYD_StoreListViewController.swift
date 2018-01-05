@@ -1,14 +1,14 @@
 //
-//  BaseNavigationViewController.swift
-//  FXDProduct
+//  JYD_StoreListViewController.swift
+//  JYDProduct
 //
-//  Created by admin on 2017/7/26.
-//  Copyright © 2017年 admin. All rights reserved.
+//  Created by admin on 2018/1/5.
+//  Copyright © 2018年 WangYongxin. All rights reserved.
 //
 
 import UIKit
 
-class BaseNavigationViewController: UINavigationController {
+class JYD_StoreListViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,7 @@ class BaseNavigationViewController: UINavigationController {
         // Dispose of any resources that can be recreated.
     }
     
+
     /*
     // MARK: - Navigation
 

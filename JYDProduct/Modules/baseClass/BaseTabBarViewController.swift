@@ -46,7 +46,7 @@ class BaseTabBarViewController: UITabBarController {
         
         let item = UITabBarItem.init(title: titleName, image: image, selectedImage: chooseImage)
 //        item.setTitleTextAttributes({[NSForegroundColorAttributeName:UIColor.appTabBarTitleColor()]}(), for: UIControlState.normal)
-        item.setTitleTextAttributes({[NSAttributedStringKey.foregroundColor:UIColor.appMainBackground()]}(), for: UIControlState.selected)
+        item.setTitleTextAttributes({[NSAttributedStringKey.foregroundColor:appMainBg]}(), for: UIControlState.selected)
         return item
     }
     

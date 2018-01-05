@@ -11,24 +11,24 @@ target 'JYDProduct' do
       pod 'Spring'
       pod 'IQKeyboardManager'
       pod 'HandyJSON','~> 4.0.0-beta.1'
-      pod 'ShareSDK3'
-      pod 'ShareSDK3/ShareSDKUI'
-      pod 'ShareSDK3/ShareSDKExtension'
+      #pod 'ShareSDK3'
+      #pod 'ShareSDK3/ShareSDKUI'
+      #pod 'ShareSDK3/ShareSDKExtension'
       pod 'MOBFoundation'
       pod 'Kingfisher'
       pod 'ReactiveCocoa'
       pod 'BaiduMapKit' #百度地图SDK
       # 短信(可选)
-      pod 'ShareSDK3/ShareSDKPlatforms/SMS'
+      #pod 'ShareSDK3/ShareSDKPlatforms/SMS'
       # 邮件(可选)
-      pod 'ShareSDK3/ShareSDKPlatforms/Mail'
+      #pod 'ShareSDK3/ShareSDKPlatforms/Mail'
       # 拷贝(可选)
-      pod 'ShareSDK3/ShareSDKPlatforms/Copy'
+      #pod 'ShareSDK3/ShareSDKPlatforms/Copy'
       # 新浪微博(可选)
-      pod 'ShareSDK3/ShareSDKPlatforms/SinaWeibo'
+      #pod 'ShareSDK3/ShareSDKPlatforms/SinaWeibo'
       # 微信(可选)
-      pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
+      #pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
       # 腾讯QQ(可选)
-      pod 'ShareSDK3/ShareSDKPlatforms/QQ'
+      #pod 'ShareSDK3/ShareSDKPlatforms/QQ'
 
 end

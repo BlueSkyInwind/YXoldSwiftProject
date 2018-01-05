@@ -205,7 +205,7 @@ extension JYD_AlertView {
         
         cancelBtn = UIButton.init(type: UIButtonType.custom)
         cancelBtn?.setTitle("取消", for: UIControlState.normal)
-        cancelBtn?.setTitleColor(APPColor.shareInstance.appMainBg, for: UIControlState.normal)
+        cancelBtn?.setTitleColor(appMainBg, for: UIControlState.normal)
         cancelBtn?.addTarget(self, action: #selector(cancelBtnClick), for: UIControlEvents.touchUpInside)
         bottomView?.addSubview(cancelBtn!)
         cancelBtn?.snp.makeConstraints({ (make) in
@@ -217,7 +217,7 @@ extension JYD_AlertView {
         
         sureBtn = UIButton.init(type: UIButtonType.custom)
         sureBtn?.setTitle("确定", for: UIControlState.normal)
-        sureBtn?.setTitleColor(APPColor.shareInstance.appMainBg, for: UIControlState.normal)
+        sureBtn?.setTitleColor(appMainBg, for: UIControlState.normal)
         sureBtn?.addTarget(self, action: #selector(sureBtnClick), for: UIControlEvents.touchUpInside)
         bottomView?.addSubview(sureBtn!)
         sureBtn?.snp.makeConstraints({ (make) in

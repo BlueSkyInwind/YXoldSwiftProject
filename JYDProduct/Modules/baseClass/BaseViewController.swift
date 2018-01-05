@@ -15,14 +15,15 @@ class BaseViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor  = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = {[NSAttributedStringKey.font:UIFont.systemFont(ofSize: 19), NSAttributedStringKey.foregroundColor:UIColor.white]}()
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: "navigation"), for: UIBarMetrics.default)
+//        self.navigationController?.navigationBar.backgroundColor = appMainBg
+        self.navigationController?.navigationBar.setBackgroundImage(APPTool.shareInstance.imageWithColor(color: appMainBg), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.isTranslucent = true
     }
     
     // MARK:  返回按钮
     func addBackItem() -> Void {
         let backButton = UIButton.init(type: UIButtonType.system)
-        let img = UIImage.init(named: "return")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        let img = UIImage.init(named: "appBackBtn_Icon")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         backButton.setImage(img, for: UIControlState.normal)
         backButton.frame = CGRect(x:0,y:0,width:45,height:44)
         backButton.addTarget(self, action:#selector(popBack), for: UIControlEvents.touchUpInside)

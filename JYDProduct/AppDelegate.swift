@@ -9,16 +9,42 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,BMKGeneralDelegate {
 
     var window: UIWindow?
+    var _mapManeger:BMKMapManager?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        initBMK()
+        
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        let homePage = JYD_HomePageViewController()
+        let baseNav = BaseNavigationViewController.init(rootViewController: homePage)
+        self.window?.rootViewController = baseNav
+        self.window?.makeKeyAndVisible()
+
         return true
     }
-
+    
+    /// 百度地图初始化
+    func initBMK()  {
+        
+        if BMKMapManager.setCoordinateTypeUsedInBaiduMapSDK(BMK_COORDTYPE_BD09LL) {
+            DLog(message: "经纬度类型设置成功")
+        } else {
+            DLog(message: "经纬度类型设置失败")
+        }
+        _mapManeger = BMKMapManager()
+        //私有AK
+        let ret = _mapManeger?.start("hDQwMqWInk63G1pcxzX4GQCC4UbI0TeG", generalDelegate: self)
+        if ret == false {
+            DLog(message: "启动失败")
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
