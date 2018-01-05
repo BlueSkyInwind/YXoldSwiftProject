@@ -20,7 +20,13 @@ let homeBottomTitleColor = UIColor.init(red: 102/255.0, green: 102/255.0, blue: 
 
 let homeBottomContentColor = UIColor.init(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
 
+let LOCATION_Color = UIColor.init(red: 94/255.0, green: 151/255.0, blue: 255/255.0, alpha: 1)
 
+let SelectPathRoute_Color = UIColor.init(red: 77/255.0, green: 77/255.0, blue: 77/255.0, alpha: 1)
+
+let SelectPathTime_Color = UIColor.init(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1)
+
+let TABLEVIEWBG_Color = UIColor.init(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
 
 
 

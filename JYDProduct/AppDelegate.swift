@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BMKGeneralDelegate {
         initBMK()
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
-        let homePage = JYD_HomePageViewController()
+        let homePage = JYD_StoreListViewController()
         let baseNav = BaseNavigationViewController.init(rootViewController: homePage)
         self.window?.rootViewController = baseNav
         self.window?.makeKeyAndVisible()
