@@ -48,7 +48,8 @@
 		84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */; };
 		84AB21CB1FFF15CC009DF659 /* JYD_PathDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */; };
 		84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CC1FFF1CFD009DF659 /* APPColor.swift */; };
-		84AB21D01FFF4CE6009DF659 /* GlobalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */; };
+		CC58B0821FFF4EA900142282 /* GlobalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0811FFF4EA900142282 /* GlobalViewModel.swift */; };
+		CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +128,8 @@
 		84AB21C81FFF15B9009DF659 /* JYD_SelectPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathViewController.swift; sourceTree = "<group>"; };
 		84AB21CA1FFF15CC009DF659 /* JYD_PathDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PathDetailViewController.swift; sourceTree = "<group>"; };
 		84AB21CC1FFF1CFD009DF659 /* APPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPColor.swift; sourceTree = "<group>"; };
-		84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewModel.swift; sourceTree = "<group>"; };
+		CC58B0811FFF4EA900142282 /* GlobalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewModel.swift; sourceTree = "<group>"; };
+		CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathHeaderView.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -199,6 +201,7 @@
 				848FC6961FFE254000918CE9 /* Model */,
 				848FC6971FFE255400918CE9 /* Modules */,
 				848FC6981FFE256A00918CE9 /* NetWork */,
+				CC58B0801FFF4EA900142282 /* ViewModel */,
 				848FC65C1FFE182300918CE9 /* Main.storyboard */,
 				848FC65F1FFE182300918CE9 /* Assets.xcassets */,
 				848FC6611FFE182300918CE9 /* LaunchScreen.storyboard */,
@@ -279,16 +282,6 @@
 			path = NetWork;
 			sourceTree = "<group>";
 		};
-
-		848FC69B1FFE263100918CE9 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				84AB21CF1FFF4CE6009DF659 /* GlobalViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-
 		848FC69C1FFE266400918CE9 /* baseClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +393,7 @@
 		848FC6D61FFE2BBA00918CE9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CC58B0831FFF507400142282 /* SelectPathView */,
 				84AB21CE1FFF2D17009DF659 /* homeView */,
 				848FC6D71FFE2BC200918CE9 /* PopView */,
 			);
@@ -454,6 +448,22 @@
 				D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC58B0801FFF4EA900142282 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CC58B0811FFF4EA900142282 /* GlobalViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CC58B0831FFF507400142282 /* SelectPathView */ = {
+			isa = PBXGroup;
+			children = (
+				CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */,
+			);
+			path = SelectPathView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -677,6 +687,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AB21C11FFF14B2009DF659 /* JYD_HomePageViewController.swift in Sources */,
+				CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */,
+				CC58B0821FFF4EA900142282 /* GlobalViewModel.swift in Sources */,
 				848FC6D51FFE2B3900918CE9 /* SSKeychainQuery.m in Sources */,
 				848FC6A31FFE266400918CE9 /* BaseNavigationViewController.swift in Sources */,
 				84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */,
@@ -691,7 +703,6 @@
 				848FC6A11FFE266400918CE9 /* BaseViewController.swift in Sources */,
 				848FC6C81FFE291700918CE9 /* GTMBase64.m in Sources */,
 				848FC6DB1FFE2BD400918CE9 /* JYD_AlertView.swift in Sources */,
-				84AB21D01FFF4CE6009DF659 /* GlobalViewModel.swift in Sources */,
 				848FC6AE1FFE271A00918CE9 /* UIViewController+KNSemiModal.m in Sources */,
 				848FC65B1FFE182300918CE9 /* ViewController.swift in Sources */,
 				848FC6A91FFE26F400918CE9 /* MBPAlertView.swift in Sources */,
