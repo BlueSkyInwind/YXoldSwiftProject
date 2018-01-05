@@ -197,7 +197,6 @@
 				848FC6961FFE254000918CE9 /* Model */,
 				848FC6971FFE255400918CE9 /* Modules */,
 				848FC6981FFE256A00918CE9 /* NetWork */,
-				848FC69B1FFE263100918CE9 /* ViewModel */,
 				848FC65C1FFE182300918CE9 /* Main.storyboard */,
 				848FC65F1FFE182300918CE9 /* Assets.xcassets */,
 				848FC6611FFE182300918CE9 /* LaunchScreen.storyboard */,
@@ -276,13 +275,6 @@
 				848FC6991FFE262500918CE9 /* JYDNetWorkManager.swift */,
 			);
 			path = NetWork;
-			sourceTree = "<group>";
-		};
-		848FC69B1FFE263100918CE9 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		848FC69C1FFE266400918CE9 /* baseClass */ = {
