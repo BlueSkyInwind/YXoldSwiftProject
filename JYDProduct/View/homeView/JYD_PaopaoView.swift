@@ -13,11 +13,9 @@ class JYD_PaopaoView: UIView {
     var backGroundImage:UIImageView?
     var contentLabel:UILabel?
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
+        setUpUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,12 +46,24 @@ extension JYD_PaopaoView {
         contentLabel = UILabel()
         contentLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 14)
         contentLabel?.textColor =  PaopaoTitleColor
-        
-        
+        backGroundImage?.addSubview(contentLabel!)
+        contentLabel?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo((backGroundImage?.snp.centerY)!)
+            make.centerX.equalTo((backGroundImage?.snp.centerX)!).offset(-10)
+        })
     }
     
-    
-    
+    override var frame:(CGRect){
+        didSet{
+            if UI_IS_IPHONE5 {
+                super.frame = CGRect.init(x: 0, y: 0, width: 137, height: 45)
+            }else if UI_IS_IPONE6 {
+                super.frame = CGRect.init(x: 0, y: 0, width: 172, height: 56)
+            }else{
+                super.frame = CGRect.init(x: 0, y: 0, width: 215, height: 70)
+            }
+        }
+    }
     
 }
 
