@@ -23,7 +23,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.title = "急用达"
+        self.title = Home_NavTitle
         
         configureView()
         

@@ -52,6 +52,10 @@
 		84AB21D51FFF63F8009DF659 /* JYD_MapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D41FFF63F8009DF659 /* JYD_MapHandler.swift */; };
 		84AB21D71FFF7581009DF659 /* JYD_HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D61FFF7581009DF659 /* JYD_HomeHeaderView.swift */; };
 		84AB21D91FFF800B009DF659 /* JYD_homeBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D81FFF800B009DF659 /* JYD_homeBottomView.swift */; };
+		84EBDB4D20033ED300873C1D /* JYD_StoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */; };
+		84EBDB4F200365C200873C1D /* JYD_StoreDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */; };
+		84EBDB51200365D400873C1D /* JYD_StoreDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */; };
+		84EBDB532003763E00873C1D /* JYD_StoreDisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */; };
 		CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */; };
 		CC58B0871FFF64FA00142282 /* JYD_SelectePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +140,10 @@
 		84AB21D41FFF63F8009DF659 /* JYD_MapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_MapHandler.swift; sourceTree = "<group>"; };
 		84AB21D61FFF7581009DF659 /* JYD_HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_HomeHeaderView.swift; sourceTree = "<group>"; };
 		84AB21D81FFF800B009DF659 /* JYD_homeBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_homeBottomView.swift; sourceTree = "<group>"; };
+		84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreListTableViewCell.swift; sourceTree = "<group>"; };
+		84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDetailHeaderView.swift; sourceTree = "<group>"; };
+		84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JYD_StoreDetailHeaderView.xib; sourceTree = "<group>"; };
+		84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDisplayPhotoView.swift; sourceTree = "<group>"; };
 		CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathHeaderView.swift; sourceTree = "<group>"; };
 		CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectePathCell.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -403,6 +411,7 @@
 			children = (
 				CC58B0831FFF507400142282 /* SelectPathView */,
 				84AB21CE1FFF2D17009DF659 /* homeView */,
+				84EBDB4B20033E4200873C1D /* storeview */,
 				848FC6D71FFE2BC200918CE9 /* PopView */,
 			);
 			path = View;
@@ -452,6 +461,17 @@
 				84AB21D81FFF800B009DF659 /* JYD_homeBottomView.swift */,
 			);
 			path = homeView;
+			sourceTree = "<group>";
+		};
+		84EBDB4B20033E4200873C1D /* storeview */ = {
+			isa = PBXGroup;
+			children = (
+				84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */,
+				84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */,
+				84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */,
+				84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */,
+			);
+			path = storeview;
 			sourceTree = "<group>";
 		};
 		C7AB7B42C2C17EF71216CFD6 /* Frameworks */ = {
@@ -593,6 +613,7 @@
 				848FC6631FFE182300918CE9 /* LaunchScreen.storyboard in Resources */,
 				848FC6601FFE182300918CE9 /* Assets.xcassets in Resources */,
 				848FC65E1FFE182300918CE9 /* Main.storyboard in Resources */,
+				84EBDB51200365D400873C1D /* JYD_StoreDetailHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,6 +734,7 @@
 				84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */,
 				84AB21C41FFF1513009DF659 /* JYD_StoreListViewController.swift in Sources */,
 				848FC6921FFE24C300918CE9 /* APPConfig.swift in Sources */,
+				84EBDB4D20033ED300873C1D /* JYD_StoreListTableViewCell.swift in Sources */,
 				848FC6A11FFE266400918CE9 /* BaseViewController.swift in Sources */,
 				848FC6C81FFE291700918CE9 /* GTMBase64.m in Sources */,
 				848FC6DB1FFE2BD400918CE9 /* JYD_AlertView.swift in Sources */,
@@ -731,12 +753,14 @@
 				848FC6DA1FFE2BD400918CE9 /* JYD_VersionUpdatepop.swift in Sources */,
 				848FC6CB1FFE291700918CE9 /* NSString+AES.m in Sources */,
 				848FC6941FFE251300918CE9 /* APPUtilityInfo.swift in Sources */,
+				84EBDB4F200365C200873C1D /* JYD_StoreDetailHeaderView.swift in Sources */,
 				84AB21C61FFF1542009DF659 /* JYD_StoreDetailViewController.swift in Sources */,
 				84AB21D21FFF4DFB009DF659 /* JYD_PaopaoView.swift in Sources */,
 				848FC68D1FFE24C300918CE9 /* APPTool.swift in Sources */,
 				84AB21D91FFF800B009DF659 /* JYD_homeBottomView.swift in Sources */,
 				848FC6591FFE182300918CE9 /* AppDelegate.swift in Sources */,
 				84AB21D71FFF7581009DF659 /* JYD_HomeHeaderView.swift in Sources */,
+				84EBDB532003763E00873C1D /* JYD_StoreDisplayPhotoView.swift in Sources */,
 				848FC6C91FFE291700918CE9 /* NSString+MD5Encrypt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
