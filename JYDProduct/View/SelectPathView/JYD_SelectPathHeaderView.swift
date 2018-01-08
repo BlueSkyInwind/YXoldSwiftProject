@@ -8,11 +8,22 @@
 
 import UIKit
 
+@objc protocol JYD_SelectPathHeaderDelegate : NSObjectProtocol {
+    
+    //交换起始位置
+    func changeLocationBtn(startLocation : String , endLocation : String)
+    
+    //交通工具路线
+    func showRoute(tag : Int)
+    
+}
 class JYD_SelectPathHeaderView: UIView {
 
+    @objc weak var delegate : JYD_SelectPathHeaderDelegate?
     
     var startLocationLabel : UILabel?
     var endLocationLabel : UILabel?
+    var lineImageView : UIImageView?
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -24,6 +35,7 @@ class JYD_SelectPathHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupUI()
     }
     
@@ -45,6 +57,7 @@ extension JYD_SelectPathHeaderView {
             make.top.equalTo(self).offset(30)
         }
         
+        
         let titleLabel = UILabel()
         titleLabel.text = "急用达"
         titleLabel.font = UIFont.systemFont(ofSize: 17)
@@ -55,6 +68,15 @@ extension JYD_SelectPathHeaderView {
             make.top.equalTo(self).offset(30)
         }
         
+        if UI_IS_IPHONEX {
+            backButton.snp.updateConstraints({ (make) in
+                make.top.equalTo(self).offset(40)
+            })
+            
+            titleLabel.snp.updateConstraints({ (make) in
+                make.top.equalTo(self).offset(40)
+            })
+        }
         
         let startLabel = UILabel()
         startLabel.text = "从"
@@ -131,21 +153,22 @@ extension JYD_SelectPathHeaderView {
         
         let busButton = UIButton()
         busButton.setTitle("公交", for: .normal)
+        busButton.tag = 101
         busButton.setTitleColor(UIColor.white, for: .normal)
         busButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        busButton.addTarget(self, action: #selector(showRoute), for: .touchUpInside)
+        busButton.addTarget(self, action: #selector(showRoute(sender:)), for: .touchUpInside)
         self.addSubview(busButton)
         busButton.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(50)
             make.top.equalTo(endImageView.snp.bottom).offset(15)
         }
         
-        let lineImageView = UIImageView()
-        lineImageView.image = UIImage(named:"xiahuaxian_icon")
-        self.addSubview(lineImageView)
-        lineImageView.snp.makeConstraints { (make) in
-            make.left.equalTo(busButton.snp.left).offset(0)
-            make.top.equalTo(busButton.snp.bottom).offset(5)
+        lineImageView = UIImageView()
+        lineImageView?.image = UIImage(named:"xiahuaxian_icon")
+        self.addSubview(lineImageView!)
+        lineImageView?.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(47)
+            make.top.equalTo(busButton.snp.bottom).offset(1)
         }
         
         
@@ -153,9 +176,10 @@ extension JYD_SelectPathHeaderView {
         
         let carButton = UIButton()
         carButton.setTitle("驾车", for: .normal)
+        carButton.tag = 102
         carButton.setTitleColor(UIColor.white, for: .normal)
         carButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        carButton.addTarget(self, action: #selector(showRoute), for: .touchUpInside)
+        carButton.addTarget(self, action: #selector(showRoute(sender:)), for: .touchUpInside)
         self.addSubview(carButton)
         carButton.snp.makeConstraints { (make) in
             make.left.equalTo(busButton.snp.right).offset(width)
@@ -164,9 +188,10 @@ extension JYD_SelectPathHeaderView {
         
         let walkButton = UIButton()
         walkButton.setTitle("步行", for: .normal)
+        walkButton.tag = 103
         walkButton.setTitleColor(UIColor.white, for: .normal)
         walkButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        walkButton.addTarget(self, action: #selector(showRoute), for: .touchUpInside)
+        walkButton.addTarget(self, action: #selector(showRoute(sender:)), for: .touchUpInside)
         self.addSubview(walkButton)
         walkButton.snp.makeConstraints { (make) in
             make.left.equalTo(carButton.snp.right).offset(width)
@@ -175,9 +200,10 @@ extension JYD_SelectPathHeaderView {
         
         let ridingButton = UIButton()
         ridingButton.setTitle("骑行", for: .normal)
+        ridingButton.tag = 104
         ridingButton.setTitleColor(UIColor.white, for: .normal)
         ridingButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        ridingButton.addTarget(self, action: #selector(showRoute), for: .touchUpInside)
+        ridingButton.addTarget(self, action: #selector(showRoute(sender:)), for: .touchUpInside)
         self.addSubview(ridingButton)
         ridingButton.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-50)
@@ -191,7 +217,12 @@ extension JYD_SelectPathHeaderView {
         
         didSet{
             let k_w = UIScreen.main.bounds.size.width
-            let newFrame = CGRect(x:0,y:0,width:Int(k_w),height:200)
+            var height = 190
+            if UI_IS_IPHONEX {
+                height = 200
+            }
+            
+            let newFrame = CGRect(x:0,y:0,width:Int(k_w),height:height)
             super.frame = newFrame
         }
     }
@@ -201,10 +232,25 @@ extension JYD_SelectPathHeaderView{
     
     @objc func changeLocation(){
         
+        if delegate != nil {
+            let temp = startLocationLabel?.text
+            startLocationLabel?.text = endLocationLabel?.text
+            endLocationLabel?.text = temp
+
+            delegate?.changeLocationBtn(startLocation: (startLocationLabel?.text)!, endLocation: (endLocationLabel?.text)!)
+        }
     }
     
-    @objc func showRoute(){
+    @objc func showRoute(sender: UIButton){
         
+        let x = sender.frame.origin.x
+
+        if delegate != nil {
+            lineImageView?.snp.updateConstraints({ (make) in
+                make.left.equalTo(self).offset(x - 2)
+            })
+            delegate?.showRoute(tag: sender.tag)
+        }
     }
     
     @objc func back(){
