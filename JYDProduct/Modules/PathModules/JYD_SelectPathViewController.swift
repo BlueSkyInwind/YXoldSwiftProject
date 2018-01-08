@@ -10,7 +10,7 @@ import UIKit
 
 class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate{
     
-    var buttonTag : NSString? = nil
+    var buttonTag : String? = "101"
     let tableView: UITableView = {
         
         let tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
@@ -90,7 +90,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell = JYD_SelectePathCell.init(style: .default, reuseIdentifier: "cellId")
         }
         cell.selectionStyle = .none
-        cell.type = "101"
+        cell.type = buttonTag
+        
         cell.leftLabel?.text = "1"
         cell.routeLabel?.text = "地铁10号线--地铁2号线--83路"
         cell.timeLabel?.text = "1小时26分钟"
@@ -110,6 +111,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
 
     func showRoute(tag: Int) {
         
+        buttonTag = "\(tag)"
+        tableView.reloadData()
     
     }
 
