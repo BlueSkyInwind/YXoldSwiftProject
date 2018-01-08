@@ -16,6 +16,13 @@ class JYD_SelectePathCell: UITableViewCell {
     var walkLabel : UILabel?
     var distanceLabel : UILabel?
     
+    @objc var type : String?{
+        didSet(newValue){
+            
+            setCellType(type: type!)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,7 +37,7 @@ class JYD_SelectePathCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setCarUI()
+        type = "101"
         
     }
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +47,29 @@ class JYD_SelectePathCell: UITableViewCell {
 }
 
 extension JYD_SelectePathCell{
-    fileprivate func setupUI(){
+    
+    fileprivate func setCellType(type : String){
+        
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
+        
+        let type = Int(type)
+        switch type {
+        case 101?,104?:
+            setBusUI()
+        case 102?:
+            setCarUI()
+        case 103?:
+            setWalkUI()
+        case .none:
+            break
+        case .some(_):
+            break
+        }
+        
+    }
+    fileprivate func setBusUI(){
         
         let leftImageView = UIImageView()
         leftImageView.image = UIImage(named:"tuoyuan_icon")
@@ -162,5 +191,45 @@ extension JYD_SelectePathCell{
             make.right.equalTo(self).offset(-20)
             make.centerY.equalTo(self.snp.centerY)
         }
+    }
+
+    fileprivate func setWalkUI(){
+        
+        let leftImageView = UIImageView()
+        leftImageView.image = UIImage(named:"tuoyuan_icon")
+        self.addSubview(leftImageView)
+        leftImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(20)
+            make.centerY.equalTo(self.snp.centerY)
+            make.height.equalTo(19)
+            make.width.equalTo(19)
+        }
+        
+        leftLabel = UILabel()
+        leftLabel?.textColor = UIColor.white
+        leftLabel?.font = UIFont.systemFont(ofSize: 15)
+        leftImageView.addSubview(leftLabel!)
+        leftLabel?.snp.makeConstraints({ (make) in
+            make.centerX.equalTo(leftImageView.snp.centerX)
+            make.centerY.equalTo(leftImageView.snp.centerY)
+        })
+        
+        timeLabel = UILabel()
+        timeLabel?.textColor = SelectPathTime_Color
+        timeLabel?.font = UIFont.systemFont(ofSize: 12)
+        self.addSubview(timeLabel!)
+        timeLabel?.snp.makeConstraints({ (make) in
+            make.left.equalTo(leftImageView.snp.right).offset(10)
+            make.centerY.equalTo(self.snp.centerY)
+        })
+        
+        distanceLabel = UILabel()
+        distanceLabel?.textColor = SelectPathTime_Color
+        distanceLabel?.font = UIFont.systemFont(ofSize: 12)
+        self.addSubview(distanceLabel!)
+        distanceLabel?.snp.makeConstraints({ (make) in
+            make.left.equalTo((timeLabel?.snp.right)!).offset(43)
+            make.centerY.equalTo(self.snp.centerY)
+        })
     }
 }
