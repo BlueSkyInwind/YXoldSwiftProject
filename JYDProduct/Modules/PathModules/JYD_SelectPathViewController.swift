@@ -8,9 +8,10 @@
 
 import UIKit
 
-class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate{
+class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate,BMKRouteSearchDelegate{
     
     var buttonTag : String? = "101"
+    var _routeSearch : BMKRouteSearch?
     let tableView: UITableView = {
         
         let tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
@@ -52,8 +53,71 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         headerView.endLocationLabel?.text = "星巴克门店"
         tableView.tableHeaderView = headerView
         
+        let footerView = setFooterView()
+        footerView.backgroundColor = UIColor.clear
+        footerView.frame = CGRect(x:0,y:0,width:_k_w,height:109)
+        tableView.tableFooterView = footerView
+        
+        tableView.tableFooterView?.isHidden = true
+        
+        setWalkRoute()
     }
-
+    
+    
+    func setBusRoute(){
+        
+        
+        
+    }
+    
+    func setWalkRoute(){
+        
+        _routeSearch = BMKRouteSearch()
+        _routeSearch?.delegate = self
+        let start = BMKPlanNode()
+        start.name = "上海"
+        start.cityName = "徐家汇"
+        let end = BMKPlanNode()
+        end.name = "上海"
+        end.cityName = "波司登"
+        let walkingRouteSearchOption = BMKWalkingRoutePlanOption()
+        walkingRouteSearchOption.from = start
+        walkingRouteSearchOption.to = end
+        let flag = _routeSearch?.walkingSearch(walkingRouteSearchOption)
+        if flag! {
+            print("walk检索发送成功")
+        }else{
+            print("walk检索发送失败")
+        }
+    }
+    
+    func setFooterView() -> UIView{
+        
+        let footerView = UIView()
+        let footerBtn = UIButton()
+        footerBtn.setTitle("使用本地地图导航", for: .normal)
+        footerBtn.setTitleColor(UIColor.white, for: .normal)
+        footerBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        footerBtn.setBackgroundImage(UIImage(named:"buttonBg_icon"), for: .normal)
+        footerBtn.addTarget(self, action: #selector(footerBtnClick), for: .touchUpInside)
+        footerView.addSubview(footerBtn)
+        footerBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(footerView.snp.left).offset(48)
+            make.right.equalTo(footerView.snp.right).offset(-48)
+            make.height.equalTo(42)
+            make.top.equalTo(footerView.snp.top).offset(67)
+        }
+        return footerView
+        
+    }
+    
+    @objc func footerBtnClick(){
+        
+        let controller = JYD_PathDetailViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        print("底部按钮")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -103,6 +167,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let controller = JYD_PathDetailViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func changeLocationBtn(startLocation: String, endLocation: String) {
@@ -112,11 +178,43 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     func showRoute(tag: Int) {
         
         buttonTag = "\(tag)"
+        tableView.tableFooterView?.isHidden = false
+        if tag == 101 {
+            tableView.tableFooterView?.isHidden = true
+        }
         tableView.reloadData()
     
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    func back() {
+        popBack()
+    }
     
+    
+    //MARK:BMKRouteSearch代理
+    /**
+     *返回步行搜索结果
+     *@param searcher 搜索对象
+     *@param result 搜索结果，类型为BMKWalkingRouteResult
+     *@param error 错误号，@see BMKSearchErrorCode
+     */
+    
+    func onGetWalkingRouteResult(_ searcher: BMKRouteSearch!, result: BMKWalkingRouteResult!, errorCode error: BMKSearchErrorCode) {
+        if error == BMK_SEARCH_NO_ERROR {
+            print("成功获取结果")
+            print(result)
+            
+            let plan = result.routes[0] as! BMKWalkingRouteLine
+        
+            print(plan.distance,plan.duration.dates,plan.duration.hours,plan.duration.minutes,plan.duration.seconds)
+        }else{
+            print("检索失败")
+        }
+    }
 
     /*
     // MARK: - Navigation
