@@ -58,6 +58,7 @@
 		84EBDB532003763E00873C1D /* JYD_StoreDisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */; };
 		CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */; };
 		CC58B0871FFF64FA00142282 /* JYD_SelectePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */; };
+		CCB287ED20035080004B3941 /* JYD_SelectPathDetailRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDisplayPhotoView.swift; sourceTree = "<group>"; };
 		CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathHeaderView.swift; sourceTree = "<group>"; };
 		CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectePathCell.swift; sourceTree = "<group>"; };
+		CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathDetailRouterView.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -494,6 +496,7 @@
 			children = (
 				CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */,
 				CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */,
+				CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */,
 			);
 			path = SelectPathView;
 			sourceTree = "<group>";
@@ -738,6 +741,7 @@
 				848FC6A11FFE266400918CE9 /* BaseViewController.swift in Sources */,
 				848FC6C81FFE291700918CE9 /* GTMBase64.m in Sources */,
 				848FC6DB1FFE2BD400918CE9 /* JYD_AlertView.swift in Sources */,
+				CCB287ED20035080004B3941 /* JYD_SelectPathDetailRouterView.swift in Sources */,
 				848FC6AE1FFE271A00918CE9 /* UIViewController+KNSemiModal.m in Sources */,
 				848FC65B1FFE182300918CE9 /* ViewController.swift in Sources */,
 				848FC6A91FFE26F400918CE9 /* MBPAlertView.swift in Sources */,

@@ -12,9 +12,10 @@ import UIKit
     
     //交换起始位置
     func changeLocationBtn(startLocation : String , endLocation : String)
-    
     //交通工具路线
     func showRoute(tag : Int)
+    //返回按钮
+    func back()
     
 }
 class JYD_SelectPathHeaderView: UIView {
@@ -255,5 +256,8 @@ extension JYD_SelectPathHeaderView{
     
     @objc func back(){
         
+        if delegate != nil {
+            delegate?.back()
+        }
     }
 }

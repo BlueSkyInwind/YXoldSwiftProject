@@ -215,8 +215,8 @@ extension JYD_SelectePathCell{
         })
         
         timeLabel = UILabel()
-        timeLabel?.textColor = SelectPathTime_Color
-        timeLabel?.font = UIFont.systemFont(ofSize: 12)
+        timeLabel?.textColor = SelectPathRoute_Color
+        timeLabel?.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(leftImageView.snp.right).offset(10)
@@ -231,5 +231,13 @@ extension JYD_SelectePathCell{
             make.left.equalTo((timeLabel?.snp.right)!).offset(43)
             make.centerY.equalTo(self.snp.centerY)
         })
+        
+        let arrowImageView = UIImageView()
+        arrowImageView.image = UIImage(named:"arrow_Icon")
+        self.addSubview(arrowImageView)
+        arrowImageView.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-20)
+            make.centerY.equalTo(self.snp.centerY)
+        }
     }
 }
