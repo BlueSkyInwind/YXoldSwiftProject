@@ -16,6 +16,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var circleView:BMKCircle?
     var handler:JYD_MapHandler?
     var headerView:JYD_HomeHeaderView?
+    var bottomView:JYD_homeBottomView?
     
     var zoomSize:Float = 14
     
@@ -24,9 +25,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         // Do any additional setup after loading the view.
         self.title = "急用达"
         
-
-        
         configureView()
+        
     }
     
     func configureView()  {
@@ -55,8 +55,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             make.right.equalTo(self.view.snp.right).offset(-(APPTool.obtainDisplaySize(size: 15)))
             make.height.equalTo(APPTool.obtainDisplaySize(size: 50))
         })
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +94,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         for location in arr {
             let annotationPoint = BMKPointAnnotation.init()
             annotationPoint.coordinate = location
-            annotationPoint.title = "这一家店"
+            annotationPoint.title = "这一家店" 
             _mapView?.addAnnotation(annotationPoint)
         }
     }
@@ -149,8 +147,13 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     func mapView(_ mapView: BMKMapView!, didSelect view: BMKAnnotationView!) {
         
         mapView.setCenter(view.annotation.coordinate, animated: true)
-
+        showPopupBottomView()
         DPrint(message: "点击大头针,移动至中心点  ---- \(view.annotation.coordinate)")
+    }
+    
+    func mapView(_ mapView: BMKMapView!, didDeselect view: BMKAnnotationView!) {
+        DPrint(message: "取消泡泡")
+        cancelBottomView()
     }
     
     func mapView(_ mapView: BMKMapView!, annotationViewForBubble view: BMKAnnotationView!) {
@@ -168,15 +171,29 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     func addMapEnlargedButtonClick() {
         zoomSize += 1
         _mapView?.zoomLevel = zoomSize
-
     }
     
     func addMapShrinkButtonClick() {
         zoomSize -= 1
         _mapView?.zoomLevel = zoomSize
+    }
 
+    //MARK:底部选择弹窗
+    func showPopupBottomView() {
+        if bottomView != nil {
+            return
+        }
+        bottomView = JYD_homeBottomView.init(vc: self, titleStr: "星巴克门店（营业中）", timeStr: "借款时间：9:00-18:00", addressStr: "浦东新区金高路35", distanceStr: "680m")
+        bottomView?.VC = self
+        bottomView?.show()
     }
     
+    func cancelBottomView()  {
+        bottomView?.dismiss()
+        bottomView = nil
+    }
+    
+
     /*
     // MARK: - Navigation
 

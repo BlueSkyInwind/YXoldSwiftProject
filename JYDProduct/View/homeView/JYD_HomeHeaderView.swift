@@ -50,6 +50,7 @@ extension JYD_HomeHeaderView {
         
         backGroundImage = UIImageView()
         backGroundImage?.image = UIImage.init(named: "headerBackGround_Icon")
+        backGroundImage?.isUserInteractionEnabled = true
         self.addSubview(backGroundImage!)
         backGroundImage?.snp.makeConstraints({ (make) in
             make.edges.equalTo(self)
@@ -57,6 +58,7 @@ extension JYD_HomeHeaderView {
         
         titleImage = UIImageView()
         titleImage?.image = UIImage.init(named: "homeStore_Icon")
+        titleImage?.isUserInteractionEnabled = true
         backGroundImage?.addSubview(titleImage!)
         titleImage?.snp.makeConstraints({ (make) in
             make.centerY.equalTo((backGroundImage?.snp.centerY)!).offset(-2)

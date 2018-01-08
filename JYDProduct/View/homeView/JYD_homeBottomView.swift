@@ -18,13 +18,28 @@ class JYD_homeBottomView: UIView {
     var pathIcon:UIImageView?
     var distanceLabel:UILabel?
     var displayPathTapClick:DisplayPathTapClick?
-
     
+    var VC:UIViewController?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = UIColor.white
         setUpUI()
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(displayPathClick))
         pathView?.addGestureRecognizer(tap)
+    }
+    
+    convenience init (vc:UIViewController,titleStr:String,timeStr:String,addressStr:String,distanceStr:String) {
+        self.init(frame: CGRect.init(x: 0, y: _k_h, width: _k_w, height: 90))
+        VC = vc
+        setContent(titleStr: titleStr, timeStr: timeStr, addressStr: addressStr, distanceStr: distanceStr)
+    }
+    
+    func setContent(titleStr:String,timeStr:String,addressStr:String,distanceStr:String)  {
+        self.titleLabel?.text = titleStr
+        self.timeLabel?.text = timeStr
+        self.adressLabel?.text = addressStr
+        self.distanceLabel?.text = distanceStr
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +49,23 @@ class JYD_homeBottomView: UIView {
     @objc func  displayPathClick() {
         if displayPathTapClick != nil {
             displayPathTapClick!()
+        }
+    }
+    
+    //MARK: 弹窗动画
+    @objc func show()  {
+        VC?.view.addSubview(self)
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            self.frame = CGRect.init(x: 0, y: _k_h - 90, width: _k_w, height: 90)
+        }) { (complication) in
+        }
+    }
+    
+    @objc  func dismiss()  {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: 90)
+        }) { (complication) in
+            self.removeFromSuperview()
         }
     }
     
@@ -51,7 +83,7 @@ extension JYD_homeBottomView {
     func setUpUI()  {
         
         titleLabel = UILabel()
-        titleLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 15)
+        titleLabel?.font = UIFont.FitBoldSystemFontOfSize(fontSize: 15)
         titleLabel?.textColor = homeBottomTitleColor
         self.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
@@ -65,7 +97,7 @@ extension JYD_homeBottomView {
         self.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
-            make.top.equalTo((titleLabel?.snp.top)!).offset(APPTool.obtainDisplaySize(size: 10))
+            make.top.equalTo((titleLabel?.snp.bottom)!).offset(APPTool.obtainDisplaySize(size: 8))
         })
         
         adressLabel = UILabel()
@@ -74,7 +106,7 @@ extension JYD_homeBottomView {
         self.addSubview(adressLabel!)
         adressLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
-            make.top.equalTo((timeLabel?.snp.top)!).offset(APPTool.obtainDisplaySize(size: 10))
+            make.top.equalTo((timeLabel?.snp.bottom)!).offset(APPTool.obtainDisplaySize(size: 8))
         })
         
         pathView = UIView()
@@ -91,21 +123,19 @@ extension JYD_homeBottomView {
         pathView?.addSubview(pathIcon!)
         pathIcon?.snp.makeConstraints({ (make) in
             make.centerX.equalTo((pathView?.snp.centerX)!)
-            make.centerY.equalTo((pathIcon?.snp.centerY)!).offset(-10)
+            make.centerY.equalTo((pathView?.snp.centerY)!).offset(-10)
         })
         
         distanceLabel = UILabel()
         distanceLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 12)
         distanceLabel?.textColor = UIColor.white
-        self.addSubview(distanceLabel!)
+        pathView?.addSubview(distanceLabel!)
         distanceLabel?.snp.makeConstraints({ (make) in
             make.centerX.equalTo((pathView?.snp.centerX)!)
-            make.centerY.equalTo((pathIcon?.snp.centerY)!).offset(10)
+            make.centerY.equalTo((pathView?.snp.centerY)!).offset(10)
         })
-
     }
-    
-    
+
 }
 
 
