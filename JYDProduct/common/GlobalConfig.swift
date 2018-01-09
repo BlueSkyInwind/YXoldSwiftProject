@@ -72,6 +72,9 @@ func obtainBarHeight_New(vc:UIViewController) -> Int{
     return Int(UIApplication.shared.statusBarFrame.size.height + (vc.navigationController?.navigationBar.frame.size.height)!)
 }
 
+//MARK:获取App的名字
+let appDisplayName: String = Bundle.main.infoDictionary!["CFBundleDisplayName"] as! String
+
 //MARK:格式化输出   这里 T 表示不指定 message参数类型
 func DPrint<T>(message : T, file : String = #file, funcName : String = #function, lineNum : Int = #line) {
     

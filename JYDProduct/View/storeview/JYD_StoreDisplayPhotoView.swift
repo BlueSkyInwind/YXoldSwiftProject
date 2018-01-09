@@ -12,14 +12,14 @@ class JYD_StoreDisplayPhotoView: UIView {
     
     var titleLabel:UILabel?
     var imageBackView:UIView?
-    var photos:[UIImage]?
+    var photos:[String]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
     }
     
-    convenience init(frame: CGRect,images:[UIImage]) {
+    convenience init(frame: CGRect,images:[String]) {
         self.init(frame: frame)
         photos = images
         addStorePhoto()
@@ -70,11 +70,11 @@ extension JYD_StoreDisplayPhotoView {
     
     func addStorePhoto()  {
         let imageWidth = APPTool.obtainDisplaySize(size: 90)
-        for image in photos! {
-            let index = CGFloat((photos?.index(of: image))!)
+        for imageName in photos! {
+            let index = CGFloat((photos?.index(of: imageName))!)
             let imageLeft = (_k_w / 3 - imageWidth) / 2  +  (_k_w / 3 * index)
             let imageBtn = UIButton.init(type: UIButtonType.custom)
-            imageBtn.setImage(image, for: UIControlState.normal)
+            imageBtn.setImage(UIImage.init(named: imageName), for: UIControlState.normal)
             imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
             imageBackView?.addSubview(imageBtn)
             imageBtn.snp.makeConstraints({ (make) in

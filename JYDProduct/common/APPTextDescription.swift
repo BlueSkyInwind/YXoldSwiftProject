@@ -17,6 +17,8 @@ let versionUpdatePrompt = "您当前使用版本太低,请前往APP Store更新�
 
 let storeDetailImageTitle = "门店照片"
 
+let  StartMapSheetMessage = "请选择您已经安装的导航工具"
+let  StartMapButtonTitle = "使用本地地图导航"
 
 
 

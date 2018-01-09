@@ -56,14 +56,16 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
         }
         storeListCell?.configureContent(title: "星巴克门店（营业中）", time: "星巴克门店（营业中）", address: "星巴克门店（营业中）", distance: "477m")
         storeListCell?.pathTapClick = {
-            
+            let selectStoreVC = JYD_SelectPathViewController.init()
+            self.navigationController?.pushViewController(selectStoreVC, animated: true)
         }
         return storeListCell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
+         tableView.deselectRow(at: indexPath, animated: true)
+        let storeDetailVC = JYD_StoreDetailViewController()
+        self.navigationController?.pushViewController(storeDetailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
