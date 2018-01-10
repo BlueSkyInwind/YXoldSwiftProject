@@ -97,7 +97,7 @@ extension JYD_SelectePathCell{
         routeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(leftImageView.snp.right).offset(9)
             make.top.equalTo(self).offset(18)
-            make.right.equalTo(self).offset(-20)
+            make.right.equalTo(self).offset(-40)
         })
         
         timeLabel = UILabel()
@@ -118,6 +118,7 @@ extension JYD_SelectePathCell{
             make.top.equalTo((routeLabel?.snp.bottom)!).offset(10)
         })
         
+        
         walkLabel = UILabel()
         walkLabel?.textColor = SelectPathTime_Color
         walkLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -126,6 +127,15 @@ extension JYD_SelectePathCell{
             make.left.equalTo((distanceLabel?.snp.right)!).offset(49)
             make.top.equalTo((routeLabel?.snp.bottom)!).offset(10)
         })
+        
+        if UI_IS_IPONE6 {
+            distanceLabel?.snp.updateConstraints({ (make) in
+                make.left.equalTo((timeLabel?.snp.right)!).offset(23)
+            })
+            walkLabel?.snp.makeConstraints({ (make) in
+                make.left.equalTo((distanceLabel?.snp.right)!).offset(25)
+            })
+        }
         
         let arrowImageView = UIImageView()
         arrowImageView.image = UIImage(named:"arrow_Icon")
