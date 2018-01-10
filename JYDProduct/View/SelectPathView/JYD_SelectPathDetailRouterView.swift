@@ -10,12 +10,12 @@ import UIKit
 
 @objc protocol JYD_SelectPathDetailRouterViewDelegate : NSObjectProtocol {
     
-    //返回按钮
+    //图标按钮
     func directionImage(isDown : Bool)
     
 }
 
-class JYD_SelectPathDetailRouterView: UIView {
+class JYD_SelectPathDetailRouterView: UIView ,UITableViewDelegate,UITableViewDataSource{
 
     var routerLabel : UILabel?
     var timeLabel : UILabel?
@@ -24,6 +24,8 @@ class JYD_SelectPathDetailRouterView: UIView {
     var directionButton : UIButton?
     var lineView : UIView?
     var contentLabel : UILabel?
+    var dataArray : NSMutableArray = []
+
     @objc weak var delegate : JYD_SelectPathDetailRouterViewDelegate?
     
     /*
@@ -113,22 +115,36 @@ extension JYD_SelectPathDetailRouterView{
             make.top.equalTo((timeLabel?.snp.top)!).offset(0)
         })
         
-        for index in 0..<3 {
-            
-            let contentView = setContentView()
-            contentLabel?.text = "乘坐地铁10号线，在江湾体育场站上车，经过11站到达老西门站下车"
-            self.addSubview(contentView)
-            contentView.snp.makeConstraints({ (make) in
-                make.left.equalTo(self).offset(0)
-                make.right.equalTo(self).offset(0)
-                make.top.equalTo(pathBgView.snp.bottom).offset(index * 50)
-                make.height.equalTo(50)
-            })
-            
-            if index == 2{
-                lineView?.isHidden = true
-            }
+        let detailTab = UITableView()
+        detailTab.delegate = self
+        detailTab.dataSource = self
+        detailTab.showsHorizontalScrollIndicator = false
+        detailTab.isScrollEnabled = true
+        detailTab.separatorStyle = .none
+        self.addSubview(detailTab)
+        detailTab.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(0)
+            make.right.equalTo(self).offset(0)
+            make.top.equalTo(pathBgView.snp.bottom).offset(0)
+            make.height.equalTo(150)
         }
+        
+//        for index in 0..<3 {
+//
+//            let contentView = setContentView()
+//            contentLabel?.text = "乘坐地铁10号线，在江湾体育场站上车，经过11站到达老西门站下车"
+//            self.addSubview(contentView)
+//            contentView.snp.makeConstraints({ (make) in
+//                make.left.equalTo(self).offset(0)
+//                make.right.equalTo(self).offset(0)
+//                make.top.equalTo(pathBgView.snp.bottom).offset(index * 50)
+//                make.height.equalTo(50)
+//            })
+//
+//            if index == 2{
+//                lineView?.isHidden = true
+//            }
+//        }
     }
     
     @objc func directionButtonClick(){
@@ -140,6 +156,41 @@ extension JYD_SelectPathDetailRouterView{
         }
         
         print("点击小图标")
+    }
+}
+
+extension JYD_SelectPathDetailRouterView{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if dataArray.count > 0 {
+            return dataArray.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    
+        return 50
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell:JYD_SelectPathDetailCell! = tableView.dequeueReusableCell(withIdentifier:"homeRefuseCell") as? JYD_SelectPathDetailCell
+        if cell == nil {
+            cell = JYD_SelectPathDetailCell.init(style: .default, reuseIdentifier: "homeRefuseCell")
+        }
+        cell.selectionStyle = .none
+        cell.isSelected = false;
+        cell.contentLabel?.text = dataArray[indexPath.row] as? String
+        cell.lineView?.isHidden = false
+        if indexPath.row == dataArray.count - 1{
+            
+            cell.lineView?.isHidden = true
+        }
+        
+        return cell
     }
 }
 
@@ -185,3 +236,5 @@ extension JYD_SelectPathDetailRouterView{
         return contentView
     }
 }
+
+

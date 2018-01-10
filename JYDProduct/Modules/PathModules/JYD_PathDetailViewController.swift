@@ -14,6 +14,12 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     var _mapView:BMKMapView?
     var zoomSize:Float = 14
     var handler:JYD_MapHandler?
+    var busRoute: BMKMassTransitRouteLine?
+    var drivingRoute: BMKDrivingRouteLine?
+    var walkingRoute: BMKWalkingRouteLine?
+    var ridingRoute: BMKRidingRouteLine?
+    var dataArray : NSMutableArray = []
+    var tag : Int?
     
     var bottomView : JYD_SelectPathDetailRouterView?
     override func viewDidLoad() {
@@ -37,17 +43,87 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             make.height.equalTo(228)
         }
         
-        
+        getRouteDetailInfo()
+        bottomView?.dataArray = dataArray
         // Do any additional setup after loading the view.
+    }
+    
+    
+    //获取公交车路线信息
+    func getBusDetailRoute(routeLine : BMKMassTransitRouteLine){
+    
+        dataArray.removeAllObjects()
+        let size = routeLine.steps.count
+        for i in 0..<size {
+            let transitStep = routeLine.steps[i] as! BMKMassTransitStep
+            
+            for j in 0..<Int(transitStep.steps.count) {
+                
+                let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
+                //换成说明
+                debugPrint(subStep.instructions)
+                if (!subStep.instructions.isEmpty){
+                    
+                    dataArray.add(subStep.instructions)
+                }
+                
+            }
+        }
+    }
+    
+    //获取驾车路线信息
+    func getDrivingDetailRoute(routeLine : BMKDrivingRouteLine){
+        dataArray.removeAllObjects()
+        let size = routeLine.steps.count
+        for i in 0..<size {
+            let transitStep = routeLine.steps[i] as! BMKDrivingStep
+            dataArray.add(transitStep.instruction)
+    
+        }
+    }
+    
+    //获取步行路线信息
+    func getWalkingDetailRoute(routeLine : BMKWalkingRouteLine){
+        dataArray.removeAllObjects()
+        let size = routeLine.steps.count
+        for i in 0..<size {
+            let transitStep = routeLine.steps[i] as! BMKWalkingStep
+            dataArray.add(transitStep.instruction)
+        }
+    }
+    
+    //获取步行路线信息
+    func getRidingDetailRoute(routeLine : BMKRidingRouteLine){
+        dataArray.removeAllObjects()
+        let size = routeLine.steps.count
+        for i in 0..<size {
+            let transitStep = routeLine.steps[i] as! BMKRidingStep
+            dataArray.add(transitStep.instruction)
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _mapView?.viewWillAppear()
         _mapView?.delegate = self
-
+        
     }
     
+    func getRouteDetailInfo(){
+        switch tag {
+        case 101?:
+            getBusDetailRoute(routeLine: busRoute!)
+        case 102?:
+            getDrivingDetailRoute(routeLine: drivingRoute!)
+        case 103?:
+            getWalkingDetailRoute(routeLine: walkingRoute!)
+        case 104?:
+            getRidingDetailRoute(routeLine: ridingRoute!)
+        default:
+            break
+        }
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _mapView?.viewWillDisappear()
