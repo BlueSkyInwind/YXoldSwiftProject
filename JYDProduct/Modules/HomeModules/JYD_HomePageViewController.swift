@@ -8,11 +8,12 @@
 
 import UIKit
 
-class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapHandlerDelegate {
+class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapHandlerDelegate, BMKLocationServiceDelegate {
 
     
     var _mapView:BMKMapView?
-    
+    var locationService: BMKLocationService!
+
     var circleView:BMKCircle?
     var handler:JYD_MapHandler?
     var headerView:JYD_HomeHeaderView?
@@ -23,7 +24,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.title = "急用达"
+        self.title = Home_NavTitle
         
         configureView()
         
@@ -31,6 +32,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     
     func configureView()  {
         
+        locationService = BMKLocationService()
+        locationService.allowsBackgroundLocationUpdates = true
+
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
         self.view.addSubview(_mapView!)
         _mapView?.zoomLevel = zoomSize
@@ -61,8 +65,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         super.viewWillAppear(animated)
         _mapView?.viewWillAppear()
         _mapView?.delegate = self
-        addCircleView()
-        addPointAnnotation()
+        locationService.delegate = self
+        locationService.startUserLocationService()
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,9 +82,18 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.mapPadding = UIEdgeInsetsMake(0, 0, 28, 0)
     }
     
-    func addCircleView()  {
+    //自定义精度圈
+    func customLocationAccuracyCircle() {
+        let param = BMKLocationViewDisplayParam()
+        param.accuracyCircleStrokeColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+        param.accuracyCircleFillColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.3)
+        param.locationViewImgName = ""
+        _mapView?.updateLocationView(with: param)
+    }
+    
+    func addCircleView(_ Location:CLLocationCoordinate2D)  {
         if circleView == nil {
-            circleView = BMKCircle(center: CLLocationCoordinate2DMake(39.915, 116.404), radius: 5000)
+            circleView = BMKCircle(center: Location, radius: 5000)
         }
         _mapView?.add(circleView!)
     }
@@ -165,7 +179,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
         DPrint(message: "重新定位")
-
+        locationService.startUserLocationService()
     }
   
     func addMapEnlargedButtonClick() {
@@ -193,6 +207,47 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         bottomView = nil
     }
     
+    // MARK: - BMKLocationServiceDelegate
+    
+    /**
+     *在地图View将要启动定位时，会调用此函数
+     *@param mapView 地图View
+     */
+    func willStartLocatingUser() {
+        print("willStartLocatingUser");
+    }
+    
+    /**
+     *用户方向更新后，会调用此函数
+     *@param userLocation 新的用户位置
+     */
+    func didUpdateUserHeading(_ userLocation: BMKUserLocation!) {
+        print("heading is \(userLocation.heading)")
+
+        _mapView?.updateLocationData(userLocation)
+    }
+    
+    /**
+     *用户位置更新后，会调用此函数
+     *@param userLocation 新的用户位置
+     */
+    func didUpdate(_ userLocation: BMKUserLocation!) {
+        DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
+//        let  locationView = _mapView?.value(forKey: "_locationView") as! BMKAnnotationView
+//        locationView.image  = UIImage.init(named: "UserLocation_Icon")
+        _mapView?.updateLocationData(userLocation)
+        _mapView?.setCenter(userLocation.location.coordinate, animated: true)
+        addCircleView(userLocation.location.coordinate)
+        addPointAnnotation()
+    }
+    
+    /**
+     *在地图View停止定位后，会调用此函数
+     *@param mapView 地图View
+     */
+    func didStopLocatingUser() {
+        print("didStopLocatingUser")
+    }
 
     /*
     // MARK: - Navigation
