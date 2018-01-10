@@ -57,7 +57,7 @@ extension JYD_SelectPathDetailRouterView{
             make.left.equalTo(self).offset(0)
             make.right.equalTo(self).offset(0)
             make.top.equalTo(self).offset(0)
-            make.height.equalTo(78)
+            make.height.equalTo(88)
         }
         
         let pathView = UIView()
@@ -67,7 +67,7 @@ extension JYD_SelectPathDetailRouterView{
             make.left.equalTo(pathBgView.snp.left).offset(0)
             make.right.equalTo(pathBgView.snp.right).offset(0)
             make.top.equalTo(pathBgView.snp.top).offset(0)
-            make.height.equalTo(75)
+            make.height.equalTo(85)
         }
         
         directionButton = UIButton.init(type: UIButtonType.custom)
@@ -82,10 +82,12 @@ extension JYD_SelectPathDetailRouterView{
         routerLabel = UILabel()
         routerLabel?.textColor = SelectPathRoute_Color
         routerLabel?.font = UIFont.systemFont(ofSize: 15)
+        routerLabel?.numberOfLines = 0
         pathView.addSubview(routerLabel!)
         routerLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(pathView.snp.left).offset(20)
             make.top.equalTo((directionButton?.snp.bottom)!).offset(0)
+            make.right.equalTo(pathView.snp.right).offset(-20)
         })
         
         timeLabel = UILabel()
@@ -94,7 +96,8 @@ extension JYD_SelectPathDetailRouterView{
         pathView.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo((routerLabel?.snp.left)!).offset(0)
-            make.top.equalTo((routerLabel?.snp.bottom)!).offset(11)
+//            make.top.equalTo((routerLabel?.snp.bottom)!).offset(11)
+            make.bottom.equalTo(pathView.snp.bottom).offset(-10)
         })
         
         distanceLabel = UILabel()

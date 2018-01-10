@@ -269,6 +269,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         case 102?:
             let routeLine = dataArray[index] as! BMKDrivingRouteLine
             controller.drivingRoute = routeLine
+            controller.drivingDesc = setCarDesc(index: index)
             self.navigationController?.pushViewController(controller, animated: true)
             break
         case 103?:
@@ -295,7 +296,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             
             let routeLine = dataArray[index] as! BMKMassTransitRouteLine
             
-            let route = getBusDetailRoute(routeLine: routeLine)
+//            let route = getBusDetailRoute(routeLine: routeLine)
+            let route = handler?.getBusDetailRoute(routeLine: routeLine)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             
@@ -303,10 +305,11 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
 //            let distance = calculateDistance(distance: Int(routeLine.distance))
             
             cell.leftLabel?.text = "\(index + 1)"
-            cell.routeLabel?.text = "\(route)"
+            cell.routeLabel?.text = "\(route!)"
             cell.routeLabel?.numberOfLines = 0
             
 //            let walk = calculateWalkingDistance()
+            walkArray = (handler?.getBusWaklingRoute(routeLine: routeLine))!
             let walk = handler?.calculateWalkingDistance(walkArray: walkArray)
             
 //            let walkDistance = calculateDistance(distance: walk)
@@ -320,13 +323,14 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             }else if UI_IS_IPHONE5{
                 length = 20
             }
-            if route.length > length{
+            if (route?.length)! > length{
                 cell.routeLabel?.snp.updateConstraints({ (make) in
                     make.top.equalTo(cell.snp.top).offset(10)
                 })
             }
             cell.timeLabel?.text = "\(timeStr!)"
             cell.distanceLabel?.text = "\(distance!)" + "km"
+            
             
         case 102?:
             let routeLine = dataArray[index] as! BMKDrivingRouteLine
@@ -339,6 +343,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.routeLabel?.text = setCarDesc(index: index)
             cell.timeLabel?.text = "\(timeStr!)"
             cell.distanceLabel?.text = "\(distance!)" + "km"
+            
         case 103?:
             let routeLine = dataArray[index] as! BMKWalkingRouteLine
 //            let timeStr = calculateTime(duration: routeLine.duration)
@@ -349,6 +354,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.leftLabel?.text = "\(index + 1)"
             cell.timeLabel?.text = "步行" + "\(timeStr!)"
             cell.distanceLabel?.text = "\(distance!)" + "km"
+            
             break
         case 104?:
             let routeLine = dataArray[index] as! BMKRidingRouteLine
@@ -363,6 +369,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.timeLabel?.text = "累计爬行10米"
             cell.distanceLabel?.text = "上坡80米"
             cell.walkLabel?.text = "下坡38米"
+
             
             break
         default:
@@ -521,40 +528,40 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         popBack()
     }
     
-    //获取公交车路线信息
-    func getBusDetailRoute(routeLine : BMKMassTransitRouteLine)->NSString{
-        
-        walkArray.removeAllObjects()
-        let routeStr : NSMutableString
-        routeStr = ""
-        let size = routeLine.steps.count
-        for i in 0..<size {
-            let transitStep = routeLine.steps[i] as! BMKMassTransitStep
-
-            for j in 0..<Int(transitStep.steps.count) {
-
-                let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
-                //换成说明
-                debugPrint(subStep.instructions)
-                //路段类型
-                debugPrint(subStep.stepType)
-                if subStep.stepType != BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
-                    if (subStep.vehicleInfo.name != nil){
-                       debugPrint(subStep.vehicleInfo.name)
-                        routeStr.append(subStep.vehicleInfo.name)
-                        if i == size - 2 {
-                            
-                            continue
-                        }
-                        routeStr.append("--")
-                    }
-                }else{
-                    walkArray.add(subStep.instructions)
-                }
-            }
-        }
-        return routeStr
-    }
+//    //获取公交车路线信息
+//    func getBusDetailRoute(routeLine : BMKMassTransitRouteLine)->NSString{
+//
+//        walkArray.removeAllObjects()
+//        let routeStr : NSMutableString
+//        routeStr = ""
+//        let size = routeLine.steps.count
+//        for i in 0..<size {
+//            let transitStep = routeLine.steps[i] as! BMKMassTransitStep
+//
+//            for j in 0..<Int(transitStep.steps.count) {
+//
+//                let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
+//                //换成说明
+//                debugPrint(subStep.instructions)
+//                //路段类型
+//                debugPrint(subStep.stepType)
+//                if subStep.stepType != BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
+//                    if (subStep.vehicleInfo.name != nil){
+//                       debugPrint(subStep.vehicleInfo.name)
+//                        routeStr.append(subStep.vehicleInfo.name)
+//                        if i == size - 2 {
+//
+//                            continue
+//                        }
+//                        routeStr.append("--")
+//                    }
+//                }else{
+//                    walkArray.add(subStep.instructions)
+//                }
+//            }
+//        }
+//        return routeStr
+//    }
     
     
     //MARK:BMKRouteSearch代理

@@ -107,4 +107,58 @@ class JYD_PathHandler: BaseHandler {
         }
     }
     
+    //获取公交车路线信息
+    func getBusDetailRoute(routeLine : BMKMassTransitRouteLine)->NSString{
+        
+        let routeStr : NSMutableString
+        routeStr = ""
+        let size = routeLine.steps.count
+        for i in 0..<size {
+            let transitStep = routeLine.steps[i] as! BMKMassTransitStep
+            
+            for j in 0..<Int(transitStep.steps.count) {
+                
+                let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
+                //换成说明
+                debugPrint(subStep.instructions)
+                //路段类型
+                debugPrint(subStep.stepType)
+                if subStep.stepType != BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
+                    if (subStep.vehicleInfo.name != nil){
+                        debugPrint(subStep.vehicleInfo.name)
+                        routeStr.append(subStep.vehicleInfo.name)
+                        if i == size - 2 {
+                            
+                            continue
+                        }
+                        routeStr.append("--")
+                    }
+                }
+            }
+        }
+        return routeStr
+    }
+    
+    //获取公交车路线步行信息
+    func getBusWaklingRoute(routeLine : BMKMassTransitRouteLine)->NSMutableArray{
+        
+        let waklArray : NSMutableArray = []
+
+        let size = routeLine.steps.count
+        for i in 0..<size {
+            let transitStep = routeLine.steps[i] as! BMKMassTransitStep
+            
+            for j in 0..<Int(transitStep.steps.count) {
+                
+                let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
+                //路段类型
+                debugPrint(subStep.stepType)
+                if subStep.stepType == BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
+                    
+                    waklArray.add(subStep.instructions)
+                }
+            }
+        }
+        return waklArray
+    }
 }

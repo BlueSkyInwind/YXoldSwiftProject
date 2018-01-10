@@ -61,6 +61,7 @@
 		CCB287ED20035080004B3941 /* JYD_SelectPathDetailRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */; };
 		CCB287EF2005B8CB004B3941 /* JYD_SelectPathDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB287EE2005B8CA004B3941 /* JYD_SelectPathDetailCell.swift */; };
 		CCB287F12005DE28004B3941 /* JYD_PathHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB287F02005DE28004B3941 /* JYD_PathHandler.swift */; };
+		CCB287F42005F0BA004B3941 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB287F32005F0BA004B3941 /* RouteAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathDetailRouterView.swift; sourceTree = "<group>"; };
 		CCB287EE2005B8CA004B3941 /* JYD_SelectPathDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathDetailCell.swift; sourceTree = "<group>"; };
 		CCB287F02005DE28004B3941 /* JYD_PathHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_PathHandler.swift; sourceTree = "<group>"; };
+		CCB287F32005F0BA004B3941 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
 		D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JYDProduct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -253,6 +255,7 @@
 		848FC6861FFE24AB00918CE9 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				CCB287F22005F09E004B3941 /* Map */,
 				848FC6B81FFE291700918CE9 /* EncryptionModules */,
 				848FC6AB1FFE271A00918CE9 /* Extension */,
 				848FC68C1FFE24C300918CE9 /* APPConfig.swift */,
@@ -507,6 +510,14 @@
 			path = SelectPathView;
 			sourceTree = "<group>";
 		};
+		CCB287F22005F09E004B3941 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				CCB287F32005F0BA004B3941 /* RouteAnnotation.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -748,6 +759,7 @@
 				848FC6C81FFE291700918CE9 /* GTMBase64.m in Sources */,
 				848FC6DB1FFE2BD400918CE9 /* JYD_AlertView.swift in Sources */,
 				CCB287ED20035080004B3941 /* JYD_SelectPathDetailRouterView.swift in Sources */,
+				CCB287F42005F0BA004B3941 /* RouteAnnotation.swift in Sources */,
 				848FC6AE1FFE271A00918CE9 /* UIViewController+KNSemiModal.m in Sources */,
 				848FC65B1FFE182300918CE9 /* ViewController.swift in Sources */,
 				CCB287EF2005B8CB004B3941 /* JYD_SelectPathDetailCell.swift in Sources */,
