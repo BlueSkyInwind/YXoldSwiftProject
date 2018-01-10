@@ -37,7 +37,13 @@ class JYD_StoreDetailViewController: BaseViewController {
             make.height.equalTo(140)
         })
         
-        storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: ["homeStore_Icon","homeStore_Icon","homeStore_Icon"])
+        storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: ["TEST","TEST","TEST"])
+        storeDisplayPhotoView?.clickIndex = { (index) in
+            let browseVC = JYD_StorePhotoBrowseViewController()
+            browseVC.imageArr = [UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!];
+            browseVC.selectIndex = index
+            self.present(browseVC, animated: true, completion: nil)
+        }
         self.view.addSubview(storeDisplayPhotoView!)
         storeDisplayPhotoView?.snp.makeConstraints({ (make) in
             make.left.right.equalTo(self.view)
@@ -62,7 +68,7 @@ class JYD_StoreDetailViewController: BaseViewController {
     }
     
     @objc func startExternalMapBtnClick() {
-        handler?.startExternalMaps(.MapTransit, fromLocation: CLLocationCoordinate2DMake(39.90868, 116.204), fromName: "", toLocation: CLLocationCoordinate2DMake(39.90868, 116.3956), toName: "")
+        handler?.startExternalMaps(.MapTransit, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
     }
     
     override func didReceiveMemoryWarning() {
