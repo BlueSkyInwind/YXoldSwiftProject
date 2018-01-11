@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate,BMKRouteSearchDelegate{
     
@@ -17,6 +18,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     var startCoord: CLLocationCoordinate2D?
     var endCoord : CLLocationCoordinate2D?
     var handler:JYD_PathHandler?
+    var waitView  = MBProgressHUD()
     
     let tableView: UITableView = {
         
@@ -182,8 +184,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         footerBtn.addTarget(self, action: #selector(footerBtnClick), for: .touchUpInside)
         footerView.addSubview(footerBtn)
         footerBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(footerView.snp.left).offset(48)
-            make.right.equalTo(footerView.snp.right).offset(-48)
+            make.width.equalTo(_k_w - 96)
+            make.centerX.equalTo(footerView.snp.centerX)
             make.height.equalTo(42)
             make.top.equalTo(footerView.snp.top).offset(67)
         }
@@ -295,24 +297,14 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             
             
             let routeLine = dataArray[index] as! BMKMassTransitRouteLine
-            
-//            let route = getBusDetailRoute(routeLine: routeLine)
             let route = handler?.getBusDetailRoute(routeLine: routeLine)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
-            
-//            let timeStr = calculateTime(duration: routeLine.duration)
-//            let distance = calculateDistance(distance: Int(routeLine.distance))
-            
             cell.leftLabel?.text = "\(index + 1)"
             cell.routeLabel?.text = "\(route!)"
             cell.routeLabel?.numberOfLines = 0
-            
-//            let walk = calculateWalkingDistance()
             walkArray = (handler?.getBusWaklingRoute(routeLine: routeLine))!
             let walk = handler?.calculateWalkingDistance(walkArray: walkArray)
-            
-//            let walkDistance = calculateDistance(distance: walk)
             let walkDistance = handler?.calculateDistance(distance: walk!)
 
             cell.walkLabel?.text = "\(walkDistance!)" + "km"
@@ -334,10 +326,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             
         case 102?:
             let routeLine = dataArray[index] as! BMKDrivingRouteLine
-//            let timeStr = calculateTime(duration: routeLine.duration)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            
-//            let distance = calculateDistance(distance: Int(routeLine.distance))
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
             cell.routeLabel?.text = setCarDesc(index: index)
@@ -346,10 +335,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             
         case 103?:
             let routeLine = dataArray[index] as! BMKWalkingRouteLine
-//            let timeStr = calculateTime(duration: routeLine.duration)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            
-//            let distance = calculateDistance(distance: Int(routeLine.distance))
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
             cell.timeLabel?.text = "步行" + "\(timeStr!)"
@@ -358,10 +344,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             break
         case 104?:
             let routeLine = dataArray[index] as! BMKRidingRouteLine
-//            let timeStr = calculateTime(duration: routeLine.duration)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            
-//            let distance = calculateDistance(distance: Int(routeLine.distance))
+        
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             
             cell.leftLabel?.text = "\(index + 1)"
@@ -390,98 +374,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         return desc
         
     }
-//    //自驾排序
-//    func getCarDetailRoute(){
-//
-//        for index in 0..<dataArray.count{
-//            let routeLine = dataArray[index] as! BMKDrivingRouteLine
-//            let time = routeLine.duration.dates * 24 * 3600 + routeLine.duration.hours * 3600 + routeLine.duration.minutes * 60 + routeLine.duration.seconds
-//            for k in index+1..<dataArray.count{
-//                let routeLine1 = dataArray[k] as! BMKDrivingRouteLine
-//                let time1 = routeLine1.duration.dates * 24 * 3600 + routeLine1.duration.hours * 3600 + routeLine1.duration.minutes * 60 + routeLine1.duration.seconds
-//                if time > time1{
-//
-//                    let temp = dataArray[index]
-//                    dataArray[index] = dataArray[k]
-//                    dataArray[k] = temp
-//
-//                }
-//            }
-//        }
-//    }
-    
-//    //计算总用时
-//    func calculateTime(duration: BMKTime)->NSString{
-//
-//        let timeStr : NSMutableString
-//        timeStr = ""
-//
-//        if duration.dates != 0 {
-//            timeStr.append("\(duration.dates)")
-//            timeStr.append("天")
-//        }
-//        if duration.hours != 0 {
-//            timeStr.append("\(duration.hours)")
-//            timeStr.append("小时")
-//        }
-//        if duration.minutes != 0 {
-//            timeStr.append("\(duration.minutes)")
-//            timeStr.append("分钟")
-//        }
-//        if duration.seconds != 0 {
-//            timeStr.append("\(duration.seconds)")
-//            timeStr.append("秒")
-//        }
-//        return timeStr
-//    }
-    
-//    //计算总路程
-//    func calculateDistance(distance: Int)->Double{
-//
-//        var distanceStr : Double
-//        distanceStr = 0.00
-//
-//        let str = (Double)(distance / 1000)
-//        var  str1 = 0.00
-//        if distance % 1000 != 0 {
-//            str1 = Double(Int(distance) - Int(str * 1000))
-//        }
-//
-//        let str2 = str1 * 0.001
-//
-//        distanceStr = str + str2
-//
-//        return distanceStr
-//    }
-    
-//    //累计加步行的总路程
-//    func calculateWalkingDistance()->Int{
-//
-//        var total = 0
-//
-//        for i in 0..<walkArray.count {
-//            let str = walkArray[i] as! String
-//            var distance : NSMutableString
-//            distance = ""
-//            for c in str {
-//                if c > "0" && c < "9"{
-//
-//                    let str1 = String(c)
-//                    distance.append(str1)
-//
-//                }
-//            }
-//            let dis = Int(distance as String)
-//            if dis != nil {
-//
-//                total += dis!
-//            }
-//        }
-//
-//        print(total)
-//        return total
-//    }
-   
+
     
     //位置交换按钮
     func changeLocationBtn(startLocation: String, endLocation: String) {
@@ -510,6 +403,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
    
     func showMapRoute(tag : Int){
         
+        loading()
         switch tag {
         case 101:
             setBusRoute(startCoord: startCoord!, endCoord: endCoord!)
@@ -528,42 +422,14 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         popBack()
     }
     
-//    //获取公交车路线信息
-//    func getBusDetailRoute(routeLine : BMKMassTransitRouteLine)->NSString{
-//
-//        walkArray.removeAllObjects()
-//        let routeStr : NSMutableString
-//        routeStr = ""
-//        let size = routeLine.steps.count
-//        for i in 0..<size {
-//            let transitStep = routeLine.steps[i] as! BMKMassTransitStep
-//
-//            for j in 0..<Int(transitStep.steps.count) {
-//
-//                let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
-//                //换成说明
-//                debugPrint(subStep.instructions)
-//                //路段类型
-//                debugPrint(subStep.stepType)
-//                if subStep.stepType != BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
-//                    if (subStep.vehicleInfo.name != nil){
-//                       debugPrint(subStep.vehicleInfo.name)
-//                        routeStr.append(subStep.vehicleInfo.name)
-//                        if i == size - 2 {
-//
-//                            continue
-//                        }
-//                        routeStr.append("--")
-//                    }
-//                }else{
-//                    walkArray.add(subStep.instructions)
-//                }
-//            }
-//        }
-//        return routeStr
-//    }
-    
-    
+    //加载等待视图
+    func loading(){
+       
+        waitView  = MBProgressHUD()
+        waitView = JYDNetWorkManager.shareInstance.loadingHUD()
+        waitView.show(animated: true)
+
+    }
     //MARK:BMKRouteSearch代理
     /**
      *返回公共交通路线检索结果（new）
@@ -573,17 +439,20 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
      */
     func onGetMassTransitRouteResult(_ searcher: BMKRouteSearch!, result: BMKMassTransitRouteResult!, errorCode error: BMKSearchErrorCode) {
         if error == BMK_SEARCH_NO_ERROR {
-            DPrint(message: "成功获取结果")
             
             for index in 0..<result.routes.count{
                 let routeLine = result.routes[index] as! BMKMassTransitRouteLine
                 dataArray.add(routeLine)
             }
             
+            waitView.removeFromSuperview()
             tableView.reloadData()
             
         }else{
-            print("检索失败")
+            
+            waitView.removeFromSuperview()
+            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+
         }
     }
     /**
@@ -595,18 +464,19 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     
     func onGetWalkingRouteResult(_ searcher: BMKRouteSearch!, result: BMKWalkingRouteResult!, errorCode error: BMKSearchErrorCode) {
         if error == BMK_SEARCH_NO_ERROR {
-            print("成功获取结果")
-            print(result)
             
             for index in 0..<result.routes.count{
                 let routeLine = result.routes[index] as! BMKWalkingRouteLine
                 dataArray.add(routeLine)
             }
 
+            waitView.removeFromSuperview()
             tableView.reloadData()
             
         }else{
-            print("检索失败")
+            
+            waitView.removeFromSuperview()
+            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
         }
     }
     
@@ -619,7 +489,6 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     
     func onGetDrivingRouteResult(_ searcher: BMKRouteSearch!, result: BMKDrivingRouteResult!, errorCode error: BMKSearchErrorCode) {
         if error == BMK_SEARCH_NO_ERROR {
-            print("成功获取结果")
             
             for index in 0..<result.routes.count{
                 let routeLine = result.routes[index] as! BMKDrivingRouteLine
@@ -640,10 +509,13 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
                 
             }
             handler?.getCarDetailRoute(dataArray: dataArray)
-//            getCarDetailRoute()
+            waitView.removeFromSuperview()
             tableView.reloadData()
         }else{
-            print("检索失败")
+            
+            waitView.removeFromSuperview()
+            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+    
         }
     }
 
@@ -655,16 +527,19 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
      */
     func onGetRidingRouteResult(_ searcher: BMKRouteSearch!, result: BMKRidingRouteResult!, errorCode error: BMKSearchErrorCode) {
         if error == BMK_SEARCH_NO_ERROR {
-            print("成功获取结果")
             
             for index in 0..<result.routes.count{
                 let routeLine = result.routes[index] as! BMKRidingRouteLine
                 dataArray.add(routeLine)
             }
             
+            waitView.removeFromSuperview()
             tableView.reloadData()
         }else{
-            print("检索失败")
+            
+            waitView.removeFromSuperview()
+            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+    
         }
     }
     /*
