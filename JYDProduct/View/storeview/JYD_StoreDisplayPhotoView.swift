@@ -13,15 +13,16 @@ class JYD_StoreDisplayPhotoView: UIView {
     
     var titleLabel:UILabel?
     var imageBackView:UIView?
-    var photos:[String]?
+    var photos:[UIImage]?
     var clickIndex:StoreImageClickIndex?
+    var imageViewArr:[UIButton] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
     }
     
-    convenience init(frame: CGRect,images:[String]) {
+    convenience init(frame: CGRect,images:[UIImage]) {
         self.init(frame: frame)
         photos = images
         addStorePhoto()
@@ -29,7 +30,7 @@ class JYD_StoreDisplayPhotoView: UIView {
     
     @objc func storeImageClick(button:UIButton) {
         if clickIndex != nil {
-            self.clickIndex!(button.tag - 1000)
+            self.clickIndex!(button.tag - 1000 + 1)
         }
     }
     
@@ -74,14 +75,16 @@ extension JYD_StoreDisplayPhotoView {
     
     func addStorePhoto()  {
         let imageWidth = APPTool.obtainDisplaySize(size: 90)
-        for imageName in photos! {
-            let index = CGFloat((photos?.index(of: imageName))!)
-            let imageLeft = (_k_w / 3 - imageWidth) / 2  +  (_k_w / 3 * index)
+        let count = photos?.count
+        for index in 0..<count!  {
+            let image = photos![index]
+            let imageLeft = (_k_w / 3 - imageWidth) / 2  +  (_k_w / 3 * CGFloat(index))
             let imageBtn = UIButton.init(type: UIButtonType.custom)
             imageBtn.tag = Int(1000 + index)
-            imageBtn.setImage(UIImage.init(named: imageName), for: UIControlState.normal)
+            imageBtn.setImage(image, for: UIControlState.normal)
             imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
             imageBackView?.addSubview(imageBtn)
+            imageViewArr.append(imageBtn)
             imageBtn.snp.makeConstraints({ (make) in
                 make.centerY.equalTo((imageBackView?.snp.centerY)!)
                 make.left.equalTo(imageLeft)

@@ -9,19 +9,29 @@
 import UIKit
 
 let  imageSpace:CGFloat = 10
-
+typealias ViewBackTapClick = () -> Void
 class JYD_StorePhotoBrowseView: UIView,UIScrollViewDelegate {
     
     var leftBtn:UIButton?
     var rightBtn:UIButton?
     var browseScrollView:UIScrollView?
     var images:[UIImage]?
+    var imageViewArr:[UIImageView] = []
     var selectDisplayImage:Int = 1
     var titleLabel:UILabel?
+    var viewBackTap:ViewBackTapClick?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.black
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(viewTapClick))
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc func viewTapClick() {
+        if viewBackTap != nil {
+            viewBackTap!()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +41,7 @@ class JYD_StorePhotoBrowseView: UIView,UIScrollViewDelegate {
     convenience init(frame: CGRect,displayImages:[UIImage],selectIndex:Int) {
         self.init(frame: frame)
         images = displayImages
-        selectDisplayImage = selectIndex
+        selectDisplayImage = selectIndex - 1
         setUpUI()
     }
     
@@ -39,15 +49,18 @@ class JYD_StorePhotoBrowseView: UIView,UIScrollViewDelegate {
         
         self.selectDisplayImage -= 1
         self.selectDisplayImage =  self.selectDisplayImage  > 0 ? self.selectDisplayImage : 0
-        browseScrollView?.setContentOffset(CGPoint.init(x:(browseScrollView?.bounds.size.width)! + imageSpace * 2.0 * CGFloat(self.selectDisplayImage) , y: 0), animated: true)
+        browseScrollView?.setContentOffset(CGPoint.init(x:(browseScrollView?.bounds.size.width)!  * CGFloat(self.selectDisplayImage) , y: 0), animated: true)
+        titleLabel?.text = "\(self.selectDisplayImage + 1)" + "/" + "\(images?.count ?? 1)"
+
         
     }
-    
+
     @objc func nextPhotoClick()  {
         
         self.selectDisplayImage += 1
-        self.selectDisplayImage =  self.selectDisplayImage  > (images?.count)! ? (images?.count)! : self.selectDisplayImage
-        browseScrollView?.setContentOffset(CGPoint.init(x:((browseScrollView?.bounds.size.width)! + imageSpace * 2.0) * CGFloat(self.selectDisplayImage) , y: 0), animated: true)
+        self.selectDisplayImage =  self.selectDisplayImage  > (images?.count)! - 1 ? (images?.count)! - 1 : self.selectDisplayImage
+        browseScrollView?.setContentOffset(CGPoint.init(x:(browseScrollView?.bounds.size.width)!  * CGFloat(self.selectDisplayImage) , y: 0), animated: true)
+        titleLabel?.text = "\(self.selectDisplayImage + 1)" + "/" + "\(images?.count ?? 1)"
         
     }
     
@@ -60,9 +73,9 @@ class JYD_StorePhotoBrowseView: UIView,UIScrollViewDelegate {
     */
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = scrollView.contentOffset.x / ((browseScrollView?.bounds.size.width)! + imageSpace)
+        let index = Int(scrollView.contentOffset.x) / Int((browseScrollView?.bounds.size.width)!)
         self.selectDisplayImage = Int(index)
-        titleLabel?.text = "\(self.selectDisplayImage ?? 1)" + "/" + "\(images?.count ?? 1)"
+        titleLabel?.text = "\(self.selectDisplayImage + 1)" + "/" + "\(images?.count ?? 1)"
     }
 }
 
@@ -72,10 +85,10 @@ extension JYD_StorePhotoBrowseView {
         
         titleLabel = UILabel()
         titleLabel?.textColor = UIColor.white
-        titleLabel?.text = "\(self.selectDisplayImage ?? 1)" + "/" + "\(images?.count ?? 1)"
+        titleLabel?.text = "\(self.selectDisplayImage + 1)" + "/" + "\(images?.count ?? 1)"
         self.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
-            make.top.equalTo(60)
+            make.top.equalTo(self.snp.top).offset(60)
             make.centerX.equalTo(self.snp.centerX)
         })
         
@@ -101,7 +114,7 @@ extension JYD_StorePhotoBrowseView {
             make.height.equalTo(APPTool.obtainDisplaySize(size: 25))
         })
         
-        browseScrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width:_k_w - APPTool.obtainDisplaySize(size: 60), height:  _k_h - 120))
+        browseScrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width:_k_w - APPTool.obtainDisplaySize(size: 80), height:  _k_h - 200))
         browseScrollView?.center = self.center
         browseScrollView?.backgroundColor = UIColor.black
         browseScrollView?.isPagingEnabled = true
@@ -112,7 +125,7 @@ extension JYD_StorePhotoBrowseView {
         
         let imageWidth = (browseScrollView?.bounds.size.width)! + imageSpace * 2.0
         
-        browseScrollView?.frame = CGRect.init(x: -imageWidth, y: 0, width: imageWidth, height: _k_h - 120)
+        browseScrollView?.frame = CGRect.init(x: -imageWidth, y: 0, width: imageWidth, height: _k_h - 200)
         browseScrollView?.center = self.center
         browseScrollView?.contentSize = CGSize.init(width: imageWidth * CGFloat((images?.count)!), height: 0)
         browseScrollView?.contentOffset = CGPoint.init(x:imageWidth * CGFloat(self.selectDisplayImage) , y: 0)
@@ -127,6 +140,7 @@ extension JYD_StorePhotoBrowseView {
             imageView.contentMode = UIViewContentMode.scaleToFill
             imageView.image = image
             browseScrollView?.addSubview(imageView)
+            imageViewArr.append(imageView)
         }
     }
 }

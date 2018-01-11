@@ -14,6 +14,9 @@ class JYD_StoreDetailViewController: BaseViewController {
     var storeDisplayPhotoView:JYD_StoreDisplayPhotoView?
     var startExternalMapBtn:UIButton?
     var handler:JYD_MapHandler?
+    var storeImages:[UIImage]?
+    private lazy var modalDelegate: JYD_PhotoModalAnimationDelegate = JYD_PhotoModalAnimationDelegate()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,7 @@ class JYD_StoreDetailViewController: BaseViewController {
         // Do any additional setup after loading the view.
         handler = JYD_MapHandler.init()
         handler?.vc = self
+        storeImages = [UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!]
         configureView()
     }
     
@@ -37,11 +41,13 @@ class JYD_StoreDetailViewController: BaseViewController {
             make.height.equalTo(140)
         })
         
-        storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: ["TEST","TEST","TEST"])
+        storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: self.storeImages!)
         storeDisplayPhotoView?.clickIndex = { (index) in
             let browseVC = JYD_StorePhotoBrowseViewController()
-            browseVC.imageArr = [UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!];
+            browseVC.imageArr = self.storeImages;
             browseVC.selectIndex = index
+            browseVC.transitioningDelegate = self.modalDelegate
+            browseVC.modalPresentationStyle = .custom
             self.present(browseVC, animated: true, completion: nil)
         }
         self.view.addSubview(storeDisplayPhotoView!)
