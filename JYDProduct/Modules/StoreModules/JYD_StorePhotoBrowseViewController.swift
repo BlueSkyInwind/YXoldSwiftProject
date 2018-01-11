@@ -23,6 +23,9 @@ class JYD_StorePhotoBrowseViewController: UIViewController {
     
     func configureView()  {
         storePhotoBrowseView = JYD_StorePhotoBrowseView.init(frame: CGRect.init(x: 0, y: 0, width: _k_w, height: _k_h), displayImages: imageArr!, selectIndex: selectIndex!)
+        storePhotoBrowseView?.viewBackTap = {
+            self.dismiss(animated: true, completion: nil)
+        }
         self.view.addSubview(storePhotoBrowseView!)
     }
     

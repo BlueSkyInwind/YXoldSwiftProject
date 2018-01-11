@@ -13,6 +13,8 @@ class MBPAlertView: NSObject {
     
     static let shareInstance = MBPAlertView()
     
+    var waitHUb:MBProgressHUD?
+    
     //MARK: 提示信息框
     func showTextOnly(message:String,view:UIView) -> Void {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
@@ -23,4 +25,20 @@ class MBPAlertView: NSObject {
         hud.removeFromSuperViewOnHide = true
         hud.hide(animated: true, afterDelay: 1)
     }
+    
+    //MARK: 进度条
+    func showWaitView(view:UIView)  {
+        waitHUb = MBProgressHUD.showAdded(to: view, animated: true)
+        waitHUb?.mode = MBProgressHUDMode.annularDeterminate
+        waitHUb?.animationType = MBProgressHUDAnimation.zoomIn;
+        waitHUb?.removeFromSuperViewOnHide = true
+//        hud.labelText = "Loading...";
+    }
+    
+    func removeWaitView()  {
+        waitHUb?.hide(animated: true)
+        waitHUb = nil
+    }
+    
+    
 }
