@@ -132,7 +132,7 @@ extension JYD_SelectePathCell{
             distanceLabel?.snp.updateConstraints({ (make) in
                 make.left.equalTo((timeLabel?.snp.right)!).offset(23)
             })
-            walkLabel?.snp.makeConstraints({ (make) in
+            walkLabel?.snp.updateConstraints({ (make) in
                 make.left.equalTo((distanceLabel?.snp.right)!).offset(25)
             })
         }
