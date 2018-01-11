@@ -70,6 +70,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         tableView.tableFooterView?.isHidden = true
         
         handler = JYD_PathHandler.init()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -307,7 +308,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             let walk = handler?.calculateWalkingDistance(walkArray: walkArray)
             let walkDistance = handler?.calculateDistance(distance: walk!)
 
-            cell.walkLabel?.text = "\(walkDistance!)" + "km"
+            let walkStr = String(format:"%.2f",walkDistance!)
+            cell.walkLabel?.text = walkStr + "km"
            
             var length = 28
             if UI_IS_IPONE6 {
@@ -321,7 +323,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
                 })
             }
             cell.timeLabel?.text = "\(timeStr!)"
-            cell.distanceLabel?.text = "\(distance!)" + "km"
+            let distanceStr = String(format:"%.2f",distance!)
+            cell.distanceLabel?.text = distanceStr + "km"
             
             
         case 102?:
@@ -331,7 +334,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.leftLabel?.text = "\(index + 1)"
             cell.routeLabel?.text = setCarDesc(index: index)
             cell.timeLabel?.text = "\(timeStr!)"
-            cell.distanceLabel?.text = "\(distance!)" + "km"
+            let distanceStr = String(format:"%.2f",distance!)
+            cell.distanceLabel?.text = distanceStr + "km"
             
         case 103?:
             let routeLine = dataArray[index] as! BMKWalkingRouteLine
@@ -339,7 +343,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
             cell.timeLabel?.text = "步行" + "\(timeStr!)"
-            cell.distanceLabel?.text = "\(distance!)" + "km"
+            let distanceStr = String(format:"%.2f",distance!)
+            cell.distanceLabel?.text = distanceStr + "km"
             
             break
         case 104?:
@@ -349,7 +354,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             
             cell.leftLabel?.text = "\(index + 1)"
-            cell.routeLabel?.text = "骑行" + "25分钟" + "  " + "\(distance!)" + "km"
+            let distanceStr = String(format:"%.2f",distance!)
+            cell.routeLabel?.text = "骑行" + "25分钟" + "  " + distanceStr + "km"
             cell.timeLabel?.text = "累计爬行10米"
             cell.distanceLabel?.text = "上坡80米"
             cell.walkLabel?.text = "下坡38米"
@@ -431,6 +437,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         waitView.label.text = "加载中"
 
     }
+    
     //MARK:BMKRouteSearch代理
     /**
      *返回公共交通路线检索结果（new）

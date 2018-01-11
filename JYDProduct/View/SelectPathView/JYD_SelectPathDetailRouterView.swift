@@ -96,8 +96,8 @@ extension JYD_SelectPathDetailRouterView{
         pathView.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo((routerLabel?.snp.left)!).offset(0)
-//            make.top.equalTo((routerLabel?.snp.bottom)!).offset(11)
-            make.bottom.equalTo(pathView.snp.bottom).offset(-10)
+            make.top.equalTo((routerLabel?.snp.bottom)!).offset(11)
+//            make.bottom.equalTo(pathView.snp.bottom).offset(-10)
         })
         
         distanceLabel = UILabel()

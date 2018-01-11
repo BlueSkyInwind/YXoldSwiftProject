@@ -30,17 +30,9 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         self.title = "急用达"
         addBackItem()
         mapView()
-//        overallRoute = "地铁10号线--地铁2号线--地铁9号线"
-//        time = "1小时26分钟"
-//        totalDistance = "10.4km"
-//        walkDistance = "步行1.3km"
         bottomView = JYD_SelectPathDetailRouterView()
         bottomView?.delegate = self
-//        bottomView?.routerLabel?.text = overallRoute
-//        bottomView?.timeLabel?.text = time
-//        bottomView?.distanceLabel?.text = totalDistance
-//        bottomView?.walkLabel?.text = walkDistance
-        
+
         self.view.addSubview(bottomView!)
         bottomView?.snp.makeConstraints { (make) in
             make.left.equalTo(self.view).offset(0)
@@ -121,6 +113,22 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }
     }
 
+    func getMapRoute(){
+        
+        switch tag {
+        case 101?:
+            showBusRoutePlan()
+            
+        case 102?:
+            showCarRoutePlan()
+        case 103?:
+            showWalkingRoutePlan()
+        case 104?:
+            showRidingRoutePlan()
+        default:
+            break
+        }
+    }
     //获取路线信息
     func getRouteDetailInfo(){
         switch tag {
@@ -135,11 +143,12 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             
             bottomView?.routerLabel?.text = "\(route!)"
             bottomView?.timeLabel?.text = "\(timeStr!)"
-            bottomView?.distanceLabel?.text = "\(distance!)" + "km"
-            bottomView?.walkLabel?.text = "\(walkDistance!)" + "km"
+            let distanceStr = String(format:"%.2f",distance!)
+            bottomView?.distanceLabel?.text = distanceStr + "km"
+            let walkStr = String(format:"%.2f",walkDistance!)
+            bottomView?.walkLabel?.text = walkStr + "km"
             bottomView?.routerLabel?.font = UIFont.systemFont(ofSize: 13)
             getBusDetailRoute(routeLine: busRoute!)
-            showBusRoutePlan()
             
         case 102?:
             
@@ -147,29 +156,34 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             let distance = pathHandler?.calculateDistance(distance: Int(drivingRoute!.distance))
             
             bottomView?.timeLabel?.text = "\(timeStr!)"
-            bottomView?.distanceLabel?.text = "\(distance!)" + "km"
+            let distanceStr = String(format:"%.2f",distance!)
+            bottomView?.distanceLabel?.text = distanceStr + "km"
             bottomView?.routerLabel?.text = drivingDesc
             getDrivingDetailRoute(routeLine: drivingRoute!)
-            showCarRoutePlan()
+
         case 103?:
             
             let timeStr = pathHandler?.calculateTime(duration: walkingRoute!.duration)
             let distance = pathHandler?.calculateDistance(distance: Int(walkingRoute!.distance))
-            
-            bottomView?.timeLabel?.text = "\(timeStr!)"
-            bottomView?.distanceLabel?.text = "\(distance!)" + "km"
+            bottomView?.timeLabel?.textColor = SelectPathRoute_Color
+            bottomView?.timeLabel?.text = "步行" + "\(timeStr!)"
+            let distanceStr = String(format:"%.2f",distance!)
+            bottomView?.distanceLabel?.text = distanceStr + "km"
             
             getWalkingDetailRoute(routeLine: walkingRoute!)
-            showWalkingRoutePlan()
+
         case 104?:
             
             let timeStr = pathHandler?.calculateTime(duration: ridingRoute!.duration)
             let distance = pathHandler?.calculateDistance(distance: Int(ridingRoute!.distance))
             
-            bottomView?.timeLabel?.text = "\(timeStr!)"
-            bottomView?.distanceLabel?.text = "\(distance!)" + "km"
+            bottomView?.timeLabel?.text = "骑行" + "\(timeStr!)"
+            bottomView?.timeLabel?.textColor = SelectPathRoute_Color
+            let distanceStr = String(format:"%.2f",distance!)
+            bottomView?.distanceLabel?.textColor = SelectPathRoute_Color
+            bottomView?.distanceLabel?.text = distanceStr + "km"
             getRidingDetailRoute(routeLine: ridingRoute!)
-            showRidingRoutePlan()
+
         default:
             break
         }
@@ -194,7 +208,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             for j in 0..<Int(transitStep.steps.count) {
                 //添加annotation节点
                 let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
-                let item = RouteAnnotation()
+//                let item = BMKPointAnnotation.init()
+                let item = RouteAnnotation.init()
                 item.coordinate = subStep.entraceCoor
                 item.title = subStep.instructions
                 item.type = 2
@@ -218,13 +233,13 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             }
             
         }
-        let startAnnotation = RouteAnnotation()
+        let startAnnotation = RouteAnnotation.init()
         startAnnotation.coordinate = startCoor
         startAnnotation.title = "起点"
         startAnnotation.type = 0
         _mapView?.addAnnotation(startAnnotation)//添加起点标注
         
-        let endAnnotation = RouteAnnotation()
+        let endAnnotation = RouteAnnotation.init()
         endAnnotation.coordinate = endCoor
         endAnnotation.title = "终点"
         endAnnotation.type = 1
@@ -468,7 +483,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
         self.view.addSubview(_mapView!)
         _mapView?.zoomLevel = zoomSize
-        
+        _mapView?.userTrackingMode = BMKUserTrackingModeFollow
         addMapScaleBar()
         
         handler = JYD_MapHandler.init()
@@ -478,9 +493,19 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2))
     }
     
+    //设置比例尺位置
     func addMapScaleBar()  {
         _mapView?.showMapScaleBar = true
-        _mapView?.mapScaleBarPosition = CGPoint(x: 10, y: (_mapView?.frame.height)! - 280)
+        
+        var height = 0
+        
+        height = Int((_mapView?.frame.height)! - 280)
+        if UI_IS_IPONE6 {
+            
+            height = Int((_mapView?.frame.height)! - 260)
+        }
+        
+        _mapView?.mapScaleBarPosition = CGPoint(x: 10, y: height)
         _mapView?.mapPadding = UIEdgeInsetsMake(0, 0, 28, 0)
     }
    
@@ -492,19 +517,24 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     func directionImage(isDown: Bool) {
         if isDown {
             
-            bottomView?.snp.updateConstraints({ (make) in
-                make.height.equalTo(88)
-            })
-            
-            bottomView?.directionButton?.setImage(UIImage(named:"up_icon"), for: .normal)
-            
+            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.bottomView?.snp.updateConstraints({ (make) in
+                    make.height.equalTo(88)
+                })
+                self.bottomView?.directionButton?.setImage(UIImage(named:"up_icon"), for: .normal)
+            }) { (complication) in
+            }
+        
         }else{
             
-            bottomView?.snp.updateConstraints({ (make) in
-                make.height.equalTo(238)
-            })
+            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.bottomView?.snp.updateConstraints({ (make) in
+                    make.height.equalTo(238)
+                })
+                self.bottomView?.directionButton?.setImage(UIImage(named:"down_icon"), for: .normal)
+            }) { (complication) in
+            }
             
-            bottomView?.directionButton?.setImage(UIImage(named:"down_icon"), for: .normal)
         }
     }
     
@@ -524,6 +554,14 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         _mapView?.zoomLevel = zoomSize
     }
     
+    /**
+     *地图初始化完毕时会调用此接口
+     *@param mapView 地图View
+     */
+    func mapViewDidFinishLoading(_ mapView: BMKMapView!) {
+        getMapRoute()
+    }
+    
     // MARK: - BMKMapViewDelegate
     
     /**
@@ -532,7 +570,11 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
      *@param annotation 指定的标注
      *@return 生成的标注View
      */
+    
+
     func mapView(_ mapView: BMKMapView!, viewFor annotation: BMKAnnotation!) -> BMKAnnotationView! {
+
+        print("根据anntation生成对应的View")
         if let routeAnnotation = annotation as! RouteAnnotation? {
             return getViewForRouteAnnotation(routeAnnotation)
         }
@@ -548,8 +590,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     func mapView(_ mapView: BMKMapView!, viewFor overlay: BMKOverlay!) -> BMKOverlayView! {
         if overlay as! BMKPolyline? != nil {
             let polylineView = BMKPolylineView(overlay: overlay as! BMKPolyline)
-            polylineView?.strokeColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.7)
-            polylineView?.lineWidth = 3
+            polylineView?.strokeColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.7)
+            polylineView?.lineWidth = 5
             return polylineView
         }
         return nil
