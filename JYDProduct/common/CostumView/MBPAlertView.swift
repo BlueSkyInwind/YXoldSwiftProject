@@ -29,7 +29,7 @@ class MBPAlertView: NSObject {
     //MARK: 进度条
     func showWaitView(view:UIView)  {
         waitHUb = MBProgressHUD.showAdded(to: view, animated: true)
-        waitHUb?.mode = MBProgressHUDMode.annularDeterminate
+        waitHUb?.mode = MBProgressHUDMode.indeterminate
         waitHUb?.animationType = MBProgressHUDAnimation.zoomIn;
         waitHUb?.removeFromSuperViewOnHide = true
 //        hud.labelText = "Loading...";

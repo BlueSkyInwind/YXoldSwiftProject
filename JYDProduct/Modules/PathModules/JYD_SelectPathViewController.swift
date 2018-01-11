@@ -409,6 +409,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
    
     func showMapRoute(tag : Int){
         
+        
         loading()
         switch tag {
         case 101:
@@ -431,12 +432,18 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     //加载等待视图
     func loading(){
        
-        waitView  = MBProgressHUD.showAdded(to: self.view, animated: true)
-        waitView.delegate = self
-        waitView.bezelView.color = UIColor.clear
-        waitView.label.text = "加载中"
+        MBPAlertView().showWaitView(view: self.view)
+//        waitView  = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        waitView.delegate = self
+//        waitView.bezelView.color = UIColor.clear
+//        waitView.label.text = "加载中"
 
     }
+    
+    func removeLoading()  {
+        MBPAlertView().removeWaitView()
+    }
+    
     
     //MARK:BMKRouteSearch代理
     /**
@@ -453,12 +460,12 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
                 dataArray.add(routeLine)
             }
             
-            waitView.removeFromSuperview()
+            removeLoading()
             tableView.reloadData()
             
         }else{
             
-            waitView.removeFromSuperview()
+            removeLoading()
             MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
 
         }
@@ -478,12 +485,12 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
                 dataArray.add(routeLine)
             }
 
-            waitView.removeFromSuperview()
+            removeLoading()
             tableView.reloadData()
             
         }else{
             
-            waitView.removeFromSuperview()
+            removeLoading()
             MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
         }
     }
@@ -517,11 +524,11 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
                 
             }
             handler?.getCarDetailRoute(dataArray: dataArray)
-            waitView.removeFromSuperview()
+            removeLoading()
             tableView.reloadData()
         }else{
             
-            waitView.removeFromSuperview()
+            removeLoading()
             MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
     
         }
@@ -541,11 +548,11 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
                 dataArray.add(routeLine)
             }
             
-            waitView.removeFromSuperview()
+            removeLoading()
             tableView.reloadData()
         }else{
             
-            waitView.removeFromSuperview()
+            removeLoading()
             MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
     
         }
