@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate,BMKRouteSearchDelegate{
+class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate,BMKRouteSearchDelegate,MBProgressHUDDelegate{
     
     var buttonTag : String? = "101"
     var _routeSearch : BMKRouteSearch?
@@ -425,9 +425,10 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     //加载等待视图
     func loading(){
        
-        waitView  = MBProgressHUD()
-        waitView = JYDNetWorkManager.shareInstance.loadingHUD()
-        waitView.show(animated: true)
+        waitView  = MBProgressHUD.showAdded(to: self.view, animated: true)
+        waitView.delegate = self
+        waitView.bezelView.color = UIColor.clear
+        waitView.label.text = "加载中"
 
     }
     //MARK:BMKRouteSearch代理
