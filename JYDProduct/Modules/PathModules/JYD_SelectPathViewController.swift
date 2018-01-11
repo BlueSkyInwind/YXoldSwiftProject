@@ -432,7 +432,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     //加载等待视图
     func loading(){
        
-        MBPAlertView().showWaitView(view: self.view)
+        MBPAlertView.shareInstance.showWaitView(view: self.view)
 //        waitView  = MBProgressHUD.showAdded(to: self.view, animated: true)
 //        waitView.delegate = self
 //        waitView.bezelView.color = UIColor.clear
@@ -441,7 +441,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     }
     
     func removeLoading()  {
-        MBPAlertView().removeWaitView()
+        MBPAlertView.shareInstance.removeWaitView()
     }
     
     

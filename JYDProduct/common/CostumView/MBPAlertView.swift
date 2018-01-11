@@ -28,17 +28,24 @@ class MBPAlertView: NSObject {
     
     //MARK: 进度条
     func showWaitView(view:UIView)  {
-        waitHUb = MBProgressHUD.showAdded(to: view, animated: true)
+        waitHUb = MBProgressHUD.init(view: view)
         waitHUb?.mode = MBProgressHUDMode.indeterminate
         waitHUb?.animationType = MBProgressHUDAnimation.zoomIn;
         waitHUb?.removeFromSuperViewOnHide = true
-//        hud.labelText = "Loading...";
+        waitHUb?.label.text = "Loading...";
+        waitHUb?.label.textColor = UIColor.white;
+        waitHUb?.bezelView.color = UIColor.black
+        if #available(iOS 9.0, *) {
+            UIActivityIndicatorView.appearance(whenContainedInInstancesOf: [MBProgressHUD.self]).color = UIColor.white
+        } else {
+            waitHUb?.activityIndicatorColor = UIColor.white
+        }
+        view.addSubview(waitHUb!)
+        waitHUb?.show(animated: true)
     }
     
     func removeWaitView()  {
-        waitHUb?.hide(animated: true)
+        waitHUb?.hide(animated: true, afterDelay: 0)
         waitHUb = nil
     }
-    
-    
 }
