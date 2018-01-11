@@ -73,7 +73,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
+        return APPTool.obtainDisplaySize(size: 85)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

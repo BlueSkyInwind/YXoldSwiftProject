@@ -8,11 +8,13 @@
 
 import UIKit
 
+typealias StoreImageClickIndex = (_ index:Int) -> Void
 class JYD_StoreDisplayPhotoView: UIView {
     
     var titleLabel:UILabel?
     var imageBackView:UIView?
     var photos:[String]?
+    var clickIndex:StoreImageClickIndex?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +28,9 @@ class JYD_StoreDisplayPhotoView: UIView {
     }
     
     @objc func storeImageClick(button:UIButton) {
-        
+        if clickIndex != nil {
+            self.clickIndex!(button.tag - 1000)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,6 +78,7 @@ extension JYD_StoreDisplayPhotoView {
             let index = CGFloat((photos?.index(of: imageName))!)
             let imageLeft = (_k_w / 3 - imageWidth) / 2  +  (_k_w / 3 * index)
             let imageBtn = UIButton.init(type: UIButtonType.custom)
+            imageBtn.tag = Int(1000 + index)
             imageBtn.setImage(UIImage.init(named: imageName), for: UIControlState.normal)
             imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
             imageBackView?.addSubview(imageBtn)

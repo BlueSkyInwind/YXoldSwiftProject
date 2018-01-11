@@ -52,6 +52,16 @@
 		84AB21D51FFF63F8009DF659 /* JYD_MapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D41FFF63F8009DF659 /* JYD_MapHandler.swift */; };
 		84AB21D71FFF7581009DF659 /* JYD_HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D61FFF7581009DF659 /* JYD_HomeHeaderView.swift */; };
 		84AB21D91FFF800B009DF659 /* JYD_homeBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB21D81FFF800B009DF659 /* JYD_homeBottomView.swift */; };
+		84B5A3B82005BA550031F8C2 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3B72005BA550031F8C2 /* CoreTelephony.framework */; };
+		84B5A3BA2005BA5F0031F8C2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3B92005BA5F0031F8C2 /* Security.framework */; };
+		84B5A3BC2005BA6D0031F8C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3BB2005BA6D0031F8C2 /* CoreGraphics.framework */; };
+		84B5A3BE2005BA770031F8C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3BD2005BA770031F8C2 /* SystemConfiguration.framework */; };
+		84B5A3C02005BA960031F8C2 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3BF2005BA960031F8C2 /* OpenGLES.framework */; };
+		84B5A3C22005BABE0031F8C2 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3C12005BABE0031F8C2 /* libsqlite3.0.tbd */; };
+		84B5A3C42005BACA0031F8C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3C32005BACA0031F8C2 /* CoreLocation.framework */; };
+		84B5A3C82005E27C0031F8C2 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84B5A3C72005E27C0031F8C2 /* mapapi.bundle */; };
+		84B5A3CA2005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5A3C92005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift */; };
+		84B5A3CC20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5A3CB20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift */; };
 		84EBDB4D20033ED300873C1D /* JYD_StoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */; };
 		84EBDB4F200365C200873C1D /* JYD_StoreDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */; };
 		84EBDB51200365D400873C1D /* JYD_StoreDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */; };
@@ -144,6 +154,16 @@
 		84AB21D41FFF63F8009DF659 /* JYD_MapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_MapHandler.swift; sourceTree = "<group>"; };
 		84AB21D61FFF7581009DF659 /* JYD_HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_HomeHeaderView.swift; sourceTree = "<group>"; };
 		84AB21D81FFF800B009DF659 /* JYD_homeBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_homeBottomView.swift; sourceTree = "<group>"; };
+		84B5A3B72005BA550031F8C2 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		84B5A3B92005BA5F0031F8C2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		84B5A3BB2005BA6D0031F8C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		84B5A3BD2005BA770031F8C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		84B5A3BF2005BA960031F8C2 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		84B5A3C12005BABE0031F8C2 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		84B5A3C32005BACA0031F8C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84B5A3C72005E27C0031F8C2 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
+		84B5A3C92005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StorePhotoBrowseView.swift; sourceTree = "<group>"; };
+		84B5A3CB20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StorePhotoBrowseViewController.swift; sourceTree = "<group>"; };
 		84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreListTableViewCell.swift; sourceTree = "<group>"; };
 		84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDetailHeaderView.swift; sourceTree = "<group>"; };
 		84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JYD_StoreDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -162,6 +182,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B5A3C42005BACA0031F8C2 /* CoreLocation.framework in Frameworks */,
+				84B5A3C22005BABE0031F8C2 /* libsqlite3.0.tbd in Frameworks */,
+				84B5A3C02005BA960031F8C2 /* OpenGLES.framework in Frameworks */,
+				84B5A3BE2005BA770031F8C2 /* SystemConfiguration.framework in Frameworks */,
+				84B5A3BC2005BA6D0031F8C2 /* CoreGraphics.framework in Frameworks */,
+				84B5A3BA2005BA5F0031F8C2 /* Security.framework in Frameworks */,
+				84B5A3B82005BA550031F8C2 /* CoreTelephony.framework in Frameworks */,
 				00AEBA5A5358FDB73A56874B /* Pods_JYDProduct.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +424,7 @@
 		848FC6CE1FFE297300918CE9 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				84B5A3C72005E27C0031F8C2 /* mapapi.bundle */,
 				848FC6641FFE182300918CE9 /* Info.plist */,
 				848FC6B61FFE28A400918CE9 /* AppColors.plist */,
 				848FC6CD1FFE295300918CE9 /* JYDProduct-Bridging-Header.h */,
@@ -449,6 +477,7 @@
 			children = (
 				84AB21C31FFF1513009DF659 /* JYD_StoreListViewController.swift */,
 				84AB21C51FFF1542009DF659 /* JYD_StoreDetailViewController.swift */,
+				84B5A3CB20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift */,
 			);
 			path = StoreModules;
 			sourceTree = "<group>";
@@ -480,6 +509,7 @@
 				84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */,
 				84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */,
 				84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */,
+				84B5A3C92005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift */,
 			);
 			path = storeview;
 			sourceTree = "<group>";
@@ -487,6 +517,13 @@
 		C7AB7B42C2C17EF71216CFD6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84B5A3C32005BACA0031F8C2 /* CoreLocation.framework */,
+				84B5A3C12005BABE0031F8C2 /* libsqlite3.0.tbd */,
+				84B5A3BF2005BA960031F8C2 /* OpenGLES.framework */,
+				84B5A3BD2005BA770031F8C2 /* SystemConfiguration.framework */,
+				84B5A3BB2005BA6D0031F8C2 /* CoreGraphics.framework */,
+				84B5A3B92005BA5F0031F8C2 /* Security.framework */,
+				84B5A3B72005BA550031F8C2 /* CoreTelephony.framework */,
 				D2EBBA15597D4510C828A179 /* Pods_JYDProduct.framework */,
 			);
 			name = Frameworks;
@@ -632,6 +669,7 @@
 				848FC6B71FFE28A500918CE9 /* AppColors.plist in Resources */,
 				848FC6631FFE182300918CE9 /* LaunchScreen.storyboard in Resources */,
 				848FC6601FFE182300918CE9 /* Assets.xcassets in Resources */,
+				84B5A3C82005E27C0031F8C2 /* mapapi.bundle in Resources */,
 				848FC65E1FFE182300918CE9 /* Main.storyboard in Resources */,
 				84EBDB51200365D400873C1D /* JYD_StoreDetailHeaderView.xib in Resources */,
 			);
@@ -742,6 +780,7 @@
 				84AB21C11FFF14B2009DF659 /* JYD_HomePageViewController.swift in Sources */,
 				84AB21D51FFF63F8009DF659 /* JYD_MapHandler.swift in Sources */,
 				CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */,
+				84B5A3CC20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift in Sources */,
 				848FC6D51FFE2B3900918CE9 /* SSKeychainQuery.m in Sources */,
 				848FC6A31FFE266400918CE9 /* BaseNavigationViewController.swift in Sources */,
 				84AB21C91FFF15B9009DF659 /* JYD_SelectPathViewController.swift in Sources */,
@@ -749,6 +788,7 @@
 				848FC68F1FFE24C300918CE9 /* APPUrl.swift in Sources */,
 				848FC6A21FFE266400918CE9 /* BaseHandler.swift in Sources */,
 				848FC6D41FFE2B3900918CE9 /* SSKeychain.m in Sources */,
+				84B5A3CA2005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift in Sources */,
 				848FC6B21FFE274800918CE9 /* GlobalParamModel.swift in Sources */,
 				CC58B0871FFF64FA00142282 /* JYD_SelectePathCell.swift in Sources */,
 				84AB21CD1FFF1CFD009DF659 /* APPColor.swift in Sources */,

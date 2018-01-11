@@ -30,7 +30,7 @@ class JYD_homeBottomView: UIView {
     }
     
     convenience init (vc:UIViewController,titleStr:String,timeStr:String,addressStr:String,distanceStr:String) {
-        self.init(frame: CGRect.init(x: 0, y: _k_h, width: _k_w, height: 90))
+        self.init(frame: CGRect.init(x: 0, y: _k_h, width: _k_w, height: APPTool.obtainDisplaySize(size: 90)))
         VC = vc
         setContent(titleStr: titleStr, timeStr: timeStr, addressStr: addressStr, distanceStr: distanceStr)
     }

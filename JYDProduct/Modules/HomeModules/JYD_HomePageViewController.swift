@@ -66,8 +66,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.viewWillAppear()
         _mapView?.delegate = self
         locationService.delegate = self
-        locationService.startUserLocationService()
-
+        setUserLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,11 +89,20 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         param.locationViewImgName = ""
         _mapView?.updateLocationView(with: param)
     }
+    //MRAK:用户定位
+    func setUserLocation()  {
+        locationService.startUserLocationService()
+        _mapView?.showsUserLocation = false//先关闭显示的定位图层
+        _mapView?.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
+        _mapView?.showsUserLocation = true//显示定位图层
+    }
     
+    //MRAK:添加图层与点
     func addCircleView(_ Location:CLLocationCoordinate2D)  {
-        if circleView == nil {
-            circleView = BMKCircle(center: Location, radius: 5000)
+        if circleView != nil {
+            _mapView?.removeOverlays(_mapView?.overlays)
         }
+        circleView = BMKCircle(center: Location, radius: 5000)
         _mapView?.add(circleView!)
     }
     
@@ -223,7 +231,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didUpdateUserHeading(_ userLocation: BMKUserLocation!) {
         print("heading is \(userLocation.heading)")
-
         _mapView?.updateLocationData(userLocation)
     }
     
@@ -235,8 +242,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
 //        let  locationView = _mapView?.value(forKey: "_locationView") as! BMKAnnotationView
 //        locationView.image  = UIImage.init(named: "UserLocation_Icon")
-        _mapView?.updateLocationData(userLocation)
         _mapView?.setCenter(userLocation.location.coordinate, animated: true)
+        _mapView?.updateLocationData(userLocation)
         addCircleView(userLocation.location.coordinate)
         addPointAnnotation()
     }
