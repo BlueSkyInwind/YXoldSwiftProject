@@ -11,14 +11,23 @@ import MBProgressHUD
 
 class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource,JYD_SelectPathHeaderDelegate,BMKRouteSearchDelegate,MBProgressHUDDelegate{
     
+    //btnTag值：不同的交通工具
     var buttonTag : String? = "101"
     var _routeSearch : BMKRouteSearch?
+    //数据的数组
     var dataArray : NSMutableArray = []
+    //步行的路程数组
     var walkArray : NSMutableArray = []
+    //开始位置
     var startCoord: CLLocationCoordinate2D?
+    //结束位置
     var endCoord : CLLocationCoordinate2D?
+    //关于路线处理handler
     var handler:JYD_PathHandler?
+    //加载等待视图
     var waitView  = MBProgressHUD()
+    //地图handler
+    var Maphandler:JYD_MapHandler?
     
     let tableView: UITableView = {
         
@@ -70,6 +79,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         tableView.tableFooterView?.isHidden = true
         
         handler = JYD_PathHandler.init()
+        Maphandler = JYD_MapHandler.init()
+        Maphandler?.vc = self
         
     }
     
@@ -174,6 +185,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }
         
     }
+    
+    //设置底部按钮
     func setFooterView() -> UIView{
         
         let footerView = UIView()
@@ -194,13 +207,23 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         
     }
     
+    //底部按钮点击事件
     @objc func footerBtnClick(){
         
-        let controller = JYD_PathDetailViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
-        
-        print("底部按钮")
+        let tag = Int(buttonTag!)
+        switch tag {
+        case 102?:
+            Maphandler?.startExternalMaps(.MapDriving, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+        case 103?:
+            Maphandler?.startExternalMaps(.MapWalk, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+        case 104?:
+            Maphandler?.startExternalMaps(.MapRide, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+            
+        default:
+            break
+        }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -259,6 +282,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         
     }
     
+    //cell点击事件
     func setController(controller:JYD_PathDetailViewController ,tag: String , index:Int){
         
         let tag1 = Int(tag)
@@ -290,6 +314,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }
     }
     
+    //设置cell内容
     func setCell(cell :JYD_SelectePathCell ,tag : String,index : Int){
         
         let tag1 = Int(tag)
@@ -408,8 +433,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
 
    
     func showMapRoute(tag : Int){
-        
-        
+    
         loading()
         switch tag {
         case 101:
@@ -433,13 +457,10 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     func loading(){
        
         MBPAlertView.shareInstance.showWaitView(view: self.view)
-//        waitView  = MBProgressHUD.showAdded(to: self.view, animated: true)
-//        waitView.delegate = self
-//        waitView.bezelView.color = UIColor.clear
-//        waitView.label.text = "加载中"
 
     }
     
+    //移除等待视图
     func removeLoading()  {
         MBPAlertView.shareInstance.removeWaitView()
     }
