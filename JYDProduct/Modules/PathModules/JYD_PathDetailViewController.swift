@@ -152,6 +152,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     }
     //获取路线信息
     func getRouteDetailInfo(){
+        
+        bottomView?.type = tag!
         switch tag {
         case 101?:
             
@@ -536,13 +538,21 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         // Dispose of any resources that can be recreated.
     }
     
+    //具体路线显示或是隐藏
     func directionImage(isDown: Bool) {
         if isDown {
             
             UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.bottomView?.snp.updateConstraints({ (make) in
-                    make.height.equalTo(88)
-                })
+                
+                if UI_IS_IPHONEX {
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(100)
+                    })
+                }else{
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(88)
+                    })
+                }
                 self.bottomView?.directionButton?.setImage(UIImage(named:"up_icon"), for: .normal)
             }) { (complication) in
             }
@@ -550,9 +560,16 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }else{
             
             UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.bottomView?.snp.updateConstraints({ (make) in
-                    make.height.equalTo(238)
-                })
+                
+                if UI_IS_IPHONEX {
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(228)
+                    })
+                }else{
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(238)
+                    })
+                }
                 self.bottomView?.directionButton?.setImage(UIImage(named:"down_icon"), for: .normal)
             }) { (complication) in
             }

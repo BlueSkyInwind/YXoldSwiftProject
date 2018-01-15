@@ -321,7 +321,6 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         switch tag1 {
         case 101?:
             
-            
             let routeLine = dataArray[index] as! BMKMassTransitRouteLine
             let route = handler?.getBusDetailRoute(routeLine: routeLine)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
@@ -340,7 +339,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             if UI_IS_IPONE6 {
                 length = 24
             }else if UI_IS_IPHONE5{
-                length = 20
+                length = 23
             }
             if (route?.length)! > length{
                 cell.routeLabel?.snp.updateConstraints({ (make) in
@@ -375,17 +374,17 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         case 104?:
             let routeLine = dataArray[index] as! BMKRidingRouteLine
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-        
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             
             cell.leftLabel?.text = "\(index + 1)"
             let distanceStr = String(format:"%.2f",distance!)
-            cell.routeLabel?.text = "骑行" + "25分钟" + "  " + distanceStr + "km"
-            cell.timeLabel?.text = "累计爬行10米"
-            cell.distanceLabel?.text = "上坡80米"
-            cell.walkLabel?.text = "下坡38米"
+            cell.timeLabel?.text = "骑行" + "\(timeStr!)"
+            cell.distanceLabel?.text = distanceStr + "km"
+//            cell.routeLabel?.text = "骑行" + "25分钟" + "  " + distanceStr + "km"
+//            cell.timeLabel?.text = "累计爬行10米"
+//            cell.distanceLabel?.text = "上坡80米"
+//            cell.walkLabel?.text = "下坡38米"
 
-            
             break
         default:
             break

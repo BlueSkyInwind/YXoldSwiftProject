@@ -56,11 +56,11 @@ extension JYD_SelectePathCell{
         
         let type = Int(type)
         switch type {
-        case 101?,104?:
+        case 101?:
             setBusUI()
         case 102?:
             setCarUI()
-        case 103?:
+        case 103?,104?:
             setWalkUI()
         case .none:
             break
@@ -93,6 +93,9 @@ extension JYD_SelectePathCell{
         routeLabel = UILabel()
         routeLabel?.textColor = SelectPathRoute_Color
         routeLabel?.font = UIFont.systemFont(ofSize: 15)
+        if UI_IS_IPHONE5 {
+            routeLabel?.font = UIFont.systemFont(ofSize: 12)
+        }
         self.addSubview(routeLabel!)
         routeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(leftImageView.snp.right).offset(9)
@@ -134,6 +137,15 @@ extension JYD_SelectePathCell{
             })
             walkLabel?.snp.updateConstraints({ (make) in
                 make.left.equalTo((distanceLabel?.snp.right)!).offset(25)
+            })
+        }
+        
+        if UI_IS_IPHONE5 {
+            distanceLabel?.snp.updateConstraints({ (make) in
+                make.left.equalTo((timeLabel?.snp.right)!).offset(13)
+            })
+            walkLabel?.snp.updateConstraints({ (make) in
+                make.left.equalTo((distanceLabel?.snp.right)!).offset(15)
             })
         }
         
@@ -233,6 +245,9 @@ extension JYD_SelectePathCell{
             make.centerY.equalTo(self.snp.centerY)
         })
         
+        if UI_IS_IPHONE5 {
+            timeLabel?.font = UIFont.systemFont(ofSize: 13)
+        }
         distanceLabel = UILabel()
         distanceLabel?.textColor = SelectPathTime_Color
         distanceLabel?.font = UIFont.systemFont(ofSize: 12)

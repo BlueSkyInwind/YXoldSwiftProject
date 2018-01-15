@@ -12,6 +12,7 @@ class JYD_SelectPathDetailCell: UITableViewCell {
 
     var lineView : UIView?
     var contentLabel : UILabel?
+    var leftImageView : UIImageView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,10 +38,9 @@ class JYD_SelectPathDetailCell: UITableViewCell {
 extension JYD_SelectPathDetailCell{
     fileprivate func setupUI(){
         
-        let leftImageView = UIImageView()
-        leftImageView.image = UIImage(named:"bus_icon")
-        self.addSubview(leftImageView)
-        leftImageView.snp.makeConstraints { (make) in
+        leftImageView = UIImageView()
+        self.addSubview(leftImageView!)
+        leftImageView?.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(20)
             make.top.equalTo(self.snp.top).offset(15)
             make.height.equalTo(18)
@@ -53,7 +53,7 @@ extension JYD_SelectPathDetailCell{
         contentLabel?.numberOfLines = 0
         self.addSubview(contentLabel!)
         contentLabel?.snp.makeConstraints { (make) in
-            make.left.equalTo(leftImageView.snp.right).offset(20)
+            make.left.equalTo((leftImageView?.snp.right)!).offset(20)
             make.top.equalTo(self.snp.top).offset(2)
             make.height.equalTo(40)
             make.right.equalTo(self.snp.right).offset(-27)
