@@ -102,7 +102,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         locationService.startUserLocationService()
         locationService.allowsBackgroundLocationUpdates = false
         _mapView?.showsUserLocation = false//先关闭显示的定位图层
-        _mapView?.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
+        _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
         _mapView?.showsUserLocation = true//显示定位图层
     }
     
@@ -249,7 +249,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didUpdate(_ userLocation: BMKUserLocation!) {
         DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
-//        let  locationView = _mapView?.value(forKey: "_locationView") as! BMKAnnotationView
+//        let  locationView = _mapView?.value(forKey: "locationView") as! BMKAnnotationView
 //        locationView.image  = UIImage.init(named: "UserLocation_Icon")
         _mapView?.setCenter(userLocation.location.coordinate, animated: true)
         _mapView?.updateLocationData(userLocation)
