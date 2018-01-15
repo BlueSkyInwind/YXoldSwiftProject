@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import Spring
 
+//MARK: xib加载
 protocol NibLoadProtocol {
     
 }
@@ -19,8 +21,9 @@ extension NibLoadProtocol where Self : UIView{
     }
 }
 
+
+//MARK: 字符串扩展
 extension String {
-    
     
     /// 将十六进制颜色转换为UIColor
     func uiColor() -> UIColor {
@@ -49,8 +52,8 @@ extension String {
     }
 }
 
+//MARK: 字体扩展
 extension UIFont {
-    
     
    class func obtainDisplayFontSize(fontSize:Float) -> Float {
         var fontScale:Float = 1.0;
