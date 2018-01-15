@@ -17,14 +17,23 @@ import UIKit
 
 class JYD_SelectPathDetailRouterView: UIView ,UITableViewDelegate,UITableViewDataSource{
 
+    //路线
     var routerLabel : UILabel?
+    //时间
     var timeLabel : UILabel?
+    //距离
     var distanceLabel : UILabel?
+    //步行
     var walkLabel : UILabel?
+    //显示隐藏小图标
     var directionButton : UIButton?
+    //线
     var lineView : UIView?
+    //路线具体内容
     var contentLabel : UILabel?
+    //总路线内容
     var dataArray : NSMutableArray = []
+    var type : Int = 0
 
     @objc weak var delegate : JYD_SelectPathDetailRouterViewDelegate?
     
@@ -97,7 +106,6 @@ extension JYD_SelectPathDetailRouterView{
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo((routerLabel?.snp.left)!).offset(0)
             make.top.equalTo((routerLabel?.snp.bottom)!).offset(11)
-//            make.bottom.equalTo(pathView.snp.bottom).offset(-10)
         })
         
         distanceLabel = UILabel()
@@ -131,25 +139,10 @@ extension JYD_SelectPathDetailRouterView{
             make.top.equalTo(pathBgView.snp.bottom).offset(0)
             make.height.equalTo(150)
         }
-        
-//        for index in 0..<3 {
-//
-//            let contentView = setContentView()
-//            contentLabel?.text = "乘坐地铁10号线，在江湾体育场站上车，经过11站到达老西门站下车"
-//            self.addSubview(contentView)
-//            contentView.snp.makeConstraints({ (make) in
-//                make.left.equalTo(self).offset(0)
-//                make.right.equalTo(self).offset(0)
-//                make.top.equalTo(pathBgView.snp.bottom).offset(index * 50)
-//                make.height.equalTo(50)
-//            })
-//
-//            if index == 2{
-//                lineView?.isHidden = true
-//            }
-//        }
+    
     }
     
+    //点击小图标，显示或隐藏
     @objc func directionButtonClick(){
         
         directionButton?.isSelected = !(directionButton?.isSelected)!
@@ -187,6 +180,8 @@ extension JYD_SelectPathDetailRouterView{
         cell.selectionStyle = .none
         cell.isSelected = false;
         cell.contentLabel?.text = dataArray[indexPath.row] as? String
+        cell.leftImageView?.image = UIImage(named:setLeftImageView(content: (cell.contentLabel?.text)!))
+        setImageViewSize(imageName: setLeftImageView(content: (cell.contentLabel?.text)!), cell: cell)
         cell.lineView?.isHidden = false
         if indexPath.row == dataArray.count - 1{
             
@@ -195,7 +190,68 @@ extension JYD_SelectPathDetailRouterView{
         
         return cell
     }
+    
+    //设置图片的大小
+    func setImageViewSize(imageName:String ,cell :JYD_SelectPathDetailCell ){
+        if imageName == "walk_icon" {
+            cell.leftImageView?.snp.updateConstraints({ (make) in
+                make.width.equalTo(12)
+                make.height.equalTo(20)
+            })
+        }
+        if imageName == "train_icon" || imageName == "bus_icon"{
+            cell.leftImageView?.snp.updateConstraints({ (make) in
+                make.width.equalTo(14)
+                make.height.equalTo(18)
+            })
+        }
+        if imageName == "car_icon" {
+            cell.leftImageView?.snp.updateConstraints({ (make) in
+                make.width.equalTo(18)
+                make.height.equalTo(15)
+            })
+        }
+        
+        if imageName == "riding_icon" {
+            cell.leftImageView?.snp.updateConstraints({ (make) in
+                make.width.equalTo(22)
+                make.height.equalTo(14)
+            })
+        }
+    }
+    
+    //设置图片的名称
+    func setLeftImageView(content: String) -> String{
+        
+        var imageName : String
+        imageName = ""
+        
+        switch type {
+        case 101:
+
+            if content.contains("步行") || content.contains("换乘") {
+                imageName = "walk_icon"
+            }else if content.contains("地铁") {
+                imageName = "train_icon"
+            }else{
+                
+                imageName = "bus_icon"
+            }
+            
+        case 102:
+            imageName = "car_icon"
+        case 103:
+            imageName = "walk_icon"
+        case 104:
+            imageName = "riding_icon"
+        default:
+            break
+        }
+        return imageName
+    }
 }
+
+
 
 extension JYD_SelectPathDetailRouterView{
     

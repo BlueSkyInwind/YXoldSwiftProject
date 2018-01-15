@@ -8,22 +8,29 @@
 
 import UIKit
 
-class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_SelectPathDetailRouterViewDelegate,JYD_MapHandlerDelegate{
-    
+class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_SelectPathDetailRouterViewDelegate,JYD_MapHandlerDelegate, BMKLocationServiceDelegate{
     
     var _mapView:BMKMapView?
+    //地图缩放尺寸
     var zoomSize:Float = 14
+    //mapHandler
     var handler:JYD_MapHandler?
     var busRoute: BMKMassTransitRouteLine?
     var drivingRoute: BMKDrivingRouteLine?
     var walkingRoute: BMKWalkingRouteLine?
     var ridingRoute: BMKRidingRouteLine?
+    //路线数据数组
     var dataArray : NSMutableArray = []
+    //交通工具tag值
     var tag : Int?
  
+    //定位
+    var locationService: BMKLocationService!
+    //驾车描述
     var drivingDesc:String?
     var pathHandler:JYD_PathHandler?
     var bottomView : JYD_SelectPathDetailRouterView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +56,10 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _mapView?.viewWillAppear()
+        
+        locationService.delegate = self
         _mapView?.delegate = self
+        setUserLocation()
 
     }
     
@@ -57,7 +67,17 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         super.viewWillDisappear(animated)
         _mapView?.viewWillDisappear()
         _mapView?.delegate = nil
+        locationService.delegate = self
+        locationService.stopUserLocationService()
         self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    //MRAK:用户定位
+    func setUserLocation()  {
+        locationService.startUserLocationService()
+        _mapView?.showsUserLocation = false//先关闭显示的定位图层
+        _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
+        _mapView?.showsUserLocation = true//显示定位图层
     }
     
     //获取公交车路线信息
@@ -113,6 +133,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }
     }
 
+    //不通交通的规划路线
     func getMapRoute(){
         
         switch tag {
@@ -131,6 +152,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     }
     //获取路线信息
     func getRouteDetailInfo(){
+        
+        bottomView?.type = tag!
         switch tag {
         case 101?:
             
@@ -208,7 +231,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             for j in 0..<Int(transitStep.steps.count) {
                 //添加annotation节点
                 let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
-//                let item = BMKPointAnnotation.init()
+
                 let item = RouteAnnotation.init()
                 item.coordinate = subStep.entraceCoor
                 item.title = subStep.instructions
@@ -480,16 +503,17 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     //创建地图
     func mapView(){
         
+        locationService = BMKLocationService()
+        locationService.allowsBackgroundLocationUpdates = true
+        
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
         self.view.addSubview(_mapView!)
         _mapView?.zoomLevel = zoomSize
-        _mapView?.userTrackingMode = BMKUserTrackingModeFollow
         addMapScaleBar()
         
         handler = JYD_MapHandler.init()
         handler?.delegate = self
         handler?.vc = self
-        handler?.addRepositionBtn(CGPoint.init(x: 10, y: _k_h / 2))
         handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2))
     }
     
@@ -514,13 +538,21 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         // Dispose of any resources that can be recreated.
     }
     
+    //具体路线显示或是隐藏
     func directionImage(isDown: Bool) {
         if isDown {
             
             UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.bottomView?.snp.updateConstraints({ (make) in
-                    make.height.equalTo(88)
-                })
+                
+                if UI_IS_IPHONEX {
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(100)
+                    })
+                }else{
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(88)
+                    })
+                }
                 self.bottomView?.directionButton?.setImage(UIImage(named:"up_icon"), for: .normal)
             }) { (complication) in
             }
@@ -528,9 +560,16 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }else{
             
             UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.bottomView?.snp.updateConstraints({ (make) in
-                    make.height.equalTo(238)
-                })
+                
+                if UI_IS_IPHONEX {
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(228)
+                    })
+                }else{
+                    self.bottomView?.snp.updateConstraints({ (make) in
+                        make.height.equalTo(238)
+                    })
+                }
                 self.bottomView?.directionButton?.setImage(UIImage(named:"down_icon"), for: .normal)
             }) { (complication) in
             }
@@ -540,8 +579,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
-        DPrint(message: "重新定位")
-        
+
     }
     
     func addMapEnlargedButtonClick() {
@@ -662,6 +700,46 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         UIGraphicsEndImageContext();
         return newImage!;
     }
+    
+    
+    // MARK: - BMKLocationServiceDelegate
+    
+    /**
+     *在地图View将要启动定位时，会调用此函数
+     *@param mapView 地图View
+     */
+    func willStartLocatingUser() {
+        print("willStartLocatingUser");
+    }
+    
+    /**
+     *用户方向更新后，会调用此函数
+     *@param userLocation 新的用户位置
+     */
+    func didUpdateUserHeading(_ userLocation: BMKUserLocation!) {
+        print("heading is \(userLocation.heading)")
+        _mapView?.updateLocationData(userLocation)
+    }
+    
+    /**
+     *用户位置更新后，会调用此函数
+     *@param userLocation 新的用户位置
+     */
+    func didUpdate(_ userLocation: BMKUserLocation!) {
+        DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
+
+        _mapView?.updateLocationData(userLocation)
+        
+    }
+    
+    /**
+     *在地图View停止定位后，会调用此函数
+     *@param mapView 地图View
+     */
+    func didStopLocatingUser() {
+        print("didStopLocatingUser")
+    }
+
     
     /*
     // MARK: - Navigation
