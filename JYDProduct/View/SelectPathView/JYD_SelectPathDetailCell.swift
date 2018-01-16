@@ -10,8 +10,11 @@ import UIKit
 
 class JYD_SelectPathDetailCell: UITableViewCell {
 
+    //
     var lineView : UIView?
+    //内容
     var contentLabel : UILabel?
+    //交通工具的图片
     var leftImageView : UIImageView?
     
     override func awakeFromNib() {

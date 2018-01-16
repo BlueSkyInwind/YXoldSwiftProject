@@ -20,6 +20,19 @@ let storeDetailImageTitle = "门店照片"
 let  StartMapSheetMessage = "请选择您已经安装的导航工具"
 let  StartMapButtonTitle = "使用本地地图导航"
 
+let BusTitle = "公交"
+let CarTitle = "驾车"
+let WalkTitle = "步行"
+let RidingTitle = "骑行"
+
+let MyLocationTitle = "我的位置"
+
+
+
+
+
+
+
 
 
 

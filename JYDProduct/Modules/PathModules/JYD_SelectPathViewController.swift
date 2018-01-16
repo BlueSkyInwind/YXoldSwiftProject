@@ -214,11 +214,13 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         switch tag {
         case 102?:
             Maphandler?.startExternalMaps(.MapDriving, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+            break
         case 103?:
             Maphandler?.startExternalMaps(.MapWalk, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+            break
         case 104?:
             Maphandler?.startExternalMaps(.MapRide, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
-            
+            break
         default:
             break
         }
@@ -278,8 +280,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         
        let controller = JYD_PathDetailViewController()
         setController(controller:controller , tag: buttonTag!, index: indexPath.section)
-        
-        
+    
     }
     
     //cell点击事件
@@ -335,21 +336,24 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             let walkStr = String(format:"%.2f",walkDistance!)
             cell.walkLabel?.text = walkStr + "km"
            
-            var length = 28
-            if UI_IS_IPONE6 {
-                length = 24
-            }else if UI_IS_IPHONE5{
-                length = 23
+            let str = (cell.routeLabel?.text)! as NSString
+            
+            var width = str.size(withAttributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)]).width
+            if UI_IS_IPHONE5 {
+                width = str.size(withAttributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12)]).width
             }
-            if (route?.length)! > length{
+            
+            if width > UIScreen.main.bounds.size.width - 88 {
+                
                 cell.routeLabel?.snp.updateConstraints({ (make) in
                     make.top.equalTo(cell.snp.top).offset(10)
                 })
             }
+
             cell.timeLabel?.text = "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
             cell.distanceLabel?.text = distanceStr + "km"
-            
+            break
             
         case 102?:
             let routeLine = dataArray[index] as! BMKDrivingRouteLine
@@ -360,13 +364,13 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.timeLabel?.text = "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
             cell.distanceLabel?.text = distanceStr + "km"
-            
+            break
         case 103?:
             let routeLine = dataArray[index] as! BMKWalkingRouteLine
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
             let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
-            cell.timeLabel?.text = "步行" + "\(timeStr!)"
+            cell.timeLabel?.text = WalkTitle + "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
             cell.distanceLabel?.text = distanceStr + "km"
             
@@ -378,12 +382,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             
             cell.leftLabel?.text = "\(index + 1)"
             let distanceStr = String(format:"%.2f",distance!)
-            cell.timeLabel?.text = "骑行" + "\(timeStr!)"
+            cell.timeLabel?.text = RidingTitle + "\(timeStr!)"
             cell.distanceLabel?.text = distanceStr + "km"
-//            cell.routeLabel?.text = "骑行" + "25分钟" + "  " + distanceStr + "km"
-//            cell.timeLabel?.text = "累计爬行10米"
-//            cell.distanceLabel?.text = "上坡80米"
-//            cell.walkLabel?.text = "下坡38米"
 
             break
         default:
@@ -437,12 +437,16 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         switch tag {
         case 101:
             setBusRoute(startCoord: startCoord!, endCoord: endCoord!)
+            break
         case 102:
             setCarRoute(startCoord: startCoord!, endCoord: endCoord!)
+            break
         case 103:
             setWalkRoute(startCoord: startCoord!, endCoord: endCoord!)
+            break
         case 104:
             setRidingRoute(startCoord: startCoord!, endCoord: endCoord!)
+            break
         default:
             break
         }

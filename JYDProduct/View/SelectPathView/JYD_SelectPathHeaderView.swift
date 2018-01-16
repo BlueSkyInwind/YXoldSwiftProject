@@ -21,9 +21,11 @@ import UIKit
 class JYD_SelectPathHeaderView: UIView {
 
     @objc weak var delegate : JYD_SelectPathHeaderDelegate?
-    
+    //开始位置
     var startLocationLabel : UILabel?
+    //终点位置
     var endLocationLabel : UILabel?
+    //按钮下的下划线
     var lineImageView : UIImageView?
     
     /*
@@ -60,7 +62,7 @@ extension JYD_SelectPathHeaderView {
         
         
         let titleLabel = UILabel()
-        titleLabel.text = "急用达"
+        titleLabel.text = Home_NavTitle
         titleLabel.font = UIFont.systemFont(ofSize: 17)
         titleLabel.textColor = UIColor.white
         self.addSubview(titleLabel)
@@ -101,7 +103,7 @@ extension JYD_SelectPathHeaderView {
         }
         
         startLocationLabel = UILabel()
-        startLocationLabel?.text = "我的位置"
+        startLocationLabel?.text = MyLocationTitle
         startLocationLabel?.textColor = LOCATION_Color
         startLocationLabel?.font = UIFont.systemFont(ofSize: 15)
         startImageView.addSubview(startLocationLabel!)
@@ -153,7 +155,7 @@ extension JYD_SelectPathHeaderView {
         }
         
         let busButton = UIButton()
-        busButton.setTitle("公交", for: .normal)
+        busButton.setTitle(BusTitle, for: .normal)
         busButton.tag = 101
         busButton.setTitleColor(UIColor.white, for: .normal)
         busButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -176,7 +178,7 @@ extension JYD_SelectPathHeaderView {
         let width = (UIScreen.main.bounds.size.width - 220) / 3
         
         let carButton = UIButton()
-        carButton.setTitle("驾车", for: .normal)
+        carButton.setTitle(CarTitle, for: .normal)
         carButton.tag = 102
         carButton.setTitleColor(UIColor.white, for: .normal)
         carButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -188,7 +190,7 @@ extension JYD_SelectPathHeaderView {
         }
         
         let walkButton = UIButton()
-        walkButton.setTitle("步行", for: .normal)
+        walkButton.setTitle(WalkTitle, for: .normal)
         walkButton.tag = 103
         walkButton.setTitleColor(UIColor.white, for: .normal)
         walkButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -200,7 +202,7 @@ extension JYD_SelectPathHeaderView {
         }
         
         let ridingButton = UIButton()
-        ridingButton.setTitle("骑行", for: .normal)
+        ridingButton.setTitle(RidingTitle, for: .normal)
         ridingButton.tag = 104
         ridingButton.setTitleColor(UIColor.white, for: .normal)
         ridingButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -231,6 +233,7 @@ extension JYD_SelectPathHeaderView {
 }
 extension JYD_SelectPathHeaderView{
     
+    //交换起始位置
     @objc func changeLocation(){
         
         if delegate != nil {
@@ -242,6 +245,7 @@ extension JYD_SelectPathHeaderView{
         }
     }
     
+    //展示路线
     @objc func showRoute(sender: UIButton){
         
         let x = sender.frame.origin.x
@@ -254,6 +258,7 @@ extension JYD_SelectPathHeaderView{
         }
     }
     
+    //返回按钮
     @objc func back(){
         
         if delegate != nil {

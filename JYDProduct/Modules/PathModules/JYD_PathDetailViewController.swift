@@ -34,7 +34,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "急用达"
+        self.title = Home_NavTitle
         addBackItem()
         mapView()
         bottomView = JYD_SelectPathDetailRouterView()
@@ -139,13 +139,16 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         switch tag {
         case 101?:
             showBusRoutePlan()
-            
+            break
         case 102?:
             showCarRoutePlan()
+            break
         case 103?:
             showWalkingRoutePlan()
+            break
         case 104?:
             showRidingRoutePlan()
+            break
         default:
             break
         }
@@ -172,7 +175,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             bottomView?.walkLabel?.text = walkStr + "km"
             bottomView?.routerLabel?.font = UIFont.systemFont(ofSize: 13)
             getBusDetailRoute(routeLine: busRoute!)
-            
+            break
         case 102?:
             
             let timeStr = pathHandler?.calculateTime(duration: drivingRoute!.duration)
@@ -183,29 +186,32 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             bottomView?.distanceLabel?.text = distanceStr + "km"
             bottomView?.routerLabel?.text = drivingDesc
             getDrivingDetailRoute(routeLine: drivingRoute!)
+            break
 
         case 103?:
             
             let timeStr = pathHandler?.calculateTime(duration: walkingRoute!.duration)
             let distance = pathHandler?.calculateDistance(distance: Int(walkingRoute!.distance))
-            bottomView?.timeLabel?.textColor = SelectPathRoute_Color
-            bottomView?.timeLabel?.text = "步行" + "\(timeStr!)"
+            bottomView?.timeLabel?.textColor = StoreDetailImageTitle_Color
+            bottomView?.timeLabel?.text = WalkTitle + "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
             bottomView?.distanceLabel?.text = distanceStr + "km"
             
             getWalkingDetailRoute(routeLine: walkingRoute!)
+            break
 
         case 104?:
             
             let timeStr = pathHandler?.calculateTime(duration: ridingRoute!.duration)
             let distance = pathHandler?.calculateDistance(distance: Int(ridingRoute!.distance))
             
-            bottomView?.timeLabel?.text = "骑行" + "\(timeStr!)"
-            bottomView?.timeLabel?.textColor = SelectPathRoute_Color
+            bottomView?.timeLabel?.text = RidingTitle + "\(timeStr!)"
+            bottomView?.timeLabel?.textColor = StoreDetailImageTitle_Color
             let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.textColor = SelectPathRoute_Color
+            bottomView?.distanceLabel?.textColor = StoreDetailImageTitle_Color
             bottomView?.distanceLabel?.text = distanceStr + "km"
             getRidingDetailRoute(routeLine: ridingRoute!)
+            break
 
         default:
             break
@@ -504,8 +510,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     func mapView(){
         
         locationService = BMKLocationService()
-        locationService.allowsBackgroundLocationUpdates = true
-        
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
         self.view.addSubview(_mapView!)
         _mapView?.zoomLevel = zoomSize
@@ -514,7 +518,13 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         handler = JYD_MapHandler.init()
         handler?.delegate = self
         handler?.vc = self
-        handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2))
+        
+        if UI_IS_IPHONE5 {
+            handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2 - 60))
+        }else{
+            
+            handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2))
+        }
     }
     
     //设置比例尺位置

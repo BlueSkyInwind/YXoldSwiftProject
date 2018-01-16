@@ -62,7 +62,7 @@ extension JYD_StoreListTableViewCell {
         
         titleLabel = UILabel()
         titleLabel?.font = UIFont.FitBoldSystemFontOfSize(fontSize: 15)
-        titleLabel?.textColor = homeBottomTitleColor
+        titleLabel?.textColor = homeHeaderTitleColor
         self.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
@@ -71,7 +71,7 @@ extension JYD_StoreListTableViewCell {
         
         timeLabel = UILabel()
         timeLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
-        timeLabel?.textColor = homeBottomContentColor
+        timeLabel?.textColor = homeHeaderTitleColor
         self.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
@@ -80,7 +80,7 @@ extension JYD_StoreListTableViewCell {
         
         adressLabel = UILabel()
         adressLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
-        adressLabel?.textColor = homeBottomContentColor
+        adressLabel?.textColor = homeHeaderTitleColor
         self.addSubview(adressLabel!)
         adressLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))

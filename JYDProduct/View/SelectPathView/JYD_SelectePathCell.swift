@@ -10,12 +10,17 @@ import UIKit
 
 class JYD_SelectePathCell: UITableViewCell {
 
+    //左边数字
     var leftLabel : UILabel?
+    //路线
     var routeLabel : UILabel?
+    //时间
     var timeLabel : UILabel?
+    //步行
     var walkLabel : UILabel?
+    //路线总距离
     var distanceLabel : UILabel?
-    
+    //交通工具type
     @objc var type : String?{
         didSet(newValue){
             
@@ -54,6 +59,7 @@ extension JYD_SelectePathCell{
             view.removeFromSuperview()
         }
         
+        //101：公交车  102：自驾 103：步行 104：自行车
         let type = Int(type)
         switch type {
         case 101?:
@@ -67,8 +73,9 @@ extension JYD_SelectePathCell{
         case .some(_):
             break
         }
-        
     }
+    
+    //公交车的UI
     fileprivate func setBusUI(){
         
         let leftImageView = UIImageView()
@@ -91,7 +98,7 @@ extension JYD_SelectePathCell{
         })
         
         routeLabel = UILabel()
-        routeLabel?.textColor = SelectPathRoute_Color
+        routeLabel?.textColor = StoreDetailImageTitle_Color
         routeLabel?.font = UIFont.systemFont(ofSize: 15)
         if UI_IS_IPHONE5 {
             routeLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -158,6 +165,7 @@ extension JYD_SelectePathCell{
         }
     }
     
+    //自驾的UI
     fileprivate func setCarUI(){
         
         let leftImageView = UIImageView()
@@ -180,7 +188,7 @@ extension JYD_SelectePathCell{
         })
         
         routeLabel = UILabel()
-        routeLabel?.textColor = SelectPathRoute_Color
+        routeLabel?.textColor = StoreDetailImageTitle_Color
         routeLabel?.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(routeLabel!)
         routeLabel?.snp.makeConstraints({ (make) in
@@ -215,6 +223,7 @@ extension JYD_SelectePathCell{
         }
     }
 
+    //步行和骑车的UI
     fileprivate func setWalkUI(){
         
         let leftImageView = UIImageView()
@@ -237,7 +246,7 @@ extension JYD_SelectePathCell{
         })
         
         timeLabel = UILabel()
-        timeLabel?.textColor = SelectPathRoute_Color
+        timeLabel?.textColor = StoreDetailImageTitle_Color
         timeLabel?.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in

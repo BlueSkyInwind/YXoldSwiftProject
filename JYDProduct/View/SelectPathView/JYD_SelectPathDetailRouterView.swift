@@ -89,7 +89,7 @@ extension JYD_SelectPathDetailRouterView{
         })
         
         routerLabel = UILabel()
-        routerLabel?.textColor = SelectPathRoute_Color
+        routerLabel?.textColor = StoreDetailImageTitle_Color
         routerLabel?.font = UIFont.systemFont(ofSize: 15)
         routerLabel?.numberOfLines = 0
         pathView.addSubview(routerLabel!)
@@ -229,7 +229,7 @@ extension JYD_SelectPathDetailRouterView{
         switch type {
         case 101:
 
-            if content.contains("步行") || content.contains("换乘") {
+            if content.contains(WalkTitle) || content.contains("换乘") {
                 imageName = "walk_icon"
             }else if content.contains("地铁") {
                 imageName = "train_icon"
