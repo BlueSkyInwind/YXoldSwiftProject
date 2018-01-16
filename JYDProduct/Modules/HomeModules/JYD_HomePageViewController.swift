@@ -249,8 +249,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didUpdate(_ userLocation: BMKUserLocation!) {
         DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
-//        let  locationView = _mapView?.value(forKey: "locationView") as! BMKAnnotationView
-//        locationView.image  = UIImage.init(named: "UserLocation_Icon")
         _mapView?.setCenter(userLocation.location.coordinate, animated: true)
         _mapView?.updateLocationData(userLocation)
         addCircleView(userLocation.location.coordinate)

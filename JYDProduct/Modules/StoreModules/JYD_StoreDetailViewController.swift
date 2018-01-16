@@ -81,7 +81,7 @@ class JYD_StoreDetailViewController: BaseViewController {
     }
     
     @objc func startExternalMapBtnClick() {
-        handler?.startExternalMaps(.MapTransit, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+        handler?.startExternalMaps(.MapAnnotation, fromLocation: CLLocationCoordinate2DMake(0, 0), fromName: "", toLocation: CLLocationCoordinate2DMake(31.3508636304, 121.5068148925), toName: "淞发路地铁站")
     }
     
     override func didReceiveMemoryWarning() {
