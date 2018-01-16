@@ -110,11 +110,17 @@ class JYD_MapHandler: BaseHandler {
         alertSheetVC.addAction(cancelAction)
         vc?.present(alertSheetVC, animated: true, completion: nil)
     }
+    
     //MARK:高德地图
     func startExternalGaodeMaps(_ externalMapsType:JYD_StartExternalMapsType,fromLocation:CLLocationCoordinate2D,fromName:String,toLocation:CLLocationCoordinate2D,toName:String)  {
+        //百度坐标转火星坐标
+        let fromParamDic = BMKConvertBaiduCoorFrom(fromLocation, BMK_COORDTYPE_COMMON)
+        let toParamDic = BMKConvertBaiduCoorFrom(fromLocation, BMK_COORDTYPE_COMMON)
         
+        let fromCoordinate = ConvertBase64ToCoor(dic: fromParamDic! as NSDictionary)
+        let toCoordinate = ConvertBase64ToCoor(dic: toParamDic! as NSDictionary)
+
         var routeType = 1  //高德中 0，驾车  1，公交  2，步行  3，骑行 （骑行仅在V788以上版本支持）
-        
         switch externalMapsType {
         case .MapWalk:
             routeType = 2
@@ -130,7 +136,7 @@ class JYD_MapHandler: BaseHandler {
             break
         }
         
-        let aMapUrl = "iosamap://path?sourceApplication=\(appDisplayName)&sid=BGVIS1&slat=\(fromLocation.latitude)&slon=\(fromLocation.longitude)&sname=我的位置&did=BGVIS2&dlat=\(toLocation.latitude)&dlon=\(toLocation.longitude)&dname=nil&dev=0&t=\(routeType)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let aMapUrl = "iosamap://path?sourceApplication=\(appDisplayName)&sid=BGVIS1&slat=\(fromCoordinate.latitude)&slon=\(fromCoordinate.longitude)&sname=我的位置&did=BGVIS2&dlat=\(toCoordinate.latitude)&dlon=\(toCoordinate.longitude)&dname=nil&dev=0&t=\(routeType)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
         if #available(iOS 10.0, *){
             UIApplication.shared.open(URL.init(string: aMapUrl!)!, options: [:], completionHandler: { (isSuccess) in
@@ -142,9 +148,14 @@ class JYD_MapHandler: BaseHandler {
     }
      //MARK:本地地图
     func startExternalAppleMaps(_ externalMapsType:JYD_StartExternalMapsType,fromLocation:CLLocationCoordinate2D,fromName:String,toLocation:CLLocationCoordinate2D,toName:String)  {
+        //百度坐标转本机坐标
+        let fromParamDic = BMKConvertBaiduCoorFrom(fromLocation, BMK_COORDTYPE_GPS)
+        let toParamDic = BMKConvertBaiduCoorFrom(toLocation, BMK_COORDTYPE_GPS)
+        let fromCoordinate = ConvertBase64ToCoor(dic: fromParamDic! as NSDictionary)
+        let toCoordinate = ConvertBase64ToCoor(dic: toParamDic! as NSDictionary)
         
-        let currentLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: fromLocation, addressDictionary: [:]))
-        let toLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: toLocation, addressDictionary: [:]))
+        let currentLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: fromCoordinate, addressDictionary: [:]))
+        let toLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: toCoordinate, addressDictionary: [:]))
         let items = [currentLocation,toLocation]
         let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsMapTypeKey:NSNumber.init(value: 0), MKLaunchOptionsShowsTrafficKey:true] as [String : Any]
         MKMapItem.openMaps(with: items, launchOptions: options)
@@ -216,6 +227,19 @@ class JYD_MapHandler: BaseHandler {
         }
     }
     
+    //MARK:将base64的经纬度转化
+    func ConvertBase64ToCoor(dic:NSDictionary) -> CLLocationCoordinate2D {
+        let baseX = dic["x"]
+        let baseY = dic["y"]
+        let decodedDataX:NSData? = NSData(base64Encoded:baseX as! String, options: NSData.Base64DecodingOptions())
+        let decodedX = NSString(data: decodedDataX! as Data, encoding: String.Encoding.utf8.rawValue)!
+        
+        let decodedDataY:NSData? = NSData(base64Encoded:baseY as! String, options: NSData.Base64DecodingOptions())
+        let decodedY = NSString(data: decodedDataY! as Data, encoding: String.Encoding.utf8.rawValue)!
+        
+        let coordinate = CLLocationCoordinate2D.init(latitude: decodedX.doubleValue, longitude: decodedY.doubleValue)
+        return coordinate
+    }
     
     
     

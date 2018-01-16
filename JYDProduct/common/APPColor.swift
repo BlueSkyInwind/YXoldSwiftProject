@@ -14,6 +14,8 @@ let webViewProgressBarTintColor = UIColor.init(red: 49/255.0, green: 152/255.0, 
 
 let PaopaoTitleColor = UIColor.init(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1)
 
+let HomePopViewBackColor = UIColor.init(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 0.8)
+
 let homeHeaderTitleColor = UIColor.init(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
 
 let LOCATION_Color = UIColor.init(red: 94/255.0, green: 151/255.0, blue: 255/255.0, alpha: 1)

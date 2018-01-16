@@ -17,11 +17,10 @@ class JYD_StoreDetailViewController: BaseViewController {
     var storeImages:[UIImage]?
     private lazy var modalDelegate: JYD_PhotoModalAnimationDelegate = JYD_PhotoModalAnimationDelegate()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "门店详情"
-        self.addBackItem()
+        self.addWhiteBackItem()
         // Do any additional setup after loading the view.
         handler = JYD_MapHandler.init()
         handler?.vc = self
@@ -29,7 +28,15 @@ class JYD_StoreDetailViewController: BaseViewController {
         configureView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addWhiteNavStyle()
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        addNavStyle()
+    }
     func configureView()  {
         
         storeDetailHeaderView = JYD_StoreDetailHeaderView.loadNib("JYD_StoreDetailHeaderView")
@@ -82,7 +89,6 @@ class JYD_StoreDetailViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

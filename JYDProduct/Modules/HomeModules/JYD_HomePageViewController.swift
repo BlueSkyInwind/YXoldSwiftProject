@@ -20,6 +20,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var bottomView:JYD_homeBottomView?
     
     var zoomSize:Float = 14
+    var homePopView:JYD_HomePopView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +28,12 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         self.title = Home_NavTitle
         
         configureView()
-        
+        PopImageView()
     }
     
     func configureView()  {
         
         locationService = BMKLocationService()
-        locationService.allowsBackgroundLocationUpdates = true
 
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
         self.view.addSubview(_mapView!)
@@ -61,6 +61,14 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         })
     }
     
+    func PopImageView() {
+        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, image: UIImage.init(named: "TEST")!)
+        homePopView?.popImageTap = {
+            
+        }
+        UIApplication.shared.keyWindow?.addSubview(homePopView!)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _mapView?.viewWillAppear()
@@ -81,19 +89,20 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.mapPadding = UIEdgeInsetsMake(0, 0, 28, 0)
     }
     
-    //自定义精度圈
+    //MARK:自定义精度圈
     func customLocationAccuracyCircle() {
         let param = BMKLocationViewDisplayParam()
         param.accuracyCircleStrokeColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
         param.accuracyCircleFillColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.3)
         param.locationViewImgName = ""
         _mapView?.updateLocationView(with: param)
-    }
+    }  
     //MRAK:用户定位
     func setUserLocation()  {
         locationService.startUserLocationService()
+        locationService.allowsBackgroundLocationUpdates = false
         _mapView?.showsUserLocation = false//先关闭显示的定位图层
-        _mapView?.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
+        _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
         _mapView?.showsUserLocation = true//显示定位图层
     }
     
@@ -240,7 +249,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didUpdate(_ userLocation: BMKUserLocation!) {
         DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
-//        let  locationView = _mapView?.value(forKey: "_locationView") as! BMKAnnotationView
+//        let  locationView = _mapView?.value(forKey: "locationView") as! BMKAnnotationView
 //        locationView.image  = UIImage.init(named: "UserLocation_Icon")
         _mapView?.setCenter(userLocation.location.coordinate, animated: true)
         _mapView?.updateLocationData(userLocation)
