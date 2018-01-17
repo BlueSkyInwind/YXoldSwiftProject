@@ -12,11 +12,34 @@ import HandyJSON
 
 struct BaseModel<T>:HandyJSON{
     
-    var flag : String?
-    var msg : String?
-    var result : T?
+    var errCode : String?
+    var errMsg : String?
+    var friendErrMsg : String?
+    var data : T?
     
 }
+
+struct StoreListResult:HandyJSON{
+    
+    var areaName: String?
+    var businessHours: String?
+    var cityName: String?
+    var cooperationStatus: String?
+    var distance: String?
+    var endLoanTime: String?
+    var storeId: String?
+    var mapMarkLatitude: String?
+    var mapMarkLongitude: String?
+    var picList: String?
+    var provinceName: String?
+    var startLoanTime: String?
+    var storeAddress: String?
+    var storeName: String?
+    var storePhone: String?
+    
+}
+
+
 
 
 

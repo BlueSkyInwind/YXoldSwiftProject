@@ -20,3 +20,12 @@ struct CheckAPPVersionParam: HandyJSON{
     }
 }
 
+//MARK:用户的位置
+struct StoreLocationListParam: HandyJSON{
+    
+    var lat : Double?
+    var lng : Double?
+    
+    init() {
+    }
+}

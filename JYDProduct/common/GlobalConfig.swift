@@ -50,9 +50,13 @@ let appStoreAdress = ""
 // MARK: 设备信息获取
 let  _k_w = UIScreen.main.bounds.size.width
 let  _k_h = UIScreen.main.bounds.size.height
+
 let deviceName = UIDevice.current.name
+
 let systemName = UIDevice.current.systemName
+
 let deviceUUID = UIDevice.current.identifierForVendor?.uuidString
+
 let UI_IS_IPHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 let UI_IS_IPHONE5 = (UI_IS_IPHONE && _k_h == 568.0)
 let UI_IS_IPONE6 = (UI_IS_IPHONE && _k_h == 667.0)
