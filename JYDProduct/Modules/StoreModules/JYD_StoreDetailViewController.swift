@@ -10,22 +10,30 @@ import UIKit
 
 class JYD_StoreDetailViewController: BaseViewController {
 
+    var storeID:String?
+    
     var  storeDetailHeaderView:JYD_StoreDetailHeaderView?
     var storeDisplayPhotoView:JYD_StoreDisplayPhotoView?
     var startExternalMapBtn:UIButton?
     var handler:JYD_MapHandler?
-    var storeImages:[UIImage]?
+    var storeImages:[String]?
     private lazy var modalDelegate: JYD_PhotoModalAnimationDelegate = JYD_PhotoModalAnimationDelegate()
+    var storeDetailInfo:StoreDetailResult?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "门店详情"
         self.addWhiteBackItem()
+        self.view.backgroundColor = VIEWCONTROLLERBG_Color
         // Do any additional setup after loading the view.
         handler = JYD_MapHandler.init()
         handler?.vc = self
-        storeImages = [UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!,UIImage.init(named: "TEST")!]
-        configureView()
+        
+        obtainStoreLocationInfo(storeID!) { (isSuccess) in
+            if isSuccess {
+                self.configureView()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +48,10 @@ class JYD_StoreDetailViewController: BaseViewController {
     func configureView()  {
         
         storeDetailHeaderView = JYD_StoreDetailHeaderView.loadNib("JYD_StoreDetailHeaderView")
-        storeDetailHeaderView?.setContent(title: "星巴克门店（营业中）", time: "借款时间：9:00-18:00", address: "借款额度：1000-5000元", amount: "借款额度：1000-5000元", telStr: "电话:020-4349596")
+        storeDetailHeaderView?.setContent(title: (storeDetailInfo?.storeName)!, time: "借款时间：" + (storeDetailInfo?.businessHours)!, address: "借款额度：" + (storeDetailInfo?.storeAddress)!, amount: "借款额度：1000-5000元", telStr: "电话:" + (storeDetailInfo?.storePhone)!)
+        storeDetailHeaderView?.callStoreTel = {
+            self.makeStoreCallPhone((self.storeDetailInfo?.storePhone)!)
+        }
         self.view.addSubview(storeDetailHeaderView!)
         storeDetailHeaderView?.snp.makeConstraints({ (make) in
             make.left.right.equalTo(self.view)
@@ -49,9 +60,9 @@ class JYD_StoreDetailViewController: BaseViewController {
         })
         
         storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: self.storeImages!)
-        storeDisplayPhotoView?.clickIndex = { (index) in
+        storeDisplayPhotoView?.clickIndex = { (index,photos) in
             let browseVC = JYD_StorePhotoBrowseViewController()
-            browseVC.imageArr = self.storeImages;
+            browseVC.imageArr = photos;
             browseVC.selectIndex = index
             browseVC.transitioningDelegate = self.modalDelegate
             browseVC.modalPresentationStyle = .custom
@@ -81,12 +92,27 @@ class JYD_StoreDetailViewController: BaseViewController {
     }
     
     @objc func startExternalMapBtnClick() {
-        handler?.startExternalMaps(.MapAnnotation, fromLocation: CLLocationCoordinate2DMake(31.3150688616939, 121.524502972522), fromName: "我的位置", toLocation: CLLocationCoordinate2DMake(31.3508636304, 121.5068148925), toName: "淞发路地铁站")
+        handler?.startExternalMaps(.MapAnnotation, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: CLLocationCoordinate2DMake(31.3508636304, 121.5068148925), toName: "淞发路地铁站")
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func makeStoreCallPhone(_ phoneNum:String)  {
+        
+        let alertSheetVC = UIAlertController.init(title: "门店电话", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertActionOne = UIAlertAction.init(title: phoneNum, style: UIAlertActionStyle.default, handler: { (action) in
+            let phoneStr = "tel://" + phoneNum
+            UIApplication.shared.openURL(URL.init(string: phoneStr)!)
+        })
+        alertSheetVC.addAction(alertActionOne)
+
+        let cancelAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel) { (action) in
+        }
+        alertSheetVC.addAction(cancelAction)
+        self.present(alertSheetVC, animated: true, completion: nil)
     }
     
     /*
@@ -99,3 +125,24 @@ class JYD_StoreDetailViewController: BaseViewController {
     */
 
 }
+
+extension JYD_StoreDetailViewController {
+    
+    func obtainStoreLocationInfo(_ storeId:String,finish:@escaping ((_ isSuccess:Bool) -> Void))  {
+        obtainStoreDetailInfo(storeId, successResponse: { (baseModel) in
+            if baseModel.errCode == "0" {
+                self.storeDetailInfo = StoreDetailResult.deserialize(from: (baseModel.data as! [String:Any]))
+                self.storeImages = self.storeDetailInfo?.picList
+                finish(true)
+            }else{
+                finish(false)
+                MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)
+            }
+        }) { (error) in
+            finish(false)
+        }
+    }
+}
+
+
+

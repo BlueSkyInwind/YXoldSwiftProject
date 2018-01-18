@@ -8,6 +8,7 @@
 
 import UIKit
 
+typealias MakingCallStoreTel = () -> Void
 class JYD_StoreDetailHeaderView: UIView,NibLoadProtocol {
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -16,17 +17,27 @@ class JYD_StoreDetailHeaderView: UIView,NibLoadProtocol {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
+    @IBOutlet weak var telImageView: UIImageView!
+    
+    var callStoreTel:MakingCallStoreTel?
     
     override func awakeFromNib() {
-        
+        let telTap = UITapGestureRecognizer.init(target: self, action: #selector(userTelTapSender))
+        telImageView.addGestureRecognizer(telTap)
+    }
+    
+    @objc func userTelTapSender (){
+        if callStoreTel != nil{
+            callStoreTel!()
+        }
     }
     
     func setContent(title:String,time:String,address:String,amount:String,telStr:String)  {
         self.titleLabel.text = title
-        self.timeLabel.text = title
-        self.addressLabel.text = title
-        self.amountLabel.text = title
-        self.telLabel.text = title
+        self.timeLabel.text = time
+        self.addressLabel.text = address
+        self.amountLabel.text = amount
+        self.telLabel.text = telStr
     }
     
     

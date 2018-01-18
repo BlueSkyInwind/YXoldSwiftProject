@@ -1016,7 +1016,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapDemo.YXMap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/JYDProduct/SupportFiles/JYDProduct-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1037,7 +1037,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapDemo.YXMap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/JYDProduct/SupportFiles/JYDProduct-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

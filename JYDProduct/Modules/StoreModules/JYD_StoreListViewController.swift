@@ -12,6 +12,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
     
     var tableView:UITableView?
     
+    var storeInfolists:[StoreListResult]?
     var storeListCell:JYD_StoreListTableViewCell?
     
     override func viewDidLoad() {
@@ -40,7 +41,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
         tableView?.dataSource = self
         tableView?.separatorStyle = .none
         tableView?.showsVerticalScrollIndicator = false
-        tableView?.backgroundColor = TABLEVIEWBG_Color
+        tableView?.backgroundColor = VIEWCONTROLLERBG_Color
         tableView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         self.view.addSubview(tableView!)
         tableView?.snp.makeConstraints({ (make) in
@@ -50,21 +51,23 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        storeListCell = tableView.dequeueReusableCell(withIdentifier: "JYD_StoreListTableViewCell", for: indexPath) as! JYD_StoreListTableViewCell
+        storeListCell = tableView.dequeueReusableCell(withIdentifier: "JYD_StoreListTableViewCell", for: indexPath) as? JYD_StoreListTableViewCell
         if storeListCell == nil {
             storeListCell = JYD_StoreListTableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "JYD_StoreListTableViewCell")
         }
-        storeListCell?.configureContent(title: "星巴克门店（营业中）", time: "星巴克门店（营业中）", address: "星巴克门店（营业中）", distance: "477m")
+        let storeInfo = storeInfolists![indexPath.section]
+        storeListCell?.configureContent(title: storeInfo.storeName!, time: "借款时间：" + storeInfo.businessHours!, address: storeInfo.storeAddress!, distance: storeInfo.distance!)
         storeListCell?.pathTapClick = {
-            let selectStoreVC = JYD_SelectPathViewController.init()
-            self.navigationController?.pushViewController(selectStoreVC, animated: true)
+            self.pushPathListVC(storeInfo)
         }
         return storeListCell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          tableView.deselectRow(at: indexPath, animated: true)
+        let storeInfo = storeInfolists![indexPath.section]
         let storeDetailVC = JYD_StoreDetailViewController()
+        storeDetailVC.storeID = storeInfo.storeId
         self.navigationController?.pushViewController(storeDetailVC, animated: true)
     }
     
@@ -94,6 +97,23 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func pushPathListVC(_ storeInfo:StoreListResult)  {
+        
+        guard (storeInfo != nil) else {
+            return
+        }
+        
+        let lat = Double(storeInfo.mapMarkLatitude!)
+        let lon = Double(storeInfo.mapMarkLongitude!)
+        let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
+        
+        let selectStoreVC = JYD_SelectPathViewController.init()
+        selectStoreVC.startCoord = APPUtilityInfo.shareInstance.userCurrentLocation
+        selectStoreVC.endCoord = storeCoor
+        selectStoreVC.endLoactionName = storeInfo.storeName
+        self.navigationController?.pushViewController(selectStoreVC, animated: true)
+    }
 
     /*
     // MARK: - Navigation

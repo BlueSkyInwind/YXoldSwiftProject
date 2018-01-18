@@ -22,7 +22,7 @@ let LOCATION_Color = UIColor.init(red: 94/255.0, green: 151/255.0, blue: 255/255
 
 let SelectPathTime_Color = UIColor.init(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1)
 
-let TABLEVIEWBG_Color = UIColor.init(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
+let VIEWCONTROLLERBG_Color = UIColor.init(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
 
 let StoreDetailImageTitle_Color = UIColor.init(red: 77/255.0, green: 77/255.0, blue: 77/255.0, alpha: 1)
 

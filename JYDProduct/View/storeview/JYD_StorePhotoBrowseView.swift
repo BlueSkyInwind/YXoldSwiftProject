@@ -97,10 +97,10 @@ extension JYD_StorePhotoBrowseView {
         leftBtn?.addTarget(self, action: #selector(lastPhotoClick), for: UIControlEvents.touchUpInside)
         self.addSubview(leftBtn!)
         leftBtn?.snp.makeConstraints({ (make) in
-            make.left.equalTo(self.snp.left).offset(15)
+            make.left.equalTo(self.snp.left).offset(5)
             make.centerY.equalTo(self.snp.centerY)
-            make.width.equalTo(APPTool.obtainDisplaySize(size: 14))
-            make.height.equalTo(APPTool.obtainDisplaySize(size: 25))
+            make.width.equalTo(APPTool.obtainDisplaySize(size: 20))
+            make.height.equalTo(APPTool.obtainDisplaySize(size: 35))
         })
         
         rightBtn = UIButton.init(type: UIButtonType.custom)
@@ -108,10 +108,10 @@ extension JYD_StorePhotoBrowseView {
         rightBtn?.addTarget(self, action: #selector(nextPhotoClick), for: UIControlEvents.touchUpInside)
         self.addSubview(rightBtn!)
         rightBtn?.snp.makeConstraints({ (make) in
-            make.right.equalTo(self.snp.right).offset(-15)
+            make.right.equalTo(self.snp.right).offset(-5)
             make.centerY.equalTo(self.snp.centerY)
-            make.width.equalTo(APPTool.obtainDisplaySize(size: 14))
-            make.height.equalTo(APPTool.obtainDisplaySize(size: 25))
+            make.width.equalTo(APPTool.obtainDisplaySize(size: 20))
+            make.height.equalTo(APPTool.obtainDisplaySize(size: 35))
         })
         
         browseScrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width:_k_w - APPTool.obtainDisplaySize(size: 80), height:  _k_h - 200))

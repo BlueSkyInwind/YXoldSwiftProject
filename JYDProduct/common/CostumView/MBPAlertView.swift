@@ -21,6 +21,8 @@ class MBPAlertView: NSObject {
         hud.mode = MBProgressHUDMode.text
         hud.detailsLabel.text = message
         hud.detailsLabel.font = UIFont.systemFont(ofSize: 12)
+        hud.bezelView.color = UIColor.black
+        hud.detailsLabel.textColor = UIColor.white
         hud.margin = 13
         hud.removeFromSuperViewOnHide = true
         hud.hide(animated: true, afterDelay: 1)

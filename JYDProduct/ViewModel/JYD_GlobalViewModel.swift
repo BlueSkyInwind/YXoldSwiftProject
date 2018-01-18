@@ -12,6 +12,12 @@ typealias ReturnDataValue<T> = ( _ resultObject: T) -> Void
 typealias ReturnFailure = ( _ error: Error) -> Void
 
 
+/// 获取门店列表
+///
+/// - Parameters:
+///   - userLocation: 用户位置
+///   - successResponse: 成功返回
+///   - errorResponse: 失败返回
 func obtainStoreListLocationInfo(_ userLocation:CLLocationCoordinate2D, successResponse: @escaping ReturnDataValue<BaseModel<Array<Any>>>, errorResponse: @escaping ReturnFailure){
     
     var paramObject = StoreLocationListParam()
@@ -25,6 +31,27 @@ func obtainStoreListLocationInfo(_ userLocation:CLLocationCoordinate2D, successR
     }) { (responseStatus, error) in
         errorResponse(error)
     }
+}
+
+/// 获取门店详情
+///
+/// - Parameters:
+///   - storeId: 门店id
+///   - successResponse: 成功返回
+///   - errorResponse: 错误返回
+func obtainStoreDetailInfo(_ storeId:String, successResponse: @escaping ReturnDataValue<BaseModel<Dictionary<String,Any>>>, errorResponse: @escaping ReturnFailure){
+    
+    var storeDetailPara = StoreInfoParam()
+    storeDetailPara.storeId = storeId
+    let paramDic = storeDetailPara.toJSON()
+    
+    JYDNetWorkManager.shareInstance.getDataWithUrl(url: _Main_url + _StoreInfoDetail_jhtml, paramDic: paramDic!, requestTime: 30, isNeedWaitView: true, isNeedCheckNet: true, success: { (responseStatus, result) in
+        let baseResult = BaseModel<Dictionary<String,Any>>.deserialize(from: result as? NSDictionary)
+        successResponse(baseResult!)
+    }) { (responseStatus, error) in
+        errorResponse(error)
+    }
     
 }
+
 
