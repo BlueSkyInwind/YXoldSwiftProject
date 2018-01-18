@@ -56,7 +56,7 @@ class JYD_homeBottomView: UIView {
     @objc func show()  {
         VC?.view.addSubview(self)
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h - 90, width: _k_w, height: 100)
+            self.frame = CGRect.init(x: 0, y: _k_h - 100, width: _k_w, height: 100)
         }) { (complication) in
         }
     }

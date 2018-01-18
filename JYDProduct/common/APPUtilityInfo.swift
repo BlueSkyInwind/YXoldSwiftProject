@@ -14,7 +14,7 @@ class APPUtilityInfo: NSObject {
     var networkState : Bool
     var isAppUpdate : Bool
     var userInfo : UserInfo
-    var isObtainUserLocation : Bool
+    var userCurrentLocation : CLLocationCoordinate2D?
     static  let shareInstance  = APPUtilityInfo()
     
     override init() {
@@ -22,9 +22,7 @@ class APPUtilityInfo: NSObject {
         loginFlage = false
         networkState = true
         isAppUpdate = false
-        isObtainUserLocation = false
         userInfo = UserInfo.init()
-        
     }
 }
 

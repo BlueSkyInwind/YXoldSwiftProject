@@ -23,7 +23,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var homePopView:JYD_HomePopView?
     
     var currentLocation:CLLocationCoordinate2D?
-    var storeLocations:[CLLocationCoordinate2D]? = []
+    var storeLocations:[BMKAnnotation]? = []
+    var storeInfos:[StoreListResult]? = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         
         configureView()
         PopImageView()
+        
     }
     
     func configureView()  {
@@ -52,8 +54,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         //MARK:头部视图
         headerView = JYD_HomeHeaderView.init(frame: CGRect.zero)
         headerView?.rightIconButtonClick = {
-            let storeListVC = JYD_StoreListViewController()
-            self.navigationController?.pushViewController(storeListVC, animated: true)
+            self.pushStoreListVC()
         }
         self.view.addSubview(headerView!)
         headerView?.snp.makeConstraints({ (make) in
@@ -119,6 +120,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }
     
     func addPointAnnotation(_ locInfos:[StoreListResult])  {
+        //清空门店信息
+        self.storeInfos?.removeAll()
+        self.storeInfos = locInfos
         //清空位置信息
         _mapView?.removeAnnotations(storeLocations)
         storeLocations?.removeAll()
@@ -126,7 +130,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             let lat = Double(Info.mapMarkLatitude!)
             let lon = Double(Info.mapMarkLongitude!)
             let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
-            storeLocations?.append(storeCoor)
             let annotationPoint = JYD_PointAnnotation.init()
             annotationPoint.coordinate = storeCoor
             annotationPoint.title = "这一家店"
@@ -174,6 +177,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             annotationView?.image = UIImage.init(named: "storeLocation_Icon")
             annotationView?.isDraggable = false
             annotationView?.annotation = annotation
+            storeLocations?.append(annotation)
             if (annotationView?.annotation.isKind(of: JYD_PointAnnotation.self))!{
                 let annV = annotationView?.annotation as! JYD_PointAnnotation
                 annotationView?.paopaoView = addCustomPaopaoView(content: (annV.storeInfoModel?.storeName)!)
@@ -189,10 +193,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         if view.annotation.isKind(of: JYD_PointAnnotation.self) {
             let annV = view?.annotation as! JYD_PointAnnotation
             mapView.setCenter(view.annotation.coordinate, animated: true)
-            showPopupBottomView()
+            showPopupBottomView(storeInfo: annV.storeInfoModel!)
             DPrint(message: "点击大头针,移动至中心点  ---- \(view.annotation.coordinate)")
         }
-        
     }
     
     func mapView(_ mapView: BMKMapView!, didDeselect view: BMKAnnotationView!) {
@@ -203,15 +206,15 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     func mapView(_ mapView: BMKMapView!, annotationViewForBubble view: BMKAnnotationView!) {
         DPrint(message: "点击了泡泡")
         if view.annotation.isKind(of: JYD_PointAnnotation.self) {
-            let selectStoreVC = JYD_SelectPathViewController.init()
-            self.navigationController?.pushViewController(selectStoreVC, animated: true)
+            let annV = view?.annotation as! JYD_PointAnnotation
+            pushPathListVC((annV.storeInfoModel)!)
         }
     }
     
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
         DPrint(message: "重新定位")
-        zoomSize -= 1
+        zoomSize = 14
         _mapView?.zoomLevel = zoomSize
         locationService.startUserLocationService()
         obtainStoreLocationInfo(currentLocation!)
@@ -228,11 +231,14 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }
 
     //MARK:底部选择弹窗
-    func showPopupBottomView() {
+    func showPopupBottomView(storeInfo:StoreListResult) {
         if bottomView != nil {
             return
         }
-        bottomView = JYD_homeBottomView.init(vc: self, titleStr: "星巴克门店（营业中）", timeStr: "借款时间：9:00-18:00", addressStr: "浦东新区金高路35", distanceStr: "680m")
+        bottomView = JYD_homeBottomView.init(vc: self, titleStr: storeInfo.storeName! , timeStr: "借款时间：" + storeInfo.businessHours!, addressStr: storeInfo.storeAddress!, distanceStr: storeInfo.distance!)
+        bottomView?.displayPathTapClick = {[weak self] in
+            self?.pushPathListVC(storeInfo)
+        }
         bottomView?.VC = self
         bottomView?.show()
     }
@@ -243,7 +249,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }
     
     // MARK: - BMKLocationServiceDelegate
-    
     /**
      *在地图View将要启动定位时，会调用此函数
      *@param mapView 地图View
@@ -271,6 +276,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.updateLocationData(userLocation)
 //        addCircleView(userLocation.location.coordinate)
         currentLocation = userLocation.location.coordinate
+        APPUtilityInfo.shareInstance.userCurrentLocation = currentLocation
     }
     
     /**
@@ -279,6 +285,30 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didStopLocatingUser() {
         print("didStopLocatingUser")
+    }
+    
+    //MARK:页面跳转
+    func  pushStoreListVC()  {
+        let storeListVC = JYD_StoreListViewController()
+        storeListVC.storeInfolists = self.storeInfos
+        self.navigationController?.pushViewController(storeListVC, animated: true)
+    }
+    
+    func pushPathListVC(_ storeInfo:StoreListResult)  {
+        
+        guard (storeInfo != nil) else {
+            return
+        }
+        
+        let lat = Double(storeInfo.mapMarkLatitude!)
+        let lon = Double(storeInfo.mapMarkLongitude!)
+        let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
+        
+        let selectStoreVC = JYD_SelectPathViewController.init()
+        selectStoreVC.startCoord = currentLocation
+        selectStoreVC.endCoord = storeCoor
+        selectStoreVC.endLoactionName = storeInfo.storeName
+        self.navigationController?.pushViewController(selectStoreVC, animated: true)
     }
 
     /*
@@ -299,7 +329,7 @@ extension JYD_HomePageViewController {
         obtainStoreListLocationInfo(currentlocation, successResponse: { (baseModel) in
             if baseModel.errCode == "0" {
                 let storeLists = baseModel.data
-                var  storeLocationInfoArr:[StoreListResult] = []
+                var storeLocationInfoArr:[StoreListResult] = []
                 for dic in storeLists! {
                     let storeLocationInfo = StoreListResult.deserialize(from: (dic as! [String:Any]))
                     storeLocationInfoArr.append(storeLocationInfo!)

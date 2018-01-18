@@ -44,6 +44,7 @@ let Fxd_AccountId = "AccountId"
 //用户名
 let Fxd_userName = "userName"
 
+let BMK_AK = "BzL71nwZdHQ3EUIzPHmxa28HwFAfzCoM"
 // app 商店地址
 let appStoreAdress = ""
 

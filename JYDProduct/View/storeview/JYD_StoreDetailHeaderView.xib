@@ -21,15 +21,15 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="store_Tel_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="f8T-CD-6Jq">
-                    <rect key="frame" x="343" y="15" width="17" height="17"/>
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="store_Tel_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="f8T-CD-6Jq">
+                    <rect key="frame" x="335" y="15" width="20" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="17" id="hr8-pH-4QW"/>
-                        <constraint firstAttribute="height" constant="17" id="rSe-nS-bmS"/>
+                        <constraint firstAttribute="width" constant="20" id="hr8-pH-4QW"/>
+                        <constraint firstAttribute="height" constant="20" id="rSe-nS-bmS"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：020-4349596" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmh-IP-ufr">
-                    <rect key="frame" x="207.5" y="16" width="127.5" height="16"/>
+                    <rect key="frame" x="199.5" y="19" width="127.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.40000000000000002" green="0.61568627450980395" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -81,7 +81,7 @@
                 <constraint firstItem="HLF-GX-9Pu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="1rW-pF-fhP"/>
                 <constraint firstItem="mQB-IE-uhf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="5U1-hG-0pO"/>
                 <constraint firstItem="U6R-MO-u9J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="7DX-bG-JZb"/>
-                <constraint firstAttribute="trailing" secondItem="f8T-CD-6Jq" secondAttribute="trailing" constant="15" id="C4I-yv-kRO"/>
+                <constraint firstAttribute="trailing" secondItem="f8T-CD-6Jq" secondAttribute="trailing" constant="20" id="C4I-yv-kRO"/>
                 <constraint firstItem="9hD-7v-JpW" firstAttribute="centerY" secondItem="gPP-Yu-AvJ" secondAttribute="centerY" id="CW3-6m-xdr"/>
                 <constraint firstItem="f8T-CD-6Jq" firstAttribute="leading" secondItem="vmh-IP-ufr" secondAttribute="trailing" constant="8" id="CZw-zL-XW2"/>
                 <constraint firstItem="9hD-7v-JpW" firstAttribute="leading" secondItem="gPP-Yu-AvJ" secondAttribute="trailing" constant="9" id="DYZ-hX-Cmf"/>
@@ -100,6 +100,7 @@
             <connections>
                 <outlet property="addressLabel" destination="2PE-LG-0Q3" id="RSq-ZV-cVZ"/>
                 <outlet property="amountLabel" destination="9hD-7v-JpW" id="HNy-0H-o9j"/>
+                <outlet property="telImageView" destination="f8T-CD-6Jq" id="vMw-OA-FPT"/>
                 <outlet property="telLabel" destination="vmh-IP-ufr" id="rgT-vl-KRw"/>
                 <outlet property="timeLabel" destination="eMC-L0-qqc" id="7cg-J8-iWX"/>
                 <outlet property="titleLabel" destination="HLF-GX-9Pu" id="n7p-4I-T4b"/>

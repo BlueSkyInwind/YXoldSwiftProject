@@ -39,7 +39,25 @@ struct StoreListResult:HandyJSON{
     
 }
 
-
+struct StoreDetailResult:HandyJSON{
+    
+    var areaName: String?
+    var businessHours: String?
+    var cityName: String?
+    var cooperationStatus: String?
+    var distance: String?
+    var endLoanTime: String?
+    var storeId: String?
+    var mapMarkLatitude: String?
+    var mapMarkLongitude: String?
+    var picList: Array<String>?
+    var provinceName: String?
+    var startLoanTime: String?
+    var storeAddress: String?
+    var storeName: String?
+    var storePhone: String?
+    
+}
 
 
 

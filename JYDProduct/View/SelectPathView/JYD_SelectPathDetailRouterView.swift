@@ -60,7 +60,7 @@ extension JYD_SelectPathDetailRouterView{
     fileprivate func setupUI(){
         
         let pathBgView = UIView()
-        pathBgView.backgroundColor = TABLEVIEWBG_Color
+        pathBgView.backgroundColor = VIEWCONTROLLERBG_Color
         self.addSubview(pathBgView)
         pathBgView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(0)

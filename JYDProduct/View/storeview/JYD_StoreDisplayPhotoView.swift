@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import SDWebImage
 
-typealias StoreImageClickIndex = (_ index:Int) -> Void
+typealias StoreImageClickIndex = (_ index:Int,_ photos:[UIImage]) -> Void
 class JYD_StoreDisplayPhotoView: UIView {
     
     var titleLabel:UILabel?
     var imageBackView:UIView?
-    var photos:[UIImage]?
+    var photos:[UIImage]? = []
+    var photoStrs:[String]?
     var clickIndex:StoreImageClickIndex?
     var imageViewArr:[UIButton] = []
     
@@ -22,15 +24,15 @@ class JYD_StoreDisplayPhotoView: UIView {
         setUpUI()
     }
     
-    convenience init(frame: CGRect,images:[UIImage]) {
+    convenience init(frame: CGRect,images:[String]) {
         self.init(frame: frame)
-        photos = images
+        photoStrs = images
         addStorePhoto()
     }
     
     @objc func storeImageClick(button:UIButton) {
         if clickIndex != nil {
-            self.clickIndex!(button.tag - 1000 + 1)
+            self.clickIndex!(button.tag - 1000 + 1,photos!)
         }
     }
     
@@ -75,13 +77,13 @@ extension JYD_StoreDisplayPhotoView {
     
     func addStorePhoto()  {
         let imageWidth = APPTool.obtainDisplaySize(size: 90)
-        let count = photos?.count
+        let count = photoStrs?.count
         for index in 0..<count!  {
-            let image = photos![index]
+            let imageStr = photoStrs![index]
             let imageLeft = (_k_w / 3 - imageWidth) / 2  +  (_k_w / 3 * CGFloat(index))
             let imageBtn = UIButton.init(type: UIButtonType.custom)
             imageBtn.tag = Int(1000 + index)
-            imageBtn.setImage(image, for: UIControlState.normal)
+            loadSotreImage(imageStr, imageBtn: imageBtn)
             imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
             imageBackView?.addSubview(imageBtn)
             imageViewArr.append(imageBtn)
@@ -90,6 +92,12 @@ extension JYD_StoreDisplayPhotoView {
                 make.left.equalTo(imageLeft)
                 make.height.width.equalTo(imageWidth)
             })
+        }
+    }
+    
+    func loadSotreImage(_ urlStr:String,imageBtn:UIButton)  {
+        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.progressiveDownload) {[weak self] (image, error, cacheType, imageURL) in
+            self?.photos?.append(image!)
         }
     }
 }

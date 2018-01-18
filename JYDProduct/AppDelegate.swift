@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BMKGeneralDelegate {
         }
         _mapManeger = BMKMapManager()
         //私有AK
-        let ret = _mapManeger?.start("hDQwMqWInk63G1pcxzX4GQCC4UbI0TeG", generalDelegate: self)
+        let ret = _mapManeger?.start(BMK_AK, generalDelegate: self)
         if ret == false {
             DPrint(message: "启动失败")
         }
