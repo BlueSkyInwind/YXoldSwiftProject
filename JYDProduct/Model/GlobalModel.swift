@@ -59,7 +59,13 @@ struct StoreDetailResult:HandyJSON{
     
 }
 
-
+struct HomePopResult:HandyJSON{
+    
+    var image: String?
+    var isValid: String?
+    var toUrl: String?
+    
+}
 
 
 

@@ -100,7 +100,7 @@ class JYDNetWorkManager: NSObject {
         manager?.session.configuration.timeoutIntervalForRequest = requestTime
         
         //请求头
-        let requestHeader:HTTPHeaders? =  ["version":"\(APPTool.shareInstance.getAPPVersion() )","channel":"1"];
+        let requestHeader:HTTPHeaders? =  ["version":"\(APPTool.shareInstance.getAPPVersion() )","channel":CHANNEL];
         
         //发起请求回调
         manager?.request(requestUrl!, method: urlMethod!, parameters: requestParam, encoding: URLEncoding.default,headers:requestHeader).responseJSON { (response) in

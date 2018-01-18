@@ -14,7 +14,7 @@ class JYD_StoreDisplayPhotoView: UIView {
     
     var titleLabel:UILabel?
     var imageBackView:UIView?
-    var photos:[UIImage]? = []
+    var photos:[UIImage]? = [UIImage.init(named: "placeHolder_Icon")!,UIImage.init(named: "placeHolder_Icon")!,UIImage.init(named: "placeHolder_Icon")!]
     var photoStrs:[String]?
     var clickIndex:StoreImageClickIndex?
     var imageViewArr:[UIButton] = []
@@ -85,6 +85,7 @@ extension JYD_StoreDisplayPhotoView {
             imageBtn.tag = Int(1000 + index)
             loadSotreImage(imageStr, imageBtn: imageBtn)
             imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
+            imageBtn.currentImage
             imageBackView?.addSubview(imageBtn)
             imageViewArr.append(imageBtn)
             imageBtn.snp.makeConstraints({ (make) in
@@ -97,7 +98,9 @@ extension JYD_StoreDisplayPhotoView {
     
     func loadSotreImage(_ urlStr:String,imageBtn:UIButton)  {
         imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.progressiveDownload) {[weak self] (image, error, cacheType, imageURL) in
-            self?.photos?.append(image!)
+            let index = self?.photoStrs?.index(of: (imageURL?.absoluteString)!)
+            self?.photos?.insert(image!, at: index!)
+            self?.photos?.remove(at: index! + 1)
         }
     }
 }

@@ -104,10 +104,9 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
             return
         }
         
-        let lat = Double(storeInfo.mapMarkLatitude!)
-        let lon = Double(storeInfo.mapMarkLongitude!)
-        let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
-        
+        let latStr = storeInfo.mapMarkLatitude! as NSString
+        let lonStr = storeInfo.mapMarkLongitude! as NSString
+        let storeCoor = CLLocationCoordinate2DMake(latStr.doubleValue, lonStr.doubleValue)
         let selectStoreVC = JYD_SelectPathViewController.init()
         selectStoreVC.startCoord = APPUtilityInfo.shareInstance.userCurrentLocation
         selectStoreVC.endCoord = storeCoor

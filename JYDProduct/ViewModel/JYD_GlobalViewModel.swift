@@ -51,6 +51,25 @@ func obtainStoreDetailInfo(_ storeId:String, successResponse: @escaping ReturnDa
     }) { (responseStatus, error) in
         errorResponse(error)
     }
+}
+
+/// 获取首页弹窗
+///
+/// - Parameters:
+///   - successResponse: 成功返回
+///   - errorResponse: 错误返回
+func obtainHomePopViewInfo(_ successResponse: @escaping ReturnDataValue<BaseModel<Array<Any>>>, errorResponse: @escaping ReturnFailure){
+    
+    var popParam = HomePopParam()
+    popParam.platformType = PLATFORMType
+    let paramDic = popParam.toJSON()
+    
+    JYDNetWorkManager.shareInstance.getDataWithUrl(url: _Main_url + _HomePop_jhtml, paramDic: paramDic!, requestTime: 30, isNeedWaitView: true, isNeedCheckNet: true, success: { (responseStatus, result) in
+        let baseResult = BaseModel<Array<Any>>.deserialize(from: result as? NSDictionary)
+        successResponse(baseResult!)
+    }) { (responseStatus, error) in
+        errorResponse(error)
+    }
     
 }
 

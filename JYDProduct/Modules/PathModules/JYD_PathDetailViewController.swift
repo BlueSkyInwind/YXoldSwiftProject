@@ -535,7 +535,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         
         height = Int((_mapView?.frame.height)! - 280)
         if UI_IS_IPONE6 {
-            
             height = Int((_mapView?.frame.height)! - 260)
         }
         

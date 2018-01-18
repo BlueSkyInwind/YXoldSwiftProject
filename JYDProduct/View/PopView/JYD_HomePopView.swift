@@ -18,19 +18,19 @@ class JYD_HomePopView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = HomePopViewBackColor
+        self.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.8)
         setUpUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    convenience init(frame: CGRect,image:UIImage) {
+    convenience init(frame: CGRect,imageStr:String) {
         var frame = frame
         frame.size.width = _k_w
         frame.size.height = _k_h
         self.init(frame: frame)
-        self.popImageView?.image = image
+        self.popImageView?.sd_setImage(with: URL.init(string: imageStr), completed: nil)
         self.popImageView?.animate()
     }
     

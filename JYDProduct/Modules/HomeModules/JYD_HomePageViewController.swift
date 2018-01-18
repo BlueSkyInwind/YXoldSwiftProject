@@ -26,13 +26,17 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var storeLocations:[BMKAnnotation]? = []
     var storeInfos:[StoreListResult]? = []
     
+    var isObtainAnn:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = Home_NavTitle
         
         configureView()
-        PopImageView()
+        obtainPopViewInfo {[weak self]  (isSuccess,model) in
+            self?.PopImageView(model.image!)
+        }
         
     }
     
@@ -65,8 +69,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         })
     }
     
-    func PopImageView() {
-        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, image: UIImage.init(named: "TEST")!)
+    func PopImageView(_ urlStr:String) {
+        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: urlStr)
         homePopView?.popImageTap = {
             
         }
@@ -88,8 +92,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }
     
     func addMapScaleBar()  {
+        
         _mapView?.showMapScaleBar = true
-        _mapView?.mapScaleBarPosition = CGPoint(x: 10, y: (_mapView?.frame.height)! - 45)
+        _mapView?.mapScaleBarPosition = CGPoint(x: 10, y:  _k_h / 2 + 100)
         _mapView?.mapPadding = UIEdgeInsetsMake(0, 0, 28, 0)
     }
     
@@ -104,6 +109,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     //MRAK:用户定位
     func setUserLocation()  {
         locationService.startUserLocationService()
+        isObtainAnn = true
         locationService.allowsBackgroundLocationUpdates = false
         _mapView?.showsUserLocation = false//先关闭显示的定位图层
         _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
@@ -216,8 +222,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         DPrint(message: "重新定位")
         zoomSize = 14
         _mapView?.zoomLevel = zoomSize
+        isObtainAnn = true
         locationService.startUserLocationService()
-        obtainStoreLocationInfo(currentLocation!)
     }
   
     func addMapEnlargedButtonClick() {
@@ -238,6 +244,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         bottomView = JYD_homeBottomView.init(vc: self, titleStr: storeInfo.storeName! , timeStr: "借款时间：" + storeInfo.businessHours!, addressStr: storeInfo.storeAddress!, distanceStr: storeInfo.distance!)
         bottomView?.displayPathTapClick = {[weak self] in
             self?.pushPathListVC(storeInfo)
+        }
+        bottomView?.storeDetailTapClick = { [weak self] in
+            self?.pushStoreDetailVC(storeInfo)
         }
         bottomView?.VC = self
         bottomView?.show()
@@ -277,6 +286,10 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
 //        addCircleView(userLocation.location.coordinate)
         currentLocation = userLocation.location.coordinate
         APPUtilityInfo.shareInstance.userCurrentLocation = currentLocation
+        if isObtainAnn {
+            isObtainAnn = false
+            obtainStoreLocationInfo(currentLocation!)
+        }
     }
     
     /**
@@ -289,6 +302,10 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     
     //MARK:页面跳转
     func  pushStoreListVC()  {
+        guard (self.storeInfos?.count != 0) else {
+            MBPAlertView.shareInstance.showTextOnly(message: "重新定位获取门店", view: self.view)
+            return
+        }
         let storeListVC = JYD_StoreListViewController()
         storeListVC.storeInfolists = self.storeInfos
         self.navigationController?.pushViewController(storeListVC, animated: true)
@@ -300,15 +317,20 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             return
         }
         
-        let lat = Double(storeInfo.mapMarkLatitude!)
-        let lon = Double(storeInfo.mapMarkLongitude!)
-        let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
-        
+        let latStr = storeInfo.mapMarkLatitude! as NSString
+        let lonStr = storeInfo.mapMarkLongitude! as NSString
+        let storeCoor = CLLocationCoordinate2DMake(latStr.doubleValue, lonStr.doubleValue)
         let selectStoreVC = JYD_SelectPathViewController.init()
         selectStoreVC.startCoord = currentLocation
         selectStoreVC.endCoord = storeCoor
         selectStoreVC.endLoactionName = storeInfo.storeName
         self.navigationController?.pushViewController(selectStoreVC, animated: true)
+    }
+    
+    func pushStoreDetailVC(_ storeInfo:StoreListResult){
+        let storeDetailVC = JYD_StoreDetailViewController()
+        storeDetailVC.storeID = storeInfo.storeId
+        self.navigationController?.pushViewController(storeDetailVC, animated: true)
     }
 
     /*
@@ -340,6 +362,23 @@ extension JYD_HomePageViewController {
             }
         }) { (error) in
             
+        }
+    }
+    
+    func obtainPopViewInfo(_ finish:@escaping ((_ isSuccess:Bool,_ model:HomePopResult) -> Void))  {
+        obtainHomePopViewInfo({ (baseModel) in
+            if baseModel.errCode == "0" {
+                let array = baseModel.data
+                do {
+                    let popModel = HomePopResult.deserialize(from: (array?.first as! [String:Any]))
+                    finish(true,popModel!)
+                }catch{
+                    
+                }
+            }else{
+                MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)
+            }
+        }) { (error) in
         }
     }
 }
