@@ -189,7 +189,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         if view.annotation.isKind(of: JYD_PointAnnotation.self) {
             let annV = view?.annotation as! JYD_PointAnnotation
             mapView.setCenter(view.annotation.coordinate, animated: true)
-            showPopupBottomView()
+            showPopupBottomView(storeInfo: annV.storeInfoModel!)
             DPrint(message: "点击大头针,移动至中心点  ---- \(view.annotation.coordinate)")
         }
         
@@ -228,11 +228,11 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }
 
     //MARK:底部选择弹窗
-    func showPopupBottomView() {
+    func showPopupBottomView(storeInfo:StoreListResult) {
         if bottomView != nil {
             return
         }
-        bottomView = JYD_homeBottomView.init(vc: self, titleStr: "星巴克门店（营业中）", timeStr: "借款时间：9:00-18:00", addressStr: "浦东新区金高路35", distanceStr: "680m")
+        bottomView = JYD_homeBottomView.init(vc: self, titleStr: storeInfo.storeName! , timeStr: "借款时间：" + storeInfo.businessHours!, addressStr: storeInfo.storeAddress!, distanceStr: storeInfo.distance!)
         bottomView?.VC = self
         bottomView?.show()
     }
