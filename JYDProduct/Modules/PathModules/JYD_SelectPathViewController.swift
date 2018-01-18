@@ -23,7 +23,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     //结束位置
     var endCoord : CLLocationCoordinate2D?
     //开始位置名称
-    var starLoactionName : String?
+//    var starLoactionName : String?
     //结束位置名称
     var endLoactionName : String?
     
@@ -38,9 +38,10 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         
         let tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+//        tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false
         tableView.isScrollEnabled = false
+        
         return tableView
     }()
     
@@ -69,11 +70,19 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        if #available(iOS 11.0, *){
+            tableView.contentInsetAdjustmentBehavior = .never;
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }else{
+            self.automaticallyAdjustsScrollViewInsets = false;
+        }
+        
         let headerView = JYD_SelectPathHeaderView()
         headerView.backgroundColor = LOCATION_Color
         headerView.delegate = self
         headerView.startLocationLabel?.text = "我的位置"
-        headerView.endLocationLabel?.text = "星巴克门店"
+        headerView.endLocationLabel?.text = endLoactionName
         tableView.tableHeaderView = headerView
         
         let footerView = setFooterView()
