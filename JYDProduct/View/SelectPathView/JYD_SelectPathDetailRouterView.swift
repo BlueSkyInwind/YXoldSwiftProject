@@ -86,6 +86,8 @@ extension JYD_SelectPathDetailRouterView{
         directionButton?.snp.makeConstraints({ (make) in
             make.top.equalTo(pathView.snp.top).offset(3)
             make.centerX.equalTo(pathView.snp.centerX)
+            make.height.equalTo(10)
+            make.width.equalTo(15)
         })
         
         routerLabel = UILabel()
@@ -95,7 +97,7 @@ extension JYD_SelectPathDetailRouterView{
         pathView.addSubview(routerLabel!)
         routerLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(pathView.snp.left).offset(20)
-            make.top.equalTo((directionButton?.snp.bottom)!).offset(0)
+            make.top.equalTo((directionButton?.snp.bottom)!).offset(10)
             make.right.equalTo(pathView.snp.right).offset(-20)
         })
         
