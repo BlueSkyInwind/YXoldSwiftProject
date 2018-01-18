@@ -307,7 +307,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         let selectStoreVC = JYD_SelectPathViewController.init()
         selectStoreVC.startCoord = currentLocation
         selectStoreVC.endCoord = storeCoor
-        selectStoreVC.endLoactionName = storeInfo.storeName
+        selectStoreVC.endLoactionName = storeInfo.storeName!
         self.navigationController?.pushViewController(selectStoreVC, animated: true)
     }
 

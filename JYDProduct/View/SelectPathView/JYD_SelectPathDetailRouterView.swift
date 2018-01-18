@@ -153,7 +153,7 @@ extension JYD_SelectPathDetailRouterView{
             delegate?.directionImage(isDown: (directionButton?.isSelected)!)
         }
         
-        print("点击小图标")
+        DPrint(message: "点击小图标")
     }
 }
 

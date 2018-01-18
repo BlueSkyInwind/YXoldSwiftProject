@@ -92,7 +92,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 
                 let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
                 //换成说明
-                debugPrint(subStep.instructions)
                 if (!subStep.instructions.isEmpty){
                     
                     dataArray.add(subStep.instructions)
@@ -622,7 +621,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
 
     func mapView(_ mapView: BMKMapView!, viewFor annotation: BMKAnnotation!) -> BMKAnnotationView! {
 
-        print("根据anntation生成对应的View")
+        DPrint(message: "根据anntation生成对应的View")
         if let routeAnnotation = annotation as! RouteAnnotation? {
             return getViewForRouteAnnotation(routeAnnotation)
         }
@@ -719,7 +718,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
      *@param mapView 地图View
      */
     func willStartLocatingUser() {
-        print("willStartLocatingUser");
+        DPrint(message: "willStartLocatingUser");
     }
     
     /**
@@ -727,7 +726,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
      *@param userLocation 新的用户位置
      */
     func didUpdateUserHeading(_ userLocation: BMKUserLocation!) {
-        print("heading is \(userLocation.heading)")
+        DPrint(message: "heading is \(userLocation.heading)")
         _mapView?.updateLocationData(userLocation)
     }
     
@@ -747,7 +746,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
      *@param mapView 地图View
      */
     func didStopLocatingUser() {
-        print("didStopLocatingUser")
+        DPrint(message: "didStopLocatingUser")
     }
 
     

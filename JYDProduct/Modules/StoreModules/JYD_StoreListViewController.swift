@@ -111,7 +111,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
         let selectStoreVC = JYD_SelectPathViewController.init()
         selectStoreVC.startCoord = APPUtilityInfo.shareInstance.userCurrentLocation
         selectStoreVC.endCoord = storeCoor
-        selectStoreVC.endLoactionName = storeInfo.storeName
+        selectStoreVC.endLoactionName = storeInfo.storeName!
         self.navigationController?.pushViewController(selectStoreVC, animated: true)
     }
 

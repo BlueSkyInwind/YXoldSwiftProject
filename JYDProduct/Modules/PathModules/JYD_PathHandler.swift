@@ -39,7 +39,7 @@ class JYD_PathHandler: BaseHandler {
             }
         }
         
-        print(total)
+//        print(total)
         return total
     }
     
@@ -120,12 +120,12 @@ class JYD_PathHandler: BaseHandler {
                 
                 let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
                 //换成说明
-                debugPrint(subStep.instructions)
+                //debugPrint(subStep.instructions)
                 //路段类型
-                debugPrint(subStep.stepType)
+                //debugPrint(subStep.stepType)
                 if subStep.stepType != BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
                     if (subStep.vehicleInfo.name != nil){
-                        debugPrint(subStep.vehicleInfo.name)
+//                        debugPrint(subStep.vehicleInfo.name)
                         routeStr.append(subStep.vehicleInfo.name)
                         if i == size - 2 {
                             
@@ -152,7 +152,6 @@ class JYD_PathHandler: BaseHandler {
                 
                 let subStep = transitStep.steps[j] as! BMKMassTransitSubStep
                 //路段类型
-                debugPrint(subStep.stepType)
                 if subStep.stepType == BMK_TRANSIT_WAKLING{//BMK_TRANSIT_WAKLING为步行
                     
                     waklArray.add(subStep.instructions)

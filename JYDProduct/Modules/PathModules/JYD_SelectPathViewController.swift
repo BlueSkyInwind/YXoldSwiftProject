@@ -102,8 +102,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         super.viewWillAppear(animated)
         _routeSearch = BMKRouteSearch()
         _routeSearch?.delegate = self
-        startCoord = CLLocationCoordinate2DMake(31.40, 121.24)
-        endCoord = CLLocationCoordinate2DMake(31.15, 121.10)
+//        startCoord = CLLocationCoordinate2DMake(31.40, 121.24)
+//        endCoord = CLLocationCoordinate2DMake(31.15, 121.10)
         dataArray.removeAllObjects()
         showMapRoute(tag: (Int)(buttonTag!)!)
     }
@@ -131,9 +131,9 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         let flag = _routeSearch?.massTransitSearch(option)
         
         if flag! {
-            print("公交交通检索（支持垮城）发送成功")
+            DPrint(message: "公交交通检索（支持垮城）发送成功")
         }else{
-            print("公交交通检索（支持垮城）发送失败")
+            DPrint(message: "公交交通检索（支持垮城）发送失败")
         }
     }
     
@@ -151,9 +151,9 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         walkingRouteSearchOption.to = end
         let flag = _routeSearch?.walkingSearch(walkingRouteSearchOption)
         if flag! {
-            print("walk检索发送成功")
+            DPrint(message: "walk检索发送成功")
         }else{
-            print("walk检索发送失败")
+            DPrint(message: "walk检索发送失败")
         }
     }
     
@@ -172,9 +172,9 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         drivingRouteSearchOption.drivingRequestTrafficType = BMK_DRIVING_REQUEST_TRAFFICE_TYPE_NONE //不获取路况信息
         let flag = _routeSearch?.drivingSearch(drivingRouteSearchOption)
         if flag! {
-            print("car检索发送成功")
+            DPrint(message: "car检索发送成功")
         }else{
-            print("car检索发送失败")
+            DPrint(message: "car检索发送失败")
         }
         
         
@@ -193,9 +193,9 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         option.to = end
         let flag = _routeSearch?.ridingSearch(option)
         if flag! {
-            print("骑行规划检索发送成功")
+            DPrint(message: "骑行规划检索发送成功")
         }else{
-            print("骑行规划检索发送失败")
+            DPrint(message: "骑行规划检索发送失败")
         }
         
     }
@@ -227,13 +227,13 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         let tag = Int(buttonTag!)
         switch tag {
         case 102?:
-            Maphandler?.startExternalMaps(.MapDriving, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+            Maphandler?.startExternalMaps(.MapDriving, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: endCoord!, toName: endLoactionName)
             break
         case 103?:
-            Maphandler?.startExternalMaps(.MapWalk, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+            Maphandler?.startExternalMaps(.MapWalk, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: endCoord!, toName: endLoactionName)
             break
         case 104?:
-            Maphandler?.startExternalMaps(.MapRide, fromLocation: CLLocationCoordinate2DMake(31.315, 121.5247), fromName: "", toLocation: CLLocationCoordinate2DMake(31.315, 121.5287), toName: "")
+            Maphandler?.startExternalMaps(.MapRide, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: endCoord!, toName: endLoactionName)
             break
         default:
             break
@@ -428,7 +428,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         endCoord = temp
         showRoute(tag: (Int)(buttonTag!)!)
         
-        print(startLocation,endLocation)
+//        print(startLocation,endLocation)
     }
 
     //各种工具切换
