@@ -90,7 +90,7 @@ extension JYD_SelectPathHeaderView {
         self.addSubview(startLabel)
         startLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
-            make.top.equalTo(backButton.snp.bottom).offset(20)
+            make.top.equalTo(backButton.snp.bottom).offset(22)
             make.width.equalTo(15)
         }
         
@@ -137,7 +137,6 @@ extension JYD_SelectPathHeaderView {
         }
         
         endLocationLabel = UILabel()
-        endLocationLabel?.text = "星巴克"
         endLocationLabel?.textColor = LOCATION_Color
         endLocationLabel?.font = UIFont.systemFont(ofSize: 15)
         endImageView.addSubview(endLocationLabel!)
