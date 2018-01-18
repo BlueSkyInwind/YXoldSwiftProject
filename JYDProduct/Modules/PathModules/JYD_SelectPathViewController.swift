@@ -25,7 +25,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     //开始位置名称
 //    var starLoactionName : String?
     //结束位置名称
-    var endLoactionName : String?
+    var endLoactionName : String = ""
     
     //关于路线处理handler
     var handler:JYD_PathHandler?
@@ -546,19 +546,6 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             for index in 0..<result.routes.count{
                 let routeLine = result.routes[index] as! BMKDrivingRouteLine
                 dataArray.add(routeLine)
-                
-//                for k in 0..<routeLine.wayPoints.count{
-//
-//                    let node = routeLine.wayPoints[k] as! BMKPlanNode
-//                    debugPrint(node.name)
-//                }
-//
-//                for j in 0..<routeLine.steps.count{
-//
-//                    let transitStep = routeLine.steps[j] as! BMKDrivingStep
-//                    debugPrint(transitStep.instruction)
-//
-//                }
                 
             }
             handler?.getCarDetailRoute(dataArray: dataArray)
