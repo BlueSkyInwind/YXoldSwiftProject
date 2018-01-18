@@ -22,6 +22,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var zoomSize:Float = 14
     var homePopView:JYD_HomePopView?
     
+    var currentLocation:CLLocationCoordinate2D?
+    var storeLocations:[CLLocationCoordinate2D]? = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -115,17 +118,19 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.add(circleView!)
     }
     
-    func addPointAnnotation()  {
-        let locationCoordinate1 = CLLocationCoordinate2DMake(39.915, 116.404)
-        let locationCoordinate2 = CLLocationCoordinate2DMake(39.950, 116.430)
-        let locationCoordinate3 = CLLocationCoordinate2DMake(39.869, 116.410)
-        let locationCoordinate4 = CLLocationCoordinate2DMake(39.930, 116.390)
-        let locationCoordinate5 = CLLocationCoordinate2DMake(39.890, 116.450)
-        let arr =  [locationCoordinate1,locationCoordinate2,locationCoordinate3,locationCoordinate4,locationCoordinate5]
-        for location in arr {
-            let annotationPoint = BMKPointAnnotation.init()
-            annotationPoint.coordinate = location
-            annotationPoint.title = "这一家店" 
+    func addPointAnnotation(_ locInfos:[StoreListResult])  {
+        //清空位置信息
+        _mapView?.removeAnnotations(storeLocations)
+        storeLocations?.removeAll()
+        for Info in locInfos {
+            let lat = Double(Info.mapMarkLatitude!)
+            let lon = Double(Info.mapMarkLongitude!)
+            let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
+            storeLocations?.append(storeCoor)
+            let annotationPoint = JYD_PointAnnotation.init()
+            annotationPoint.coordinate = storeCoor
+            annotationPoint.title = "这一家店"
+            annotationPoint.storeInfoModel = Info
             _mapView?.addAnnotation(annotationPoint)
         }
     }
@@ -165,11 +170,15 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             if annotationView == nil {
                 annotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: AnnotationViewID)
             }
-            annotationView?.paopaoView = addCustomPaopaoView(content: "这是一家福利店")
             annotationView?.animatesDrop = true
             annotationView?.image = UIImage.init(named: "storeLocation_Icon")
             annotationView?.isDraggable = false
             annotationView?.annotation = annotation
+            if (annotationView?.annotation.isKind(of: JYD_PointAnnotation.self))!{
+                let annV = annotationView?.annotation as! JYD_PointAnnotation
+                annotationView?.paopaoView = addCustomPaopaoView(content: (annV.storeInfoModel?.storeName)!)
+                DPrint(message: annV.storeInfoModel)
+            }
             return annotationView
         }
         return nil
@@ -177,9 +186,13 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     
     func mapView(_ mapView: BMKMapView!, didSelect view: BMKAnnotationView!) {
         
-        mapView.setCenter(view.annotation.coordinate, animated: true)
-        showPopupBottomView()
-        DPrint(message: "点击大头针,移动至中心点  ---- \(view.annotation.coordinate)")
+        if view.annotation.isKind(of: JYD_PointAnnotation.self) {
+            let annV = view?.annotation as! JYD_PointAnnotation
+            mapView.setCenter(view.annotation.coordinate, animated: true)
+            showPopupBottomView()
+            DPrint(message: "点击大头针,移动至中心点  ---- \(view.annotation.coordinate)")
+        }
+        
     }
     
     func mapView(_ mapView: BMKMapView!, didDeselect view: BMKAnnotationView!) {
@@ -189,14 +202,19 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     
     func mapView(_ mapView: BMKMapView!, annotationViewForBubble view: BMKAnnotationView!) {
         DPrint(message: "点击了泡泡")
-        let selectStoreVC = JYD_SelectPathViewController.init()
-        self.navigationController?.pushViewController(selectStoreVC, animated: true)
+        if view.annotation.isKind(of: JYD_PointAnnotation.self) {
+            let selectStoreVC = JYD_SelectPathViewController.init()
+            self.navigationController?.pushViewController(selectStoreVC, animated: true)
+        }
     }
     
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
         DPrint(message: "重新定位")
+        zoomSize -= 1
+        _mapView?.zoomLevel = zoomSize
         locationService.startUserLocationService()
+        obtainStoreLocationInfo(currentLocation!)
     }
   
     func addMapEnlargedButtonClick() {
@@ -251,8 +269,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
         _mapView?.setCenter(userLocation.location.coordinate, animated: true)
         _mapView?.updateLocationData(userLocation)
-        addCircleView(userLocation.location.coordinate)
-        addPointAnnotation()
+//        addCircleView(userLocation.location.coordinate)
+        currentLocation = userLocation.location.coordinate
     }
     
     /**
@@ -272,5 +290,28 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         // Pass the selected object to the new view controller.
     }
     */
-
 }
+
+//MARK:数据请求处理
+extension JYD_HomePageViewController {
+    
+    func obtainStoreLocationInfo(_ currentlocation:CLLocationCoordinate2D)  {
+        obtainStoreListLocationInfo(currentlocation, successResponse: { (baseModel) in
+            if baseModel.errCode == "0" {
+                let storeLists = baseModel.data
+                var  storeLocationInfoArr:[StoreListResult] = []
+                for dic in storeLists! {
+                    let storeLocationInfo = StoreListResult.deserialize(from: (dic as! [String:Any]))
+                    storeLocationInfoArr.append(storeLocationInfo!)
+                }
+                self.addPointAnnotation(storeLocationInfoArr)
+            }else{
+                MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)
+            }
+        }) { (error) in
+            
+        }
+    }
+}
+
+

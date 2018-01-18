@@ -32,7 +32,7 @@ class MBPAlertView: NSObject {
         waitHUb?.mode = MBProgressHUDMode.indeterminate
         waitHUb?.animationType = MBProgressHUDAnimation.zoomIn;
         waitHUb?.removeFromSuperViewOnHide = true
-        waitHUb?.label.text = "Loading...";
+//        waitHUb?.label.text = "Loading...";
         waitHUb?.label.textColor = UIColor.white;
         waitHUb?.bezelView.color = UIColor.black
         if #available(iOS 9.0, *) {

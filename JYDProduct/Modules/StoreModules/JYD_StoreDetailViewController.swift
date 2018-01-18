@@ -81,7 +81,7 @@ class JYD_StoreDetailViewController: BaseViewController {
     }
     
     @objc func startExternalMapBtnClick() {
-        handler?.startExternalMaps(.MapAnnotation, fromLocation: CLLocationCoordinate2DMake(0, 0), fromName: "", toLocation: CLLocationCoordinate2DMake(31.3508636304, 121.5068148925), toName: "淞发路地铁站")
+        handler?.startExternalMaps(.MapAnnotation, fromLocation: CLLocationCoordinate2DMake(31.3150688616939, 121.524502972522), fromName: "我的位置", toLocation: CLLocationCoordinate2DMake(31.3508636304, 121.5068148925), toName: "淞发路地铁站")
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,7 +91,6 @@ class JYD_StoreDetailViewController: BaseViewController {
     
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.

@@ -169,9 +169,7 @@ class JYD_MapHandler: BaseHandler {
         let toCoordinate = BMKCoordinateToGCJ02(coor: toLocation)
         
         let currentLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: fromCoordinate, addressDictionary: [:]))
-        currentLocation.name = fromName
         let toLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: toCoordinate, addressDictionary: [:]))
-        currentLocation.name = toName
         var items = [currentLocation,toLocation]
         
         var options = [:] as [String : Any]
@@ -271,9 +269,6 @@ class JYD_MapHandler: BaseHandler {
             let code = BMKOpenRoute.openBaiduMapTransitRoute(opt)
             DPrint(message: code)
             break
-            
-        default:
-            break
         }
     }
     
@@ -294,7 +289,7 @@ class JYD_MapHandler: BaseHandler {
     //MARK:百度坐标转火星坐标
      func BMKCoordinateToGCJ02(coor:CLLocationCoordinate2D) -> CLLocationCoordinate2D {
        
-        let  x_pi = 3.14159265358979324 * 3000.0 / 180.0
+        let  x_pi = Double.pi * 3000.0 / 180.0
         let x = coor.longitude - 0.0065;
         let y = coor.latitude - 0.006;
         let z = sqrt(x * x + y * y) - 0.00002 * sin(y * x_pi);

@@ -30,7 +30,7 @@ class JYD_homeBottomView: UIView {
     }
     
     convenience init (vc:UIViewController,titleStr:String,timeStr:String,addressStr:String,distanceStr:String) {
-        self.init(frame: CGRect.init(x: 0, y: _k_h, width: _k_w, height: APPTool.obtainDisplaySize(size: 90)))
+        self.init(frame: CGRect.init(x: 0, y: _k_h, width: _k_w, height: APPTool.obtainDisplaySize(size: 100)))
         VC = vc
         setContent(titleStr: titleStr, timeStr: timeStr, addressStr: addressStr, distanceStr: distanceStr)
     }
@@ -56,14 +56,14 @@ class JYD_homeBottomView: UIView {
     @objc func show()  {
         VC?.view.addSubview(self)
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h - 90, width: _k_w, height: 90)
+            self.frame = CGRect.init(x: 0, y: _k_h - 90, width: _k_w, height: 100)
         }) { (complication) in
         }
     }
     
     @objc  func dismiss()  {
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: 90)
+            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: 100)
         }) { (complication) in
             self.removeFromSuperview()
         }

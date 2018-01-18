@@ -68,7 +68,6 @@ class JYDNetWorkManager: NSObject {
         self.obtainDataWithUrl(url: url, method: method, paramDic: paramDic,requestTime:requestTime, isNeedWaitView:isNeedWaitView,isNeedCheckNet:isNeedCheckNet,success: success, failure: failure)
     }
     
-    
     // MARK: 底层网络请求
     func obtainDataWithUrl(url:String,
                            method:String,
@@ -85,11 +84,11 @@ class JYDNetWorkManager: NSObject {
         //加载动画视图
         var requestWaitView  = MBProgressHUD()
         if isNeedWaitView {
-            requestWaitView  = self.loadingHUD()
-            requestWaitView.show(animated: true)
+            MBPAlertView.shareInstance.showWaitView(view: UIApplication.shared.keyWindow!)
+//            requestWaitView  = self.loadingHUD()
+//            requestWaitView.show(animated: true)
         }
-        //请求参数加密处理
-//        let requestParam = self.requestParamDeal(paramDic: paramDic)
+        //请求参数
         let requestParam = paramDic
 
         //请求方法
@@ -101,26 +100,26 @@ class JYDNetWorkManager: NSObject {
         manager?.session.configuration.timeoutIntervalForRequest = requestTime
         
         //请求头
-        var requestHeader:HTTPHeaders? = nil
-        if (APPUtilityInfo.shareInstance.userInfo.juid != nil) {
-             requestHeader = ["\(APPUtilityInfo.shareInstance.userInfo.tokenStr ?? "")":"\(APPUtilityInfo.shareInstance.userInfo.tokenStr ?? "")","juid":"\(APPUtilityInfo.shareInstance.userInfo.juid ?? "")"];
-        }
+        let requestHeader:HTTPHeaders? =  ["version":"\(APPTool.shareInstance.getAPPVersion() )","channel":"1"];
         
         //发起请求回调
-        manager?.request(requestUrl!, method: urlMethod!, parameters: requestParam, encoding: JSONEncoding.default,headers:requestHeader).responseJSON { (response) in
+        manager?.request(requestUrl!, method: urlMethod!, parameters: requestParam, encoding: URLEncoding.default,headers:requestHeader).responseJSON { (response) in
             //发起请求的URL
-            print("\(String(describing: response.response?.url))")
+            DPrint(message: "\(String(describing: response.response?.url))")
             //失败返回
             if (response.error != nil) {
                 MBPAlertView.shareInstance.showTextOnly(message: requestFailPrompt, view: UIApplication.shared.keyWindow!)
+                DPrint(message: response.error)
                 failure(.Enum_FAIL,response.error!)
-                requestWaitView.removeFromSuperview()
+                MBPAlertView.shareInstance.removeWaitView()
+//                requestWaitView.removeFromSuperview()
             }
             //成功返回
             if (response.value != nil) {
-                print(response.value)
+                DPrint(message: response.value)
                 success(.Enum_SUCCESS,response.result.value as AnyObject)
-                requestWaitView.removeFromSuperview()
+                MBPAlertView.shareInstance.removeWaitView()
+//                requestWaitView.removeFromSuperview()
             }
         }
     }
@@ -164,7 +163,7 @@ class JYDNetWorkManager: NSObject {
     
     // MARK: 网络请求加载动画
     func loadingHUD() -> MBProgressHUD {
-        
+    
         let Arr = ["load4","load3","load2","load1"]
         let imageV = UIImageView.init(frame: CGRect(x:0,y:0,width:70,height:70))
         var imgArr = [UIImage]()
