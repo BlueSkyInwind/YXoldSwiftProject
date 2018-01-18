@@ -58,6 +58,8 @@ extension JYD_SelectPathHeaderView {
         backButton.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
             make.top.equalTo(self).offset(30)
+            make.width.equalTo(10)
+            make.height.equalTo(18)
         }
         
         

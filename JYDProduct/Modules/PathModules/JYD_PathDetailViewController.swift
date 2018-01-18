@@ -638,7 +638,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     func mapView(_ mapView: BMKMapView!, viewFor overlay: BMKOverlay!) -> BMKOverlayView! {
         if overlay as! BMKPolyline? != nil {
             let polylineView = BMKPolylineView(overlay: overlay as! BMKPolyline)
-            polylineView?.strokeColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.7)
+            polylineView?.strokeColor = UIColor(red: 0, green: 255, blue: 0, alpha: 1)
             polylineView?.lineWidth = 5
             return polylineView
         }

@@ -22,6 +22,11 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     var startCoord: CLLocationCoordinate2D?
     //结束位置
     var endCoord : CLLocationCoordinate2D?
+    //开始位置名称
+    var starLoactionName : String?
+    //结束位置名称
+    var endLoactionName : String?
+    
     //关于路线处理handler
     var handler:JYD_PathHandler?
     //加载等待视图
