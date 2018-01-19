@@ -9,6 +9,8 @@
 import UIKit
 import Spring
 
+let ImageEdge = 50
+
 typealias PopImageTapSender = () -> Void
 class JYD_HomePopView: UIView {
     
@@ -30,7 +32,16 @@ class JYD_HomePopView: UIView {
         frame.size.width = _k_w
         frame.size.height = _k_h
         self.init(frame: frame)
-        self.popImageView?.sd_setImage(with: URL.init(string: imageStr), completed: nil)
+        self.popImageView?.sd_setImage(with: URL.init(string: imageStr), completed: { (image, error, cacheType, imageUrl) in
+            let height = (image?.size.height)!
+            let width =  (image?.size.width)!
+            let scale = height / width
+            self.popImageView?.snp.remakeConstraints({ (make) in
+                make.center.equalTo(self.snp.center)
+                make.width.equalTo(_k_w - APPTool.obtainDisplaySize(size: CGFloat(ImageEdge) * 2))
+                make.height.equalTo((_k_w-APPTool.obtainDisplaySize(size: CGFloat(ImageEdge) * 2)) * scale)
+            })
+        })
         self.popImageView?.animate()
     }
     

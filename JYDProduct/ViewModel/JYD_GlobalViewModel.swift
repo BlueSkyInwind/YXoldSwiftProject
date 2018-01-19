@@ -18,7 +18,7 @@ typealias ReturnFailure = ( _ error: Error) -> Void
 ///   - userLocation: 用户位置
 ///   - successResponse: 成功返回
 ///   - errorResponse: 失败返回
-func obtainStoreListLocationInfo(_ userLocation:CLLocationCoordinate2D, successResponse: @escaping ReturnDataValue<BaseModel<Array<Any>>>, errorResponse: @escaping ReturnFailure){
+func obtainStoreListLocationInfo(_ userLocation:CLLocationCoordinate2D, successResponse: @escaping ReturnDataValue<BaseModel<Dictionary<String,Any>>>, errorResponse: @escaping ReturnFailure){
     
     var paramObject = StoreLocationListParam()
     paramObject.lng = userLocation.longitude
@@ -26,7 +26,7 @@ func obtainStoreListLocationInfo(_ userLocation:CLLocationCoordinate2D, successR
     let paramDic = paramObject.toJSON()
     
     JYDNetWorkManager.shareInstance.getDataWithUrl(url: _Main_url + _StoreLocationList_jhtml, paramDic: paramDic!, requestTime: 30, isNeedWaitView: true, isNeedCheckNet: false, success: { (responseStatus, result) in
-        let baseResult = BaseModel<Array<Any>>.deserialize(from: result as? NSDictionary)
+        let baseResult = BaseModel<Dictionary<String,Any>>.deserialize(from: result as? NSDictionary)
         successResponse(baseResult!)
     }) { (responseStatus, error) in
         errorResponse(error)

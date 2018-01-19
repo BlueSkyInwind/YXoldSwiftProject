@@ -13,6 +13,7 @@
 #import "SSKeychain.h"
 #import <ifaddrs.h>
 #import "UIViewController+KNSemiModal.h"
+#import <UMMobClick/MobClick.h>
 
 
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件

@@ -10,7 +10,6 @@ import UIKit
 
 class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapHandlerDelegate, BMKLocationServiceDelegate {
 
-    
     var _mapView:BMKMapView?
     var locationService: BMKLocationService!
 
@@ -68,9 +67,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             make.height.equalTo(APPTool.obtainDisplaySize(size: 50))
         })
     }
-    
+    //MARK:推广弹窗
     func PopImageView(_ urlStr:String) {
-        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: urlStr)
+        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: "http://dev.faxindai.com:8002/apigw/image/ed0caafd09dd4a19a48c9b65a057c68e.jpg")
         homePopView?.popImageTap = {
             
         }
@@ -116,7 +115,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.showsUserLocation = true//显示定位图层
     }
     
-    //MRAK:添加图层与点
+    //MARK:添加图层
     func addCircleView(_ Location:CLLocationCoordinate2D)  {
         if circleView != nil {
             _mapView?.removeOverlays(_mapView?.overlays)
@@ -125,6 +124,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         _mapView?.add(circleView!)
     }
     
+    //MARK:增加标记门店的点
     func addPointAnnotation(_ locInfos:[StoreListResult])  {
         //清空门店信息
         self.storeInfos?.removeAll()
@@ -186,7 +186,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             storeLocations?.append(annotation)
             if (annotationView?.annotation.isKind(of: JYD_PointAnnotation.self))!{
                 let annV = annotationView?.annotation as! JYD_PointAnnotation
-                annotationView?.paopaoView = addCustomPaopaoView(content: (annV.storeInfoModel?.storeName)!)
+                annotationView?.paopaoView = addCustomPaopaoView(content: "门店" + (annV.storeInfoModel?.cooperationStatus)!)
                 DPrint(message: annV.storeInfoModel)
             }
             return annotationView
@@ -241,7 +241,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         if bottomView != nil {
             return
         }
-        bottomView = JYD_homeBottomView.init(vc: self, titleStr: storeInfo.storeName! , timeStr: "借款时间：" + storeInfo.businessHours!, addressStr: storeInfo.storeAddress!, distanceStr: storeInfo.distance!)
+        bottomView = JYD_homeBottomView.init(vc: self, titleStr: storeInfo.storeName! + "(" +  storeInfo.cooperationStatus! + ")" , timeStr: "借款时间：" + storeInfo.businessHours!, addressStr: storeInfo.storeAddress!, distanceStr: storeInfo.distance!)
         bottomView?.displayPathTapClick = {[weak self] in
             self?.pushPathListVC(storeInfo)
         }
@@ -346,17 +346,15 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
 
 //MARK:数据请求处理
 extension JYD_HomePageViewController {
-    
-    func obtainStoreLocationInfo(_ currentlocation:CLLocationCoordinate2D)  {
+     func obtainStoreLocationInfo(_ currentlocation:CLLocationCoordinate2D)  {
         obtainStoreListLocationInfo(currentlocation, successResponse: { (baseModel) in
             if baseModel.errCode == "0" {
-                let storeLists = baseModel.data
-                var storeLocationInfoArr:[StoreListResult] = []
-                for dic in storeLists! {
-                    let storeLocationInfo = StoreListResult.deserialize(from: (dic as! [String:Any]))
-                    storeLocationInfoArr.append(storeLocationInfo!)
+                let groundInfoResult = GroundInfoResult.deserialize(from: (baseModel.data))
+                let storeLocationInfoArr = (groundInfoResult?.storeList)
+                guard storeLocationInfoArr != nil else {
+                    return
                 }
-                self.addPointAnnotation(storeLocationInfoArr)
+                self.addPointAnnotation(storeLocationInfoArr!)
             }else{
                 MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)
             }

@@ -18,6 +18,12 @@ struct BaseModel<T>:HandyJSON{
     var data : T?
     
 }
+struct GroundInfoResult:HandyJSON{
+    
+    var distance: String?
+    var storeList: Array<StoreListResult>?
+
+}
 
 struct StoreListResult:HandyJSON{
     
@@ -56,7 +62,8 @@ struct StoreDetailResult:HandyJSON{
     var storeAddress: String?
     var storeName: String?
     var storePhone: String?
-    
+    var loanAmount: String?
+
 }
 
 struct HomePopResult:HandyJSON{

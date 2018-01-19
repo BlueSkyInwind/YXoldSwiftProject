@@ -67,12 +67,12 @@ class BaseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        MobClick.beginLogPageView(NSStringFromClass(type(of: self)))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        MobClick.endLogPageView(NSStringFromClass(type(of: self)))
     }
     
     override func didReceiveMemoryWarning() {

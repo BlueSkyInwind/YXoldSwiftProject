@@ -41,6 +41,11 @@ class APPConfig: NSObject {
     //MARK: 三方库的初始化
     func ThirdSourceInit() -> Void
     {
+        UMAnalyticsConfig.sharedInstance().appKey = Umeng_Key
+        MobClick.start(withConfigure: UMAnalyticsConfig.sharedInstance())
+        MobClick.setAppVersion(APPTool.shareInstance.getAPPVersion())
+        MobClick.setLogEnabled(true)
+        
         IQKeyboardManager.shared().toolbarManageBehaviour = IQAutoToolbarManageBehaviour.byPosition
         IQKeyboardManager.shared().shouldResignOnTouchOutside  = true
         IQKeyboardManager.shared().shouldToolbarUsesTextFieldTintColor  = true

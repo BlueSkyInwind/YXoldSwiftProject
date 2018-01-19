@@ -89,7 +89,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return (storeInfolists?.count)!
     }
     
     override func didReceiveMemoryWarning() {

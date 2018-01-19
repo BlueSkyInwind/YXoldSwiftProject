@@ -47,6 +47,8 @@ let Fxd_userName = "userName"
 
 let BMK_AK = "BzL71nwZdHQ3EUIzPHmxa28HwFAfzCoM"
 
+let Umeng_Key = "5a616260f43e4828e5000041"
+
 // app 商店地址
 let appStoreAdress = ""
 
