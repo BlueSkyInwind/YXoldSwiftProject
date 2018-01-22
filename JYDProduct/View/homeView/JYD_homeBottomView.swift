@@ -9,6 +9,8 @@
 import UIKit
 
 typealias DisplayPathTapClick = () -> Void
+typealias StoreDetailTapClick = () -> Void
+
 class JYD_homeBottomView: UIView {
     
     var titleLabel:UILabel?
@@ -18,6 +20,8 @@ class JYD_homeBottomView: UIView {
     var pathIcon:UIImageView?
     var distanceLabel:UILabel?
     var displayPathTapClick:DisplayPathTapClick?
+    var storeDetailTapClick:StoreDetailTapClick?
+
     
     var VC:UIViewController?
 
@@ -27,6 +31,8 @@ class JYD_homeBottomView: UIView {
         setUpUI()
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(displayPathClick))
         pathView?.addGestureRecognizer(tap)
+        let tapTwo = UITapGestureRecognizer.init(target: self, action: #selector(storeDetailClick))
+        self.addGestureRecognizer(tapTwo)
     }
     
     convenience init (vc:UIViewController,titleStr:String,timeStr:String,addressStr:String,distanceStr:String) {
@@ -51,19 +57,24 @@ class JYD_homeBottomView: UIView {
             displayPathTapClick!()
         }
     }
+    @objc func  storeDetailClick() {
+        if storeDetailTapClick != nil {
+            storeDetailTapClick!()
+        }
+    }
     
     //MARK: 弹窗动画
     @objc func show()  {
         VC?.view.addSubview(self)
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h - 100, width: _k_w, height: 100)
+            self.frame = CGRect.init(x: 0, y: _k_h - APPTool.obtainDisplaySize(size: 100), width: _k_w, height: APPTool.obtainDisplaySize(size: 100))
         }) { (complication) in
         }
     }
     
     @objc  func dismiss()  {
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: 100)
+            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: APPTool.obtainDisplaySize(size: 100))
         }) { (complication) in
             self.removeFromSuperview()
         }

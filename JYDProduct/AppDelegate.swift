@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BMKGeneralDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        APPConfig.shareInstance.InitializeAppSet()
         initBMK()
-        
+    
         window = UIWindow.init(frame: UIScreen.main.bounds)
         let homePage = JYD_HomePageViewController()
         let baseNav = BaseNavigationViewController.init(rootViewController: homePage)

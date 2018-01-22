@@ -11,13 +11,15 @@ target 'JYDProduct' do
       pod 'Spring'
       pod 'IQKeyboardManager'
       pod 'HandyJSON','~> 4.0.0-beta.1'
-      #pod 'ShareSDK3'
-      #pod 'ShareSDK3/ShareSDKUI'
-      #pod 'ShareSDK3/ShareSDKExtension'
       pod 'MOBFoundation'
       pod 'Kingfisher'
       pod 'ReactiveCocoa'
       pod 'BaiduMapKit' #百度地图SDK
+      pod 'UMengAnalytics'
+
+      #pod 'ShareSDK3'
+      #pod 'ShareSDK3/ShareSDKUI'
+      #pod 'ShareSDK3/ShareSDKExtension'
       # 短信(可选)
       #pod 'ShareSDK3/ShareSDKPlatforms/SMS'
       # 邮件(可选)

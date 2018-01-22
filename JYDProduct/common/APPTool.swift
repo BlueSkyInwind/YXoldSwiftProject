@@ -77,6 +77,11 @@ class APPTool: NSObject {
         let appVersion = Bundle.main.object(forInfoDictionaryKey: versionKey) as? String
         return appVersion!
     }
+    //MARK:获取工程名
+    func getAppProjectName()  -> String{
+        let projectName = Bundle.main.object(forInfoDictionaryKey: "kCFBundleExecutableKey") as? String
+        return projectName!
+    }
     
     //MARK: 设备识别
     func getDeviceID() -> String? {

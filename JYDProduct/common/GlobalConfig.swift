@@ -31,7 +31,8 @@ enum VerifyCode_Type : String{
 
 //MARK: 项目配置信息
 //服务器识别平台号
-let PLATFORM = "1"
+let CHANNEL = "1"
+let PLATFORMType = "13"
 
 let Fxd_JUID = "juid"
 let Fxd_Token = "token"
@@ -45,6 +46,9 @@ let Fxd_AccountId = "AccountId"
 let Fxd_userName = "userName"
 
 let BMK_AK = "BzL71nwZdHQ3EUIzPHmxa28HwFAfzCoM"
+
+let Umeng_Key = "5a616260f43e4828e5000041"
+
 // app 商店地址
 let appStoreAdress = ""
 

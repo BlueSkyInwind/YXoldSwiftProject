@@ -472,9 +472,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     
     //加载等待视图
     func loading(){
-       
         MBPAlertView.shareInstance.showWaitView(view: self.view)
-
     }
     
     //移除等待视图

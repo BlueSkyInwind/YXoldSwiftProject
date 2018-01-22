@@ -30,6 +30,9 @@ class MBPAlertView: NSObject {
     
     //MARK: 进度条
     func showWaitView(view:UIView)  {
+        if waitHUb != nil {
+            return
+        }
         waitHUb = MBProgressHUD.init(view: view)
         waitHUb?.mode = MBProgressHUDMode.indeterminate
         waitHUb?.animationType = MBProgressHUDAnimation.zoomIn;

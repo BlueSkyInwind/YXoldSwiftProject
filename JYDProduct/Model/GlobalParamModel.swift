@@ -38,5 +38,12 @@ struct StoreInfoParam: HandyJSON{
     }
 }
 
+//MARK:首页pop
+struct HomePopParam: HandyJSON{
+    
+    var platformType : String?
+    init() {
+    }
+}
 
 

@@ -14,7 +14,7 @@ class JYD_StoreDisplayPhotoView: UIView {
     
     var titleLabel:UILabel?
     var imageBackView:UIView?
-    var photos:[UIImage]? = []
+    var photos:[UIImage]? = [UIImage.init(named: "placeHolder_Icon")!,UIImage.init(named: "placeHolder_Icon")!,UIImage.init(named: "placeHolder_Icon")!]
     var photoStrs:[String]?
     var clickIndex:StoreImageClickIndex?
     var imageViewArr:[UIButton] = []
@@ -31,15 +31,16 @@ class JYD_StoreDisplayPhotoView: UIView {
     }
     
     @objc func storeImageClick(button:UIButton) {
+        let count = photoStrs?.count
+        let results = Array(photos![0..<count!])
         if clickIndex != nil {
-            self.clickIndex!(button.tag - 1000 + 1,photos!)
+            self.clickIndex!(button.tag - 1000 + 1,results)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -96,8 +97,14 @@ extension JYD_StoreDisplayPhotoView {
     }
     
     func loadSotreImage(_ urlStr:String,imageBtn:UIButton)  {
-        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.progressiveDownload) {[weak self] (image, error, cacheType, imageURL) in
-            self?.photos?.append(image!)
+            SDWebImageDownloader.shared().setValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", forHTTPHeaderField: "Accept")
+        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.refreshCached) {[weak self] (image, error, cacheType, imageURL) in
+            if image == nil {
+                return
+            }
+            let index = self?.photoStrs?.index(of: (imageURL?.absoluteString)!)
+            self?.photos?.insert(image!, at: index!)
+            self?.photos?.remove(at: index! + 1)
         }
     }
 }

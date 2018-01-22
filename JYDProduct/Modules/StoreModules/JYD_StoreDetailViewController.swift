@@ -48,9 +48,9 @@ class JYD_StoreDetailViewController: BaseViewController {
     func configureView()  {
         
         storeDetailHeaderView = JYD_StoreDetailHeaderView.loadNib("JYD_StoreDetailHeaderView")
-        storeDetailHeaderView?.setContent(title: (storeDetailInfo?.storeName)!, time: "借款时间：" + (storeDetailInfo?.businessHours)!, address: "借款额度：" + (storeDetailInfo?.storeAddress)!, amount: "借款额度：1000-5000元", telStr: "电话:" + (storeDetailInfo?.storePhone)!)
+        storeDetailHeaderView?.setContent(title: "\(storeDetailInfo?.storeName ?? "")", time: "借款时间：" + "\(storeDetailInfo?.businessHours ?? "")", address: "借款额度：" + "\(storeDetailInfo?.storeAddress ?? "")", amount: "借款额度：" + "\(storeDetailInfo?.loanAmount ?? "")", telStr: "电话:" + "\(storeDetailInfo?.storePhone ?? "")")
         storeDetailHeaderView?.callStoreTel = {
-            self.makeStoreCallPhone((self.storeDetailInfo?.storePhone)!)
+            self.makeStoreCallPhone("\(self.storeDetailInfo?.storePhone ?? "")")
         }
         self.view.addSubview(storeDetailHeaderView!)
         storeDetailHeaderView?.snp.makeConstraints({ (make) in
@@ -92,7 +92,11 @@ class JYD_StoreDetailViewController: BaseViewController {
     }
     
     @objc func startExternalMapBtnClick() {
-        handler?.startExternalMaps(.MapAnnotation, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: CLLocationCoordinate2DMake(31.3508636304, 121.5068148925), toName: "淞发路地铁站")
+        
+        let latStr = (storeDetailInfo?.mapMarkLatitude)! as NSString
+        let lonStr = (storeDetailInfo?.mapMarkLongitude)! as NSString
+        let storeCoor = CLLocationCoordinate2DMake(latStr.doubleValue, lonStr.doubleValue)
+        handler?.startExternalMaps(.MapAnnotation, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: storeCoor, toName: (storeDetailInfo?.storeName!)!)
     }
     
     override func didReceiveMemoryWarning() {
