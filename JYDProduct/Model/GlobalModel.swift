@@ -22,7 +22,7 @@ struct GroundInfoResult:HandyJSON{
     
     var distance: String?
     var storeList: Array<StoreListResult>?
-
+    var tips:String?
 }
 
 struct StoreListResult:HandyJSON{

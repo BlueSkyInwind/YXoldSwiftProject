@@ -1012,7 +1012,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = E36C88FNS3;
+				DEVELOPMENT_TEAM = 6W7BW6GZZR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = JYDProduct/SupportFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1037,12 +1037,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = E36C88FNS3;
+				DEVELOPMENT_TEAM = 6W7BW6GZZR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = JYDProduct/SupportFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hfsj.jyd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

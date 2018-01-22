@@ -11,13 +11,14 @@ import Foundation
 // MARK: 项目地址
 #if DEBUG
 
-let _Main_url = "http://h5.test.fxds/apigw/client/jyd/"
-//let _Main_url = "http://h5.dev.fxds/apigw/client/jyd/"
+let _Main_url = "http://h5.dev.fxds/apigw/client/jyd/"
 
 #else
     
 //生产链接
-let _Main_url = "https://h5.faxindai.com/apigw/client/jyd/"
+//let _Main_url = "https://h5.faxindai.com/apigw/client/jyd/"
+//测试连接
+let _Main_url = "http://h5.test.fxds/apigw/client/jyd/"
 
 #endif
 

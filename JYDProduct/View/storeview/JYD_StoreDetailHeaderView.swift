@@ -22,6 +22,9 @@ class JYD_StoreDetailHeaderView: UIView,NibLoadProtocol {
     var callStoreTel:MakingCallStoreTel?
     
     override func awakeFromNib() {
+        self.titleLabel.font = UIFont.systemFont(ofSize: APPTool.obtainDisplaySize(size: 15))
+        self.telLabel.font = UIFont.systemFont(ofSize: APPTool.obtainDisplaySize(size: 13))
+        
         let telTap = UITapGestureRecognizer.init(target: self, action: #selector(userTelTapSender))
         telImageView.addGestureRecognizer(telTap)
     }
