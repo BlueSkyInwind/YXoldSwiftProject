@@ -69,8 +69,18 @@ extension JYD_SelectPathDetailRouterView{
             make.height.equalTo(88)
         }
         
-        let pathView = UIView()
-        pathView.backgroundColor = UIColor.white
+//        let pathView = UIView()
+//        pathView.backgroundColor = UIColor.white
+//        pathBgView.addSubview(pathView)
+//        pathView.snp.makeConstraints { (make) in
+//            make.left.equalTo(pathBgView.snp.left).offset(0)
+//            make.right.equalTo(pathBgView.snp.right).offset(0)
+//            make.top.equalTo(pathBgView.snp.top).offset(0)
+//            make.height.equalTo(85)
+//        }
+        
+        let pathView = UIImageView()
+        pathView.image = UIImage(named:"route_bg_icon")
         pathBgView.addSubview(pathView)
         pathView.snp.makeConstraints { (make) in
             make.left.equalTo(pathBgView.snp.left).offset(0)
