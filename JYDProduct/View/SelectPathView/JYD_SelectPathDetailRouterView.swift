@@ -61,6 +61,7 @@ extension JYD_SelectPathDetailRouterView{
         
         let pathBgView = UIView()
         pathBgView.backgroundColor = VIEWCONTROLLERBG_Color
+//        pathBgView.backgroundColor = UIColor.red
         self.addSubview(pathBgView)
         pathBgView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(0)
@@ -69,13 +70,24 @@ extension JYD_SelectPathDetailRouterView{
             make.height.equalTo(88)
         }
         
-        let pathView = UIView()
-        pathView.backgroundColor = UIColor.white
+//        let pathView = UIView()
+//        pathView.backgroundColor = UIColor.white
+//        pathBgView.addSubview(pathView)
+//        pathView.snp.makeConstraints { (make) in
+//            make.left.equalTo(pathBgView.snp.left).offset(0)
+//            make.right.equalTo(pathBgView.snp.right).offset(0)
+//            make.top.equalTo(pathBgView.snp.top).offset(0)
+//            make.height.equalTo(85)
+//        }
+        
+        let pathView = UIImageView()
+        pathView.image = UIImage(named:"route_bg_icon")
+        pathView.isUserInteractionEnabled = true
         pathBgView.addSubview(pathView)
         pathView.snp.makeConstraints { (make) in
-            make.left.equalTo(pathBgView.snp.left).offset(0)
-            make.right.equalTo(pathBgView.snp.right).offset(0)
-            make.top.equalTo(pathBgView.snp.top).offset(0)
+            make.left.equalTo(pathBgView.snp.left).offset(-2)
+            make.right.equalTo(pathBgView.snp.right).offset(2)
+            make.top.equalTo(pathBgView.snp.top).offset(-3)
             make.height.equalTo(85)
         }
         
@@ -84,7 +96,7 @@ extension JYD_SelectPathDetailRouterView{
         directionButton?.addTarget(self, action: #selector(directionButtonClick), for: .touchUpInside)
         pathView.addSubview(directionButton!)
         directionButton?.snp.makeConstraints({ (make) in
-            make.top.equalTo(pathView.snp.top).offset(3)
+            make.top.equalTo(pathView.snp.top).offset(9)
             make.centerX.equalTo(pathView.snp.centerX)
             make.height.equalTo(10)
             make.width.equalTo(15)

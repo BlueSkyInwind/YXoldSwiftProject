@@ -77,6 +77,15 @@ extension JYD_SelectePathCell{
     
     //公交车的UI
     fileprivate func setBusUI(){
+        let bgImageView = UIImageView()
+        bgImageView.image = UIImage(named:"route_cell_bg_icon")
+        self.addSubview(bgImageView)
+        bgImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(0)
+            make.left.equalTo(self).offset(0)
+            make.right.equalTo(self).offset(0)
+            make.height.equalTo(75)
+        }
         
         let leftImageView = UIImageView()
         leftImageView.image = UIImage(named:"tuoyuan_icon")
@@ -168,6 +177,16 @@ extension JYD_SelectePathCell{
     //自驾的UI
     fileprivate func setCarUI(){
         
+        let bgImageView = UIImageView()
+        bgImageView.image = UIImage(named:"route_cell_bg_icon")
+        self.addSubview(bgImageView)
+        bgImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(0)
+            make.left.equalTo(self).offset(0)
+            make.right.equalTo(self).offset(0)
+            make.height.equalTo(75)
+        }
+        
         let leftImageView = UIImageView()
         leftImageView.image = UIImage(named:"tuoyuan_icon")
         self.addSubview(leftImageView)
@@ -225,6 +244,16 @@ extension JYD_SelectePathCell{
 
     //步行和骑车的UI
     fileprivate func setWalkUI(){
+        
+        let bgImageView = UIImageView()
+        bgImageView.image = UIImage(named:"route_cell_bg_icon")
+        self.addSubview(bgImageView)
+        bgImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(0)
+            make.left.equalTo(self).offset(0)
+            make.right.equalTo(self).offset(0)
+            make.height.equalTo(75)
+        }
         
         let leftImageView = UIImageView()
         leftImageView.image = UIImage(named:"tuoyuan_icon")
