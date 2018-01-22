@@ -48,9 +48,9 @@ class JYD_StoreDetailViewController: BaseViewController {
     func configureView()  {
         
         storeDetailHeaderView = JYD_StoreDetailHeaderView.loadNib("JYD_StoreDetailHeaderView")
-        storeDetailHeaderView?.setContent(title: (storeDetailInfo?.storeName)!, time: "借款时间：" + (storeDetailInfo?.businessHours)!, address: "借款额度：" + (storeDetailInfo?.storeAddress)!, amount: "借款额度：" + (storeDetailInfo?.loanAmount)!, telStr: "电话:" + (storeDetailInfo?.storePhone)!)
+        storeDetailHeaderView?.setContent(title: "\(storeDetailInfo?.storeName ?? "")", time: "借款时间：" + "\(storeDetailInfo?.businessHours ?? "")", address: "借款额度：" + "\(storeDetailInfo?.storeAddress ?? "")", amount: "借款额度：" + "\(storeDetailInfo?.loanAmount ?? "")", telStr: "电话:" + "\(storeDetailInfo?.storePhone ?? "")")
         storeDetailHeaderView?.callStoreTel = {
-            self.makeStoreCallPhone((self.storeDetailInfo?.storePhone)!)
+            self.makeStoreCallPhone("\(self.storeDetailInfo?.storePhone ?? "")")
         }
         self.view.addSubview(storeDetailHeaderView!)
         storeDetailHeaderView?.snp.makeConstraints({ (make) in

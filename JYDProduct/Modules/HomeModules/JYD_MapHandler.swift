@@ -300,9 +300,26 @@ class JYD_MapHandler: BaseHandler {
         return coordinate
     
     }
+    //MARK:距离转化地图缩放等级
+    func pathTransformToLevel(_ distanceStr:String) -> Float {
+        var level = 14
+        let distance = Int(distanceStr)!
+        if distance >= 10 &&  distance <= 20 {
+            level = 13
+        }
+        
+        if distance > 20 &&  distance <= 30 {
+            level = 12
+        }
+        
+        if distance > 30 {
+            level = 11
+        }
+        
+        return Float(level)
+    }
     
     
     
     
-
 }

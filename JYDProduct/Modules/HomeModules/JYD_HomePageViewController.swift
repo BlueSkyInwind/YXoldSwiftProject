@@ -24,6 +24,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var currentLocation:CLLocationCoordinate2D?
     var storeLocations:[BMKAnnotation]? = []
     var storeInfos:[StoreListResult]? = []
+    var distanceRadius:String?
     
     var isObtainAnn:Bool = false
     
@@ -34,7 +35,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         
         configureView()
         obtainPopViewInfo {[weak self]  (isSuccess,model) in
-            self?.PopImageView(model.image!)
+            self?.PopImageView(model.image!,toUrlStr: "\(model.toUrl ?? "")")
         }
         
     }
@@ -68,10 +69,15 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         })
     }
     //MARK:推广弹窗
-    func PopImageView(_ urlStr:String) {
-        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: "http://dev.faxindai.com:8002/apigw/image/ed0caafd09dd4a19a48c9b65a057c68e.jpg")
-        homePopView?.popImageTap = {
-            
+    func PopImageView(_ urlStr:String,toUrlStr:String) {
+        homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: urlStr)
+        homePopView?.popImageTap = {[weak self] in
+            if  toUrlStr != ""{
+                let  webVC = JYDWebViewController()
+                webVC.urlStr = toUrlStr
+                self?.navigationController?.pushViewController(webVC, animated: true)
+            }
+            self?.homePopView?.closePop()
         }
         UIApplication.shared.keyWindow?.addSubview(homePopView!)
     }
@@ -91,7 +97,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }
     
     func addMapScaleBar()  {
-        
         _mapView?.showMapScaleBar = true
         _mapView?.mapScaleBarPosition = CGPoint(x: 10, y:  _k_h / 2 + 100)
         _mapView?.mapPadding = UIEdgeInsetsMake(0, 0, 28, 0)
@@ -132,6 +137,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         //清空位置信息
         _mapView?.removeAnnotations(storeLocations)
         storeLocations?.removeAll()
+        //缩放地图
+        let zoom = handler?.pathTransformToLevel(distanceRadius!)
+        _mapView?.zoomLevel = zoom!
         for Info in locInfos {
             let lat = Double(Info.mapMarkLatitude!)
             let lon = Double(Info.mapMarkLongitude!)
@@ -351,6 +359,7 @@ extension JYD_HomePageViewController {
             if baseModel.errCode == "0" {
                 let groundInfoResult = GroundInfoResult.deserialize(from: (baseModel.data))
                 let storeLocationInfoArr = (groundInfoResult?.storeList)
+                self.distanceRadius = groundInfoResult?.distance
                 guard storeLocationInfoArr != nil else {
                     return
                 }
@@ -367,11 +376,9 @@ extension JYD_HomePageViewController {
         obtainHomePopViewInfo({ (baseModel) in
             if baseModel.errCode == "0" {
                 let array = baseModel.data
-                do {
+                if array != nil {
                     let popModel = HomePopResult.deserialize(from: (array?.first as! [String:Any]))
                     finish(true,popModel!)
-                }catch{
-                    
                 }
             }else{
                 MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)

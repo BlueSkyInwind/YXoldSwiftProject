@@ -31,15 +31,16 @@ class JYD_StoreDisplayPhotoView: UIView {
     }
     
     @objc func storeImageClick(button:UIButton) {
+        let count = photoStrs?.count
+        let results = Array(photos![0..<count!])
         if clickIndex != nil {
-            self.clickIndex!(button.tag - 1000 + 1,photos!)
+            self.clickIndex!(button.tag - 1000 + 1,results)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -85,7 +86,6 @@ extension JYD_StoreDisplayPhotoView {
             imageBtn.tag = Int(1000 + index)
             loadSotreImage(imageStr, imageBtn: imageBtn)
             imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
-            imageBtn.currentImage
             imageBackView?.addSubview(imageBtn)
             imageViewArr.append(imageBtn)
             imageBtn.snp.makeConstraints({ (make) in
@@ -97,7 +97,11 @@ extension JYD_StoreDisplayPhotoView {
     }
     
     func loadSotreImage(_ urlStr:String,imageBtn:UIButton)  {
-        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.progressiveDownload) {[weak self] (image, error, cacheType, imageURL) in
+            SDWebImageDownloader.shared().setValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", forHTTPHeaderField: "Accept")
+        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.refreshCached) {[weak self] (image, error, cacheType, imageURL) in
+            if image == nil {
+                return
+            }
             let index = self?.photoStrs?.index(of: (imageURL?.absoluteString)!)
             self?.photos?.insert(image!, at: index!)
             self?.photos?.remove(at: index! + 1)

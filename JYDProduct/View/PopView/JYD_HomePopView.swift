@@ -33,6 +33,9 @@ class JYD_HomePopView: UIView {
         frame.size.height = _k_h
         self.init(frame: frame)
         self.popImageView?.sd_setImage(with: URL.init(string: imageStr), completed: { (image, error, cacheType, imageUrl) in
+            if image == nil{
+                return
+            }
             let height = (image?.size.height)!
             let width =  (image?.size.width)!
             let scale = height / width
@@ -52,6 +55,10 @@ class JYD_HomePopView: UIView {
     }
     
     @objc func closePopBtnClick()  {
+        closePop()
+    }
+    
+    func closePop()  {
         self.popImageView?.animate()
         self.popImageView?.animateNext {
             self.removeFromSuperview()
