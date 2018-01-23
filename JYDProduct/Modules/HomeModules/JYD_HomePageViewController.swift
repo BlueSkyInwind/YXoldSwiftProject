@@ -151,7 +151,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
             let annotationPoint = JYD_PointAnnotation.init()
             annotationPoint.coordinate = storeCoor
-            annotationPoint.title = "这一家店"
             annotationPoint.storeInfoModel = Info
             _mapView?.addAnnotation(annotationPoint)
         }
