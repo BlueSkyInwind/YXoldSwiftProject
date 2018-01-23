@@ -13,11 +13,11 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.white
         addNavStyle()
     }
     
     func addNavStyle()  {
-        self.view.backgroundColor  = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = {[NSAttributedStringKey.font:UIFont.systemFont(ofSize: 19), NSAttributedStringKey.foregroundColor:UIColor.white]}()
         //        self.navigationController?.navigationBar.backgroundColor = appMainBg
         self.navigationController?.navigationBar.setBackgroundImage(APPTool.shareInstance.imageWithColor(color: appMainBg), for: UIBarMetrics.default)
@@ -25,7 +25,6 @@ class BaseViewController: UIViewController {
     }
     
     func addWhiteNavStyle()  {
-        self.view.backgroundColor  = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = {[NSAttributedStringKey.font:UIFont.systemFont(ofSize: 19), NSAttributedStringKey.foregroundColor:UIColor.black]}()
         self.navigationController?.navigationBar.setBackgroundImage(APPTool.shareInstance.imageWithColor(color: UIColor.white), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.isTranslucent = true

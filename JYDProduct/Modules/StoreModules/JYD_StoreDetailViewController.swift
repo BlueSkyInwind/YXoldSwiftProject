@@ -45,21 +45,20 @@ class JYD_StoreDetailViewController: BaseViewController {
         super.viewWillDisappear(animated)
         addNavStyle()
     }
+    
     func configureView()  {
         
         storeDetailHeaderView = JYD_StoreDetailHeaderView.loadNib("JYD_StoreDetailHeaderView")
-        storeDetailHeaderView?.setContent(title: "\(storeDetailInfo?.storeName ?? "")", time: "\(storeDetailInfo?.businessHours ?? "")", address: "\(storeDetailInfo?.storeAddress ?? "")", amount:"\(storeDetailInfo?.loanAmount ?? "")", telStr: "电话:" + "\(storeDetailInfo?.storePhone ?? "")")
-        storeDetailHeaderView?.callStoreTel = {
-            self.makeStoreCallPhone("\(self.storeDetailInfo?.storePhone ?? "")")
-        }
+        storeDetailHeaderView?.setContent(title: "\(storeDetailInfo?.storeName ?? "")", time: "\(storeDetailInfo?.businessHours ?? "")", address: "\(storeDetailInfo?.storeAddress ?? "")", amount:"\(storeDetailInfo?.loanAmount ?? "")")
+        let height = 140 + APPTool.shareInstance.obtainLabelHeight(address: "\(storeDetailInfo?.storeAddress ?? "")" as NSString, width: _k_w - 50)
         self.view.addSubview(storeDetailHeaderView!)
         storeDetailHeaderView?.snp.makeConstraints({ (make) in
             make.left.right.equalTo(self.view)
             make.top.equalTo(obtainBarHeight_New(vc: self) + 12)
-            make.height.equalTo(140)
+            make.height.equalTo(height)
         })
         
-        storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: self.storeImages!)
+        storeDisplayPhotoView = JYD_StoreDisplayPhotoView.init(frame: CGRect.zero, images: self.storeImages!,telStr:"电话:" + "\(storeDetailInfo?.storePhone ?? "")")
         storeDisplayPhotoView?.clickIndex = { (index,photos) in
             let browseVC = JYD_StorePhotoBrowseViewController()
             browseVC.imageArr = photos;
@@ -67,6 +66,9 @@ class JYD_StoreDetailViewController: BaseViewController {
             browseVC.transitioningDelegate = self.modalDelegate
             browseVC.modalPresentationStyle = .custom
             self.present(browseVC, animated: true, completion: nil)
+        }
+        storeDisplayPhotoView?.callStoreTel = {
+            self.makeStoreCallPhone("\(self.storeDetailInfo?.storePhone ?? "")")
         }
         self.view.addSubview(storeDisplayPhotoView!)
         storeDisplayPhotoView?.snp.makeConstraints({ (make) in
@@ -76,7 +78,7 @@ class JYD_StoreDetailViewController: BaseViewController {
         })
         
         startExternalMapBtn = UIButton.init(type: UIButtonType.custom)
-        startExternalMapBtn?.setTitle(StartMapButtonTitle, for: UIControlState.normal)
+        startExternalMapBtn?.setTitle("查看线路", for: UIControlState.normal)
         startExternalMapBtn?.setTitleColor(UIColor.white, for: UIControlState.normal)
         startExternalMapBtn?.backgroundColor = appMainBg
         startExternalMapBtn?.layer.cornerRadius = 5
@@ -93,10 +95,11 @@ class JYD_StoreDetailViewController: BaseViewController {
     
     @objc func startExternalMapBtnClick() {
         
-        let latStr = (storeDetailInfo?.mapMarkLatitude)! as NSString
-        let lonStr = (storeDetailInfo?.mapMarkLongitude)! as NSString
-        let storeCoor = CLLocationCoordinate2DMake(latStr.doubleValue, lonStr.doubleValue)
-        handler?.startExternalMaps(.MapAnnotation, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: storeCoor, toName: (storeDetailInfo?.storeName!)!)
+//        let latStr = (storeDetailInfo?.mapMarkLatitude)! as NSString
+//        let lonStr = (storeDetailInfo?.mapMarkLongitude)! as NSString
+//        let storeCoor = CLLocationCoordinate2DMake(latStr.doubleValue, lonStr.doubleValue)
+//        handler?.startExternalMaps(.MapAnnotation, fromLocation: APPUtilityInfo.shareInstance.userCurrentLocation!, fromName: "我的位置", toLocation: storeCoor, toName: (storeDetailInfo?.storeName!)!)
+        pushPathListVC(storeDetailInfo!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,6 +120,22 @@ class JYD_StoreDetailViewController: BaseViewController {
         }
         alertSheetVC.addAction(cancelAction)
         self.present(alertSheetVC, animated: true, completion: nil)
+    }
+    
+    func pushPathListVC(_ storeInfo:StoreDetailResult)  {
+        
+        guard (storeInfo != nil) else {
+            return
+        }
+        
+        let latStr = storeInfo.mapMarkLatitude! as NSString
+        let lonStr = storeInfo.mapMarkLongitude! as NSString
+        let storeCoor = CLLocationCoordinate2DMake(latStr.doubleValue, lonStr.doubleValue)
+        let selectStoreVC = JYD_SelectPathViewController.init()
+        selectStoreVC.startCoord = APPUtilityInfo.shareInstance.userCurrentLocation
+        selectStoreVC.endCoord = storeCoor
+        selectStoreVC.endLoactionName = storeInfo.storeName!
+        self.navigationController?.pushViewController(selectStoreVC, animated: true)
     }
     
     /*

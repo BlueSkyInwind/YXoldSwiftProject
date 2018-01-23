@@ -69,6 +69,14 @@ extension JYD_StoreListTableViewCell {
             make.top.equalTo(self.snp.top).offset(APPTool.obtainDisplaySize(size: 15))
         })
         
+        pathView = UIView()
+        pathView?.backgroundColor = appMainBg
+        self.addSubview(pathView!)
+        pathView?.snp.makeConstraints({ (make) in
+            make.right.top.bottom.equalTo(self)
+            make.width.equalTo(APPTool.obtainDisplaySize(size:85))
+        })
+        
         timeLabel = UILabel()
         timeLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
         timeLabel?.textColor = homeHeaderTitleColor
@@ -81,18 +89,12 @@ extension JYD_StoreListTableViewCell {
         adressLabel = UILabel()
         adressLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
         adressLabel?.textColor = homeHeaderTitleColor
+        adressLabel?.numberOfLines = 0
         self.addSubview(adressLabel!)
         adressLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
             make.top.equalTo((timeLabel?.snp.bottom)!).offset(APPTool.obtainDisplaySize(size: 8))
-        })
-        
-        pathView = UIView()
-        pathView?.backgroundColor = appMainBg
-        self.addSubview(pathView!)
-        pathView?.snp.makeConstraints({ (make) in
-            make.right.top.bottom.equalTo(self)
-            make.width.equalTo(self.snp.height)
+            make.right.equalTo((pathView?.snp.left)!).offset(-5)
         })
         
         pathIcon = UIImageView()

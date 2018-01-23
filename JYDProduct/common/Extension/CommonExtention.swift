@@ -58,7 +58,7 @@ extension UIFont {
    class func obtainDisplayFontSize(fontSize:Float) -> Float {
         var fontScale:Float = 1.0;
         if (UI_IS_IPHONE5) {
-            fontScale = 1.0;
+            fontScale = 0.9;
         }else if (UI_IS_IPONE6){
             fontScale = 1.0;
         }else if (UI_IS_IPHONE6P){

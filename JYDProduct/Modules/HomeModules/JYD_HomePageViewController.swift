@@ -192,9 +192,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
                 annotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: AnnotationViewID)
             }
             annotationView?.animatesDrop = true
+            annotationView?.annotation = annotation
             annotationView?.image = UIImage.init(named: "storeLocation_Icon")
             annotationView?.isDraggable = false
-            annotationView?.annotation = annotation
             storeLocations?.append(annotation)
             if (annotationView?.annotation.isKind(of: JYD_PointAnnotation.self))!{
                 let annV = annotationView?.annotation as! JYD_PointAnnotation
@@ -293,13 +293,13 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didUpdate(_ userLocation: BMKUserLocation!) {
         DPrint(message: "didUpdateUserLocation lat:\(userLocation.location.coordinate.latitude) lon:\(userLocation.location.coordinate.longitude)")
-        _mapView?.setCenter(userLocation.location.coordinate, animated: true)
-        _mapView?.updateLocationData(userLocation)
 //        addCircleView(userLocation.location.coordinate)
         currentLocation = userLocation.location.coordinate
         APPUtilityInfo.shareInstance.userCurrentLocation = currentLocation
         if isObtainAnn {
             isObtainAnn = false
+            _mapView?.setCenter(userLocation.location.coordinate, animated: true)
+            _mapView?.updateLocationData(userLocation)
             obtainStoreLocationInfo(currentLocation!)
         }
     }

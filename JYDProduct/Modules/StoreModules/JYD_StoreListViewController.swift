@@ -76,7 +76,9 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return APPTool.obtainDisplaySize(size: 85)
+        let storeInfo = storeInfolists![indexPath.section]
+        let addressHeight = APPTool.shareInstance.obtainLabelHeight(address: "\(storeInfo.storeAddress ?? "")" as NSString, width: _k_w - 85)
+        return APPTool.obtainDisplaySize(size: 85 + addressHeight )
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

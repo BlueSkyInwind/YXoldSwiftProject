@@ -199,7 +199,7 @@ class APPTool: NSObject {
     class func obtainDisplaySize(size:CGFloat) -> CGFloat {
         var fontScale:CGFloat = 1.0;
         if (UI_IS_IPHONE5) {
-            fontScale = 1.0;
+            fontScale = 0.9;
         }else if (UI_IS_IPONE6){
             fontScale = 1.0;
         }else if (UI_IS_IPHONE6P){
@@ -209,8 +209,12 @@ class APPTool: NSObject {
         }
         return fontScale * size;
     }
+    
+    func obtainLabelHeight(address:NSString,width:CGFloat) -> CGFloat  {
+        let height =  address.boundingRect(with: CGSize.init(width: width, height: UIScreen.main.bounds.size.height), options: .usesLineFragmentOrigin, attributes: [:], context: nil).height
+        return height
+    }
 }
-
 
 
 
