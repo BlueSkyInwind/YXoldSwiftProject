@@ -348,7 +348,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             let walkDistance = handler?.calculateDistance(distance: walk!)
 
             let walkStr = String(format:"%.2f",walkDistance!)
-            cell.walkLabel?.text = walkStr + "km"
+            cell.walkLabel?.text = WalkTitle + walkStr + Unit
            
             let str = (cell.routeLabel?.text)! as NSString
             
@@ -366,7 +366,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
 
             cell.timeLabel?.text = "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
-            cell.distanceLabel?.text = distanceStr + "km"
+            cell.distanceLabel?.text = distanceStr + Unit
             break
             
         case 102?:
@@ -377,7 +377,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.routeLabel?.text = setCarDesc(index: index)
             cell.timeLabel?.text = "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
-            cell.distanceLabel?.text = distanceStr + "km"
+            cell.distanceLabel?.text = distanceStr + Unit
             break
         case 103?:
             let routeLine = dataArray[index] as! BMKWalkingRouteLine
@@ -386,7 +386,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.leftLabel?.text = "\(index + 1)"
             cell.timeLabel?.text = WalkTitle + "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
-            cell.distanceLabel?.text = distanceStr + "km"
+            cell.distanceLabel?.text = distanceStr + Unit
             
             break
         case 104?:
@@ -397,7 +397,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             cell.leftLabel?.text = "\(index + 1)"
             let distanceStr = String(format:"%.2f",distance!)
             cell.timeLabel?.text = RidingTitle + "\(timeStr!)"
-            cell.distanceLabel?.text = distanceStr + "km"
+            cell.distanceLabel?.text = distanceStr + Unit
 
             break
         default:

@@ -169,9 +169,9 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             bottomView?.routerLabel?.text = "\(route!)"
             bottomView?.timeLabel?.text = "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.text = distanceStr + "km"
+            bottomView?.distanceLabel?.text = distanceStr + Unit
             let walkStr = String(format:"%.2f",walkDistance!)
-            bottomView?.walkLabel?.text = walkStr + "km"
+            bottomView?.walkLabel?.text = WalkTitle + walkStr + Unit
             bottomView?.routerLabel?.font = UIFont.systemFont(ofSize: 13)
             getBusDetailRoute(routeLine: busRoute!)
             break
@@ -182,7 +182,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             
             bottomView?.timeLabel?.text = "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.text = distanceStr + "km"
+            bottomView?.distanceLabel?.text = distanceStr + Unit
             bottomView?.routerLabel?.text = drivingDesc
             getDrivingDetailRoute(routeLine: drivingRoute!)
             break
@@ -194,7 +194,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             bottomView?.timeLabel?.textColor = StoreDetailImageTitle_Color
             bottomView?.timeLabel?.text = WalkTitle + "\(timeStr!)"
             let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.text = distanceStr + "km"
+            bottomView?.distanceLabel?.text = distanceStr + Unit
             
             getWalkingDetailRoute(routeLine: walkingRoute!)
             break
@@ -208,7 +208,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             bottomView?.timeLabel?.textColor = StoreDetailImageTitle_Color
             let distanceStr = String(format:"%.2f",distance!)
             bottomView?.distanceLabel?.textColor = StoreDetailImageTitle_Color
-            bottomView?.distanceLabel?.text = distanceStr + "km"
+            bottomView?.distanceLabel?.text = distanceStr + Unit
             getRidingDetailRoute(routeLine: ridingRoute!)
             break
 
