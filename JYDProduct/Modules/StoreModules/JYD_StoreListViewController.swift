@@ -56,7 +56,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
             storeListCell = JYD_StoreListTableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "JYD_StoreListTableViewCell")
         }
         let storeInfo = storeInfolists![indexPath.section]
-        storeListCell?.configureContent(title: storeInfo.storeName!, time: "借款时间：" + storeInfo.businessHours!, address: storeInfo.storeAddress!, distance: storeInfo.distance!)
+        storeListCell?.configureContent(title: "\(storeInfo.storeName ?? "")", time: "\(storeInfo.businessHours ?? "")", address: "\(storeInfo.storeAddress ?? "")", distance: "\(storeInfo.distance ?? "")")
         storeListCell?.pathTapClick = {
             self.pushPathListVC(storeInfo)
         }

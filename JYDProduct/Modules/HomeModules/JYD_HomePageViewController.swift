@@ -25,7 +25,12 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     var storeLocations:[BMKAnnotation]? = []
     var storeInfos:[StoreListResult]? = []
     var distanceRadius:String?
-    
+    var homeTips:String?{
+        didSet{
+            headerView?.titleLabel?.text = homeTips
+        }
+    }
+
     var isObtainAnn:Bool = false
     
     override func viewDidLoad() {
@@ -146,7 +151,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             let storeCoor = CLLocationCoordinate2DMake(lat!, lon!)
             let annotationPoint = JYD_PointAnnotation.init()
             annotationPoint.coordinate = storeCoor
-            annotationPoint.title = "这一家店"
             annotationPoint.storeInfoModel = Info
             _mapView?.addAnnotation(annotationPoint)
         }
@@ -194,7 +198,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             storeLocations?.append(annotation)
             if (annotationView?.annotation.isKind(of: JYD_PointAnnotation.self))!{
                 let annV = annotationView?.annotation as! JYD_PointAnnotation
-                annotationView?.paopaoView = addCustomPaopaoView(content: "门店" + (annV.storeInfoModel?.cooperationStatus)!)
+                annotationView?.paopaoView = addCustomPaopaoView(content: "门店" + "\(annV.storeInfoModel?.cooperationStatus ?? "")")
                 DPrint(message: annV.storeInfoModel)
             }
             return annotationView
@@ -249,7 +253,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         if bottomView != nil {
             return
         }
-        bottomView = JYD_homeBottomView.init(vc: self, titleStr: storeInfo.storeName! + "(" +  storeInfo.cooperationStatus! + ")" , timeStr: "借款时间：" + storeInfo.businessHours!, addressStr: storeInfo.storeAddress!, distanceStr: storeInfo.distance!)
+        bottomView = JYD_homeBottomView.init(vc: self, titleStr: "\(storeInfo.storeName ?? "")" + "(" +  "\(storeInfo.cooperationStatus ?? "")" + ")" , timeStr: "\(storeInfo.businessHours ?? "")", addressStr: "\(storeInfo.storeAddress ?? "")", distanceStr: "\(storeInfo.distance ?? "")")
         bottomView?.displayPathTapClick = {[weak self] in
             self?.pushPathListVC(storeInfo)
         }
@@ -360,6 +364,7 @@ extension JYD_HomePageViewController {
                 let groundInfoResult = GroundInfoResult.deserialize(from: (baseModel.data))
                 let storeLocationInfoArr = (groundInfoResult?.storeList)
                 self.distanceRadius = groundInfoResult?.distance
+                self.homeTips = groundInfoResult?.tips
                 guard storeLocationInfoArr != nil else {
                     return
                 }

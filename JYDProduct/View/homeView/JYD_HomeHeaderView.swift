@@ -78,7 +78,7 @@ extension JYD_HomeHeaderView {
         titleLabel = UILabel()
         titleLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 17)
         titleLabel?.textColor =  homeHeaderTitleColor
-        titleLabel?.text = "线下借款门店，列表查看"
+//        titleLabel?.text = "线下借款门店，列表查看"
         backGroundImage?.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
             make.center.equalTo((backGroundImage?.snp.center)!)
