@@ -19,12 +19,15 @@ class JYD_StoreDetailHeaderView: UIView,NibLoadProtocol {
     
     @IBOutlet weak var telImageView: UIImageView!
     
+    @IBOutlet weak var telImageLeft: NSLayoutConstraint!
     var callStoreTel:MakingCallStoreTel?
     
     override func awakeFromNib() {
-        self.titleLabel.font = UIFont.systemFont(ofSize: APPTool.obtainDisplaySize(size: 15))
-        self.telLabel.font = UIFont.systemFont(ofSize: APPTool.obtainDisplaySize(size: 13))
-        
+        self.titleLabel.font = UIFont.FitBoldSystemFontOfSize(fontSize: 15)
+        self.telLabel.font = UIFont.FitSystemFontOfSize(fontSize: 13)
+        if UI_IS_IPHONE5 {
+            self.telImageLeft.constant = 10
+        }
         let telTap = UITapGestureRecognizer.init(target: self, action: #selector(userTelTapSender))
         telImageView.addGestureRecognizer(telTap)
     }
