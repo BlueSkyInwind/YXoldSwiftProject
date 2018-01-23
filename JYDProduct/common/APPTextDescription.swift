@@ -24,6 +24,7 @@ let BusTitle = "公交"
 let CarTitle = "驾车"
 let WalkTitle = "步行"
 let RidingTitle = "骑行"
+let Unit = "公里"
 
 let MyLocationTitle = "我的位置"
 
