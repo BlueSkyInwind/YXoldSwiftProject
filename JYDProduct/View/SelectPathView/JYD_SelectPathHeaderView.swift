@@ -62,6 +62,16 @@ extension JYD_SelectPathHeaderView {
             make.height.equalTo(18)
         }
         
+        let backBtn = UIButton()
+        backBtn.addTarget(self, action:#selector(back) , for: .touchUpInside)
+        self.addSubview(backBtn)
+        backBtn.snp.makeConstraints { (make) in
+            
+            make.left.equalTo(self).offset(10)
+            make.top.equalTo(self).offset(15)
+            make.width.equalTo(20)
+            make.height.equalTo(40)
+        }
         
         let titleLabel = UILabel()
         titleLabel.text = Home_NavTitle
