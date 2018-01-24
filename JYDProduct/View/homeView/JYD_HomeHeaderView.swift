@@ -8,19 +8,19 @@
 
 import UIKit
 
-typealias RightIconButtonClick = () -> Void
+typealias BackGroundViewTap = () -> Void
 class JYD_HomeHeaderView: UIView {
     
     var backGroundImage:UIImageView?
     var titleImage:UIImageView?
     var titleLabel:UILabel?
-    var rightIconBtn:UIButton?
-    var rightIconButtonClick:RightIconButtonClick?
+    var rightIcon:UIImageView?
+    var backGroundViewTap:BackGroundViewTap?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
-        
+
     }
 
     
@@ -28,12 +28,11 @@ class JYD_HomeHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func rightIconBtnClick()  {
-        if rightIconButtonClick != nil {
-            rightIconButtonClick!()
+    @objc func backGroundViewTapClick()  {
+        if backGroundViewTap != nil {
+            backGroundViewTap!()
         }
     }
-    
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -52,6 +51,8 @@ extension JYD_HomeHeaderView {
         backGroundImage = UIImageView()
         backGroundImage?.image = UIImage.init(named: "headerBackGround_Icon")
         backGroundImage?.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(backGroundViewTapClick))
+        backGroundImage?.addGestureRecognizer(tap)
         self.addSubview(backGroundImage!)
         backGroundImage?.snp.makeConstraints({ (make) in
             make.edges.equalTo(self)
@@ -66,11 +67,11 @@ extension JYD_HomeHeaderView {
             make.left.equalTo((backGroundImage?.snp.left)!).offset(APPTool.obtainDisplaySize(size: 15))
         })
         
-        rightIconBtn = UIButton.init(type: UIButtonType.custom)
-        rightIconBtn?.setImage(UIImage.init(named: "goStoreList_Icon"), for: UIControlState.normal)
-        rightIconBtn?.addTarget(self, action: #selector(rightIconBtnClick), for: UIControlEvents.touchUpInside)
-        backGroundImage?.addSubview(rightIconBtn!)
-        rightIconBtn?.snp.makeConstraints({ (make) in
+        rightIcon = UIImageView()
+        rightIcon?.image = UIImage.init(named: "goStoreList_Icon")
+        rightIcon?.isUserInteractionEnabled = true
+        backGroundImage?.addSubview(rightIcon!)
+        rightIcon?.snp.makeConstraints({ (make) in
             make.centerY.equalTo((backGroundImage?.snp.centerY)!).offset(-2)
             make.right.equalTo((backGroundImage?.snp.right)!).offset(-(APPTool.obtainDisplaySize(size: 15)))
         })
@@ -78,12 +79,12 @@ extension JYD_HomeHeaderView {
         titleLabel = UILabel()
         titleLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 17)
         titleLabel?.textColor =  homeHeaderTitleColor
+        titleLabel?.isUserInteractionEnabled = true
 //        titleLabel?.text = "线下借款门店，列表查看"
         backGroundImage?.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
             make.center.equalTo((backGroundImage?.snp.center)!)
         })
-
     }
 
 }

@@ -42,7 +42,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         obtainPopViewInfo {[weak self]  (isSuccess,model) in
             self?.PopImageView(model.image!,toUrlStr: "\(model.toUrl ?? "")")
         }
-        
     }
     
     func configureView()  {
@@ -62,7 +61,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         
         //MARK:头部视图
         headerView = JYD_HomeHeaderView.init(frame: CGRect.zero)
-        headerView?.rightIconButtonClick = {
+        headerView?.backGroundViewTap = {
             self.pushStoreListVC()
         }
         self.view.addSubview(headerView!)
@@ -73,6 +72,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             make.height.equalTo(APPTool.obtainDisplaySize(size: 50))
         })
     }
+    
     //MARK:推广弹窗
     func PopImageView(_ urlStr:String,toUrlStr:String) {
         homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: urlStr)
@@ -120,6 +120,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         locationService.startUserLocationService()
         isObtainAnn = true
         locationService.allowsBackgroundLocationUpdates = false
+        locationService.desiredAccuracy = kCLLocationAccuracyBest
         _mapView?.showsUserLocation = false//先关闭显示的定位图层
         _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
         _mapView?.showsUserLocation = true//显示定位图层
@@ -373,7 +374,6 @@ extension JYD_HomePageViewController {
                 MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)
             }
         }) { (error) in
-            
         }
     }
     
