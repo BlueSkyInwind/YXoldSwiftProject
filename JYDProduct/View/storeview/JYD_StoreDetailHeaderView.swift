@@ -8,44 +8,24 @@
 
 import UIKit
 
-typealias MakingCallStoreTel = () -> Void
 class JYD_StoreDetailHeaderView: UIView,NibLoadProtocol {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var telLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
-    @IBOutlet weak var telImageView: UIImageView!
-    
-    @IBOutlet weak var telImageLeft: NSLayoutConstraint!
-    var callStoreTel:MakingCallStoreTel?
-    
     override func awakeFromNib() {
         self.titleLabel.font = UIFont.FitBoldSystemFontOfSize(fontSize: 15)
-        self.telLabel.font = UIFont.FitSystemFontOfSize(fontSize: 13)
-        if UI_IS_IPHONE5 {
-            self.telImageLeft.constant = 10
-        }
-        let telTap = UITapGestureRecognizer.init(target: self, action: #selector(userTelTapSender))
-        telImageView.addGestureRecognizer(telTap)
+
     }
     
-    @objc func userTelTapSender (){
-        if callStoreTel != nil{
-            callStoreTel!()
-        }
-    }
-    
-    func setContent(title:String,time:String,address:String,amount:String,telStr:String)  {
+    func setContent(title:String,time:String,address:String,amount:String)  {
         self.titleLabel.text = title
         self.timeLabel.text = time
         self.addressLabel.text = address
         self.amountLabel.text = amount
-        self.telLabel.text = telStr
     }
-    
     
     /*
     // Only override draw() if you perform custom drawing.

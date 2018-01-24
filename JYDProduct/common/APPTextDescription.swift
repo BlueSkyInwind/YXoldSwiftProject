@@ -13,7 +13,7 @@ let Home_NavTitle = "急用达"
 let requestFailPrompt = "服务器请求失败,请重试!"
 let networkDisconnectionPrompt = "请确认您的手机是否连接到网络!"
 let versionUpdatePrompt = "您当前使用版本太低,请前往APP Store更新后再使用!"
-
+let requestLocationText = "定位服务为开启，请进入系统【设置】中打开开关，并允许急用达进行定位"
 
 let storeDetailImageTitle = "门店照片"
 

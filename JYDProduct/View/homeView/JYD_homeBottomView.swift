@@ -21,8 +21,8 @@ class JYD_homeBottomView: UIView {
     var distanceLabel:UILabel?
     var displayPathTapClick:DisplayPathTapClick?
     var storeDetailTapClick:StoreDetailTapClick?
+    var bottonViewHeight:CGFloat = 100
 
-    
     var VC:UIViewController?
 
     override init(frame: CGRect) {
@@ -46,6 +46,10 @@ class JYD_homeBottomView: UIView {
         self.timeLabel?.text = timeStr
         self.adressLabel?.text = addressStr
         self.distanceLabel?.text = distanceStr
+        
+        let addressHeight = APPTool.shareInstance.obtainLabelHeight(address: addressStr as NSString, width: _k_w - self.bounds.size.height)
+        bottonViewHeight = 100 + addressHeight / 2
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,14 +71,14 @@ class JYD_homeBottomView: UIView {
     @objc func show()  {
         VC?.view.addSubview(self)
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h - APPTool.obtainDisplaySize(size: 100), width: _k_w, height: APPTool.obtainDisplaySize(size: 100))
+            self.frame = CGRect.init(x: 0, y: _k_h - APPTool.obtainDisplaySize(size: self.bottonViewHeight), width: _k_w, height: APPTool.obtainDisplaySize(size: self.bottonViewHeight))
         }) { (complication) in
         }
     }
     
     @objc  func dismiss()  {
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: APPTool.obtainDisplaySize(size: 100))
+            self.frame = CGRect.init(x: 0, y: _k_h, width: _k_w, height: APPTool.obtainDisplaySize(size: self.bottonViewHeight))
         }) { (complication) in
             self.removeFromSuperview()
         }
@@ -93,13 +97,29 @@ extension JYD_homeBottomView {
     
     func setUpUI()  {
         
+        let lineView = UIView()
+        lineView.backgroundColor = lineView_Color
+        self.addSubview(lineView)
+        lineView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(0)
+            make.height.equalTo(1)
+        }
+        
         titleLabel = UILabel()
-        titleLabel?.font = UIFont.FitBoldSystemFontOfSize(fontSize: 15)
+        titleLabel?.font = UIFont.FitBoldSystemFontOfSize(fontSize: 14)
         titleLabel?.textColor = homeHeaderTitleColor
         self.addSubview(titleLabel!)
         titleLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
             make.top.equalTo(self.snp.top).offset(APPTool.obtainDisplaySize(size: 15))
+        })
+        
+        pathView = UIView()
+        pathView?.backgroundColor = appMainBg
+        self.addSubview(pathView!)
+        pathView?.snp.makeConstraints({ (make) in
+            make.right.top.bottom.equalTo(self)
+            make.width.equalTo(APPTool.obtainDisplaySize(size: 100))
         })
         
         timeLabel = UILabel()
@@ -114,20 +134,14 @@ extension JYD_homeBottomView {
         adressLabel = UILabel()
         adressLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
         adressLabel?.textColor = homeHeaderTitleColor
+        adressLabel?.numberOfLines = 0
         self.addSubview(adressLabel!)
         adressLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
             make.top.equalTo((timeLabel?.snp.bottom)!).offset(APPTool.obtainDisplaySize(size: 8))
+            make.right.equalTo((pathView?.snp.left)!).offset(-5)
         })
-        
-        pathView = UIView()
-        pathView?.backgroundColor = appMainBg
-        self.addSubview(pathView!)
-        pathView?.snp.makeConstraints({ (make) in
-            make.right.top.bottom.equalTo(self)
-            make.width.equalTo(self.snp.height)
-        })
-        
+    
         pathIcon = UIImageView()
         pathIcon?.image = UIImage.init(named: "path_Icon")
         pathIcon?.isUserInteractionEnabled  = true

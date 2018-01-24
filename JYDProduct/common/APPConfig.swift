@@ -56,5 +56,38 @@ class APPConfig: NSObject {
         
         
     }
-
+    
+    func systemLocationAuthStatus()  {
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            showLocationAlertView()
+            break
+        case .restricted:
+            break
+        case .authorizedAlways:
+            break
+        case .authorizedWhenInUse:
+            break
+        case .denied:
+            showLocationAlertView()
+            break
+        default:
+            break
+        }
+    }
+    
+    func showLocationAlertView()  {
+        let alertSheetVC = UIAlertController.init(title: "打开定位开关", message: requestLocationText, preferredStyle: UIAlertControllerStyle.alert)
+        let alertActionOne = UIAlertAction.init(title: "设置", style: UIAlertActionStyle.destructive, handler: { (action) in
+            UIApplication.shared.openURL(URL.init(string: UIApplicationOpenSettingsURLString)!)
+        })
+        alertSheetVC.addAction(alertActionOne)
+        
+        let cancelAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel) { (action) in
+            
+        }
+        alertSheetVC.addAction(cancelAction)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertSheetVC, animated: true, completion: nil)
+    }
 }

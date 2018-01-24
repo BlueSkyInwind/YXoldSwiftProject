@@ -30,6 +30,9 @@ let SelectePathDetailHeaderView_Color = UIColor.init(red: 77/255.0, green: 142/2
 
 let SelectePathDetailLine_Color = UIColor.init(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
 
+let StoreTelBack_Color = UIColor.init(red: 102/255.0, green: 157/255.0, blue: 254/255.0, alpha: 1)
+
+let lineView_Color = UIColor.init(red: 77/255.0, green: 77/255.0, blue: 77/255.0, alpha: 0.3)
 
 
 
