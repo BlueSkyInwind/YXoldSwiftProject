@@ -211,7 +211,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     func mapView(_ mapView: BMKMapView!, didAddAnnotationViews views: [Any]!) {
         //获取annoview,并为其添加动画
         for view in views {
-            if view.isKind(of: BMKAnnotationView.self) {
+            if (view as AnyObject).isKind(of: BMKAnnotationView.self) {
                 let annView = view as! BMKAnnotationView
                 let endFrame = annView.frame
                 var startFrame = endFrame
