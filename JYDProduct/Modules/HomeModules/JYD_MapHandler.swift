@@ -326,11 +326,9 @@ class JYD_MapHandler: BaseHandler {
                 level = 10
             }
         }
-        
         return Float(level)
     }
     
     
-    
-    
+
 }
