@@ -161,28 +161,58 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             
             let route = pathHandler?.getBusDetailRoute(routeLine: busRoute!)
             let timeStr = pathHandler?.calculateTime(duration: busRoute!.duration)
-            let distance = pathHandler?.calculateDistance(distance: Int(busRoute!.distance))
+            var distance = pathHandler?.calculateDistance(distance: Int(busRoute!.distance))
             let walkArray = (pathHandler?.getBusWaklingRoute(routeLine: busRoute!))!
             let walk = pathHandler?.calculateWalkingDistance(walkArray: walkArray)
-            let walkDistance = pathHandler?.calculateDistance(distance: walk!)
+            var walkDistance = pathHandler?.calculateDistance(distance: walk!)
             
             bottomView?.routerLabel?.text = "\(route!)"
             bottomView?.timeLabel?.text = "\(timeStr!)"
-            let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.text = distanceStr + Unit
-            let walkStr = String(format:"%.2f",walkDistance!)
-            bottomView?.walkLabel?.text = WalkTitle + walkStr + Unit
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Unit
+            }
+//            let distanceStr = String(format:"%.2f",distance!)
+//            bottomView?.distanceLabel?.text = distanceStr + Unit
+            
+            if walkDistance! < 1.00 {
+                walkDistance = walkDistance! * 1000
+                let walkStr = String(format:"%.f",walkDistance!)
+                bottomView?.walkLabel?.text = WalkTitle + walkStr + Meter
+            }else{
+                
+                let walkStr = String(format:"%.1f",walkDistance!)
+                bottomView?.walkLabel?.text = WalkTitle + walkStr + Unit
+            }
+//            let walkStr = String(format:"%.2f",walkDistance!)
+//            bottomView?.walkLabel?.text = WalkTitle + walkStr + Unit
             bottomView?.routerLabel?.font = UIFont.systemFont(ofSize: 13)
             getBusDetailRoute(routeLine: busRoute!)
             break
         case 102?:
             
             let timeStr = pathHandler?.calculateTime(duration: drivingRoute!.duration)
-            let distance = pathHandler?.calculateDistance(distance: Int(drivingRoute!.distance))
+            var distance = pathHandler?.calculateDistance(distance: Int(drivingRoute!.distance))
             
             bottomView?.timeLabel?.text = "\(timeStr!)"
-            let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.text = distanceStr + Unit
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Unit
+            }
+            
+//            let distanceStr = String(format:"%.2f",distance!)
+//            bottomView?.distanceLabel?.text = distanceStr + Unit
             bottomView?.routerLabel?.text = drivingDesc
             getDrivingDetailRoute(routeLine: drivingRoute!)
             break
@@ -190,11 +220,22 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         case 103?:
             
             let timeStr = pathHandler?.calculateTime(duration: walkingRoute!.duration)
-            let distance = pathHandler?.calculateDistance(distance: Int(walkingRoute!.distance))
+            var distance = pathHandler?.calculateDistance(distance: Int(walkingRoute!.distance))
             bottomView?.timeLabel?.textColor = StoreDetailImageTitle_Color
             bottomView?.timeLabel?.text = WalkTitle + "\(timeStr!)"
-            let distanceStr = String(format:"%.2f",distance!)
-            bottomView?.distanceLabel?.text = distanceStr + Unit
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Unit
+            }
+            
+//            let distanceStr = String(format:"%.2f",distance!)
+//            bottomView?.distanceLabel?.text = distanceStr + Unit
             
             getWalkingDetailRoute(routeLine: walkingRoute!)
             break
@@ -202,13 +243,24 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         case 104?:
             
             let timeStr = pathHandler?.calculateTime(duration: ridingRoute!.duration)
-            let distance = pathHandler?.calculateDistance(distance: Int(ridingRoute!.distance))
+            var distance = pathHandler?.calculateDistance(distance: Int(ridingRoute!.distance))
             
             bottomView?.timeLabel?.text = RidingTitle + "\(timeStr!)"
             bottomView?.timeLabel?.textColor = StoreDetailImageTitle_Color
-            let distanceStr = String(format:"%.2f",distance!)
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                bottomView?.distanceLabel?.text = distanceStr + Unit
+            }
+            
+//            let distanceStr = String(format:"%.2f",distance!)
             bottomView?.distanceLabel?.textColor = StoreDetailImageTitle_Color
-            bottomView?.distanceLabel?.text = distanceStr + Unit
+//            bottomView?.distanceLabel?.text = distanceStr + Unit
             getRidingDetailRoute(routeLine: ridingRoute!)
             break
 
