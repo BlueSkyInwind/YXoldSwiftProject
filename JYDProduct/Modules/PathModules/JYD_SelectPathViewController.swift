@@ -339,17 +339,24 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             let routeLine = dataArray[index] as! BMKMassTransitRouteLine
             let route = handler?.getBusDetailRoute(routeLine: routeLine)
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
+            var distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
             cell.routeLabel?.text = "\(route!)"
             cell.routeLabel?.numberOfLines = 0
             walkArray = (handler?.getBusWaklingRoute(routeLine: routeLine))!
             let walk = handler?.calculateWalkingDistance(walkArray: walkArray)
-            let walkDistance = handler?.calculateDistance(distance: walk!)
+            var walkDistance = handler?.calculateDistance(distance: walk!)
 
-            let walkStr = String(format:"%.2f",walkDistance!)
-            cell.walkLabel?.text = WalkTitle + walkStr + Unit
-           
+            if walkDistance! < 1.00 {
+                walkDistance = walkDistance! * 1000
+                let walkStr = String(format:"%.f",walkDistance!)
+                cell.walkLabel?.text = WalkTitle + walkStr + Meter
+            }else{
+                
+                let walkStr = String(format:"%.1f",walkDistance!)
+                cell.walkLabel?.text = WalkTitle + walkStr + Unit
+            }
+            
             let str = (cell.routeLabel?.text)! as NSString
             
             var width = str.size(withAttributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)]).width
@@ -365,39 +372,80 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
             }
 
             cell.timeLabel?.text = "\(timeStr!)"
-            let distanceStr = String(format:"%.2f",distance!)
-            cell.distanceLabel?.text = distanceStr + Unit
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                cell.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                cell.distanceLabel?.text = distanceStr + Unit
+            }
+            
+//            let distanceStr = String(format:"%.1f",distance!)
+//            cell.distanceLabel?.text = distanceStr + Unit
             break
             
         case 102?:
             let routeLine = dataArray[index] as! BMKDrivingRouteLine
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
+            var distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
             cell.routeLabel?.text = setCarDesc(index: index)
             cell.timeLabel?.text = "\(timeStr!)"
-            let distanceStr = String(format:"%.2f",distance!)
-            cell.distanceLabel?.text = distanceStr + Unit
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                cell.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                cell.distanceLabel?.text = distanceStr + Unit
+            }
+//            let distanceStr = String(format:"%.1f",distance!)
+//            cell.distanceLabel?.text = distanceStr + Unit
             break
         case 103?:
             let routeLine = dataArray[index] as! BMKWalkingRouteLine
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
+            var distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             cell.leftLabel?.text = "\(index + 1)"
             cell.timeLabel?.text = WalkTitle + "\(timeStr!)"
-            let distanceStr = String(format:"%.2f",distance!)
-            cell.distanceLabel?.text = distanceStr + Unit
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                cell.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                cell.distanceLabel?.text = distanceStr + Unit
+            }
+//            let distanceStr = String(format:"%.1f",distance!)
+//            cell.distanceLabel?.text = distanceStr + Unit
             
             break
         case 104?:
             let routeLine = dataArray[index] as! BMKRidingRouteLine
             let timeStr = handler?.calculateTime(duration: routeLine.duration)
-            let distance = handler?.calculateDistance(distance: Int(routeLine.distance))
+            var distance = handler?.calculateDistance(distance: Int(routeLine.distance))
             
             cell.leftLabel?.text = "\(index + 1)"
-            let distanceStr = String(format:"%.2f",distance!)
+            
+            if distance! < 1.00 {
+                distance = distance! * 1000
+                let distanceStr = String(format:"%.f",distance!)
+                cell.distanceLabel?.text = distanceStr + Meter
+            }else{
+                
+                let distanceStr = String(format:"%.1f",distance!)
+                cell.distanceLabel?.text = distanceStr + Unit
+            }
+//            let distanceStr = String(format:"%.1f",distance!)
             cell.timeLabel?.text = RidingTitle + "\(timeStr!)"
-            cell.distanceLabel?.text = distanceStr + Unit
+//            cell.distanceLabel?.text = distanceStr + Unit
 
             break
         default:

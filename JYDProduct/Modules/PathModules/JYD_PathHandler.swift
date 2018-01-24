@@ -80,10 +80,10 @@ class JYD_PathHandler: BaseHandler {
             timeStr.append("\(duration.minutes)")
             timeStr.append("分钟")
         }
-        if duration.seconds != 0 {
-            timeStr.append("\(duration.seconds)")
-            timeStr.append("秒")
-        }
+//        if duration.seconds != 0 {
+//            timeStr.append("\(duration.seconds)")
+//            timeStr.append("秒")
+//        }
         return timeStr
     }
     
