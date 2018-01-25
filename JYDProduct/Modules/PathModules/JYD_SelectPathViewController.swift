@@ -96,6 +96,16 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         Maphandler = JYD_MapHandler.init()
         Maphandler?.vc = self
         
+        customMapStyle()
+    }
+    
+    //自定义地图样式
+    func customMapStyle() {
+        //设置自定义地图样式，会影响所有地图实例
+        //注：必须在BMKMapView对象初始化之前调用
+        let path = Bundle.main.path(forResource: "custom_config_清新蓝", ofType: "")//个性化地图样式文件路径
+        BMKMapView.customMapStyle(path)
+        BMKMapView.enableCustomMapStyle(true)//默认关闭
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -292,7 +302,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-       let controller = JYD_PathDetailViewController()
+        let controller = JYD_PathDetailViewController()
         setController(controller:controller , tag: buttonTag!, index: indexPath.section)
     
     }
@@ -550,7 +560,9 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
 
         }
     }
@@ -575,7 +587,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
         }
     }
     
@@ -600,7 +613,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
     
         }
     }
@@ -624,10 +638,13 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
     
         }
     }
+    
+    
     /*
     // MARK: - Navigation
 

@@ -55,23 +55,25 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        _mapView?.viewWillAppear()
         
+        _mapView?.viewWillAppear()
         locationService.delegate = self
         _mapView?.delegate = self
         setUserLocation()
 
     }
     
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         _mapView?.viewWillDisappear()
         _mapView?.delegate = nil
-        locationService.delegate = self
+        locationService.delegate = nil
         locationService.stopUserLocationService()
         self.navigationController?.isNavigationBarHidden = true
     }
     
+
     //MRAK:用户定位
     func setUserLocation()  {
         locationService.startUserLocationService()
@@ -572,6 +574,10 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         
         if UI_IS_IPHONE5 {
             handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2 - 60))
+        }else if UI_IS_IPHONE4{
+            
+            handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2 - 80))
+            
         }else{
             
             handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2))

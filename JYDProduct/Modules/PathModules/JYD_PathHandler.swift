@@ -80,6 +80,11 @@ class JYD_PathHandler: BaseHandler {
             timeStr.append("\(duration.minutes)")
             timeStr.append("分钟")
         }
+        if duration.dates == 0 && duration.hours == 0 && duration.minutes == 0 && duration.seconds != 0 {
+            
+            timeStr.append("\(duration.seconds)")
+            timeStr.append("秒")
+        }
 //        if duration.seconds != 0 {
 //            timeStr.append("\(duration.seconds)")
 //            timeStr.append("秒")
@@ -159,5 +164,39 @@ class JYD_PathHandler: BaseHandler {
             }
         }
         return waklArray
+    }
+    
+    //路线规划提示错误信息
+    func setErrorMessage(errorCode : BMKSearchErrorCode) ->String{
+        
+        switch errorCode {
+        case BMK_SEARCH_AMBIGUOUS_KEYWORD:
+        
+            return "检索词有岐义"
+        case BMK_SEARCH_AMBIGUOUS_ROURE_ADDR:
+            return "检索地址有岐义"
+        case BMK_SEARCH_NOT_SUPPORT_BUS:
+            return "该城市不支持公交搜索"
+        case BMK_SEARCH_NOT_SUPPORT_BUS_2CITY:
+            return "该城市不支持公交搜索"
+        case BMK_SEARCH_RESULT_NOT_FOUND:
+            return "没有找到检索结果"
+        case BMK_SEARCH_ST_EN_TOO_NEAR:
+            return "起终点太近"
+        case BMK_SEARCH_KEY_ERROR,BMK_SEARCH_NETWOKR_ERROR,BMK_SEARCH_NETWOKR_TIMEOUT,BMK_SEARCH_INDOOR_ID_ERROR,BMK_SEARCH_FLOOR_ERROR,BMK_SEARCH_PARAMETER_ERROR:
+            return "网络连接超时,请稍后重试"
+        case BMK_SEARCH_INDOOR_ROUTE_NO_IN_BUILDING:
+            return "起终点不在支持室内路线的室内图内"
+        case BMK_SEARCH_INDOOR_ROUTE_NO_IN_SAME_BUILDING:
+            return "起终点不在同一个室内"
+        case BMK_SEARCH_PERMISSION_UNFINISHED:
+            return "还未完成鉴权，请在鉴权通过后重试"
+        
+        default:
+            break
+            
+        }
+        
+        return ""
     }
 }
