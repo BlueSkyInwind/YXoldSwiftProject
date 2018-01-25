@@ -91,6 +91,11 @@ class JYD_StoreDetailViewController: BaseViewController {
             make.height.equalTo(APPTool.obtainDisplaySize(size: 42))
             make.bottom.equalTo(self.view.snp.bottom).offset(-(APPTool.obtainDisplaySize(size: 100)))
         })
+        if UI_IS_IPHONE4 {
+            startExternalMapBtn?.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.view.snp.bottom).offset(-30)
+            })
+        }
     }
     
     @objc func startExternalMapBtnClick() {
