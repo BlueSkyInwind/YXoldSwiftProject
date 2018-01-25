@@ -9,6 +9,7 @@
 import Foundation
 
 let Home_NavTitle = "急用达"
+let Home_errorTip = "您的附近无门店"
 
 let requestFailPrompt = "服务器请求失败,请重试!"
 let networkDisconnectionPrompt = "请确认您的手机是否连接到网络!"

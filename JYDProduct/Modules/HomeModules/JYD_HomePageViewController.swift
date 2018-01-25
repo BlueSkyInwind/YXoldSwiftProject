@@ -335,7 +335,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     //MARK:页面跳转
     func  pushStoreListVC()  {
         guard (self.storeInfos?.count != 0) else {
-            MBPAlertView.shareInstance.showTextOnly(message: "重新定位获取门店", view: self.view)
+            MBPAlertView.shareInstance.showTextOnly(message: Home_errorTip, view: self.view)
             return
         }
         let storeListVC = JYD_StoreListViewController()
