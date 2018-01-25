@@ -42,7 +42,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         obtainPopViewInfo {[weak self]  (isSuccess,model) in
             self?.PopImageView(model.image!,toUrlStr: "\(model.toUrl ?? "")")
         }
-        
     }
     
     func configureView()  {
@@ -62,7 +61,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         
         //MARK:头部视图
         headerView = JYD_HomeHeaderView.init(frame: CGRect.zero)
-        headerView?.rightIconButtonClick = {
+        headerView?.backGroundViewTap = {
             self.pushStoreListVC()
         }
         self.view.addSubview(headerView!)
@@ -73,6 +72,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             make.height.equalTo(APPTool.obtainDisplaySize(size: 50))
         })
     }
+    
     //MARK:推广弹窗
     func PopImageView(_ urlStr:String,toUrlStr:String) {
         homePopView  = JYD_HomePopView.init(frame: CGRect.zero, imageStr: urlStr)
@@ -120,6 +120,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         locationService.startUserLocationService()
         isObtainAnn = true
         locationService.allowsBackgroundLocationUpdates = false
+        locationService.desiredAccuracy = kCLLocationAccuracyBest
         _mapView?.showsUserLocation = false//先关闭显示的定位图层
         _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
         _mapView?.showsUserLocation = true//显示定位图层
@@ -144,6 +145,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         storeLocations?.removeAll()
         //缩放地图
         let zoom = handler?.pathTransformToLevel(distanceRadius!)
+        self.zoomSize = zoom!
         _mapView?.zoomLevel = zoom!
         for Info in locInfos {
             let lat = Double(Info.mapMarkLatitude!)
@@ -187,11 +189,11 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     func mapView(_ mapView: BMKMapView!, viewFor annotation: BMKAnnotation!) -> BMKAnnotationView! {
         if  annotation.isKind(of: BMKPointAnnotation.self ){
             let AnnotationViewID = "pointReuseIndentifier"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewID) as! BMKPinAnnotationView?
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewID)
             if annotationView == nil {
-                annotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: AnnotationViewID)
+                annotationView = BMKAnnotationView.init(annotation: annotation, reuseIdentifier: AnnotationViewID)
             }
-            annotationView?.animatesDrop = true
+//            annotationView?.animatesDrop = true
             annotationView?.annotation = annotation
             annotationView?.image = UIImage.init(named: "storeLocation_Icon")
             annotationView?.isDraggable = false
@@ -204,6 +206,24 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             return annotationView
         }
         return nil
+    }
+    
+    func mapView(_ mapView: BMKMapView!, didAddAnnotationViews views: [Any]!) {
+        //获取annoview,并为其添加动画
+        for view in views {
+            if (view as AnyObject).isKind(of: BMKAnnotationView.self) {
+                let annView = view as! BMKAnnotationView
+                let endFrame = annView.frame
+                var startFrame = endFrame
+                startFrame.origin.y = startFrame.size.height - 800
+                annView.frame = startFrame
+                UIView.beginAnimations("drop", context: nil)
+                UIView.setAnimationDuration(1)
+                UIView.setAnimationCurve(.easeInOut)
+                annView.frame = endFrame
+                UIView.commitAnimations()
+            }
+        }
     }
     
     func mapView(_ mapView: BMKMapView!, didSelect view: BMKAnnotationView!) {
@@ -232,7 +252,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
         DPrint(message: "重新定位")
-        zoomSize = 14
+//        zoomSize = 14
         _mapView?.zoomLevel = zoomSize
         isObtainAnn = true
         locationService.startUserLocationService()
@@ -373,7 +393,6 @@ extension JYD_HomePageViewController {
                 MBPAlertView.shareInstance.showTextOnly(message: baseModel.friendErrMsg!, view: self.view)
             }
         }) { (error) in
-            
         }
     }
     

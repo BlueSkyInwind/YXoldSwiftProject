@@ -169,7 +169,9 @@ class JYD_MapHandler: BaseHandler {
         let toCoordinate = BMKCoordinateToGCJ02(coor: toLocation)
         
         let currentLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: fromCoordinate, addressDictionary: [:]))
+        currentLocation.name = fromName
         let toLocation = MKMapItem.init(placemark: MKPlacemark.init(coordinate: toCoordinate, addressDictionary: [:]))
+        toLocation.name = toName
         var items = [currentLocation,toLocation]
         
         var options = [:] as [String : Any]
@@ -306,20 +308,27 @@ class JYD_MapHandler: BaseHandler {
         let distance = Int(distanceStr)!
         if distance >= 10 &&  distance <= 20 {
             level = 13
+            if UI_IS_IPHONE5 {
+                level = 12
+            }
         }
         
         if distance > 20 &&  distance <= 30 {
             level = 12
+            if UI_IS_IPHONE5 {
+                level = 11
+            }
         }
-        
+         
         if distance > 30 {
             level = 11
+            if UI_IS_IPHONE5 {
+                level = 10
+            }
         }
-        
         return Float(level)
     }
     
     
-    
-    
+
 }
