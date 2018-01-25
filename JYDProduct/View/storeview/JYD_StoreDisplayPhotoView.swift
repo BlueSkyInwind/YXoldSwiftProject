@@ -19,11 +19,12 @@ class JYD_StoreDisplayPhotoView: UIView {
     var telLabel:UILabel?
     var telIconView:UIImageView?
 
-    var photos:[UIImage]? = [UIImage.init(named: "placeHolder_Icon")!,UIImage.init(named: "placeHolder_Icon")!,UIImage.init(named: "placeHolder_Icon")!]
+    var photos:[UIImage]? = [UIImage.init(named: "storePhotoPlaceHolder_Icon")!,UIImage.init(named: "storePhotoPlaceHolder_Icon")!,UIImage.init(named: "storePhotoPlaceHolder_Icon")!]
     var photoStrs:[String]?
     var clickIndex:StoreImageClickIndex?
-    var imageViewArr:[UIButton] = []
-    
+    var imageViewArr:[JYD_StorePhotoView] = []
+    var photoArr:[UIButton] = []
+
     var callStoreTel:MakingCallStoreTel?
 
     
@@ -40,11 +41,11 @@ class JYD_StoreDisplayPhotoView: UIView {
         addStorePhoto()
     }
     
-    @objc func storeImageClick(button:UIButton) {
+    func storeImageClick(Index:Int) {
         let count = photoStrs?.count
         let results = Array(photos![0..<count!])
         if clickIndex != nil {
-            self.clickIndex!(button.tag - 1000 + 1,results)
+            self.clickIndex!(Index - 1000 + 1,results)
         }
     }
     
@@ -123,18 +124,20 @@ extension JYD_StoreDisplayPhotoView {
     }
     
     func addStorePhoto()  {
-        let imageWidth = APPTool.obtainDisplaySize(size: 90)
+        let imageWidth = APPTool.obtainDisplaySize(size: 100)
         let count = photoStrs?.count
         for index in 0..<count!  {
             let imageStr = photoStrs![index]
             let imageLeft = (_k_w / 3 - imageWidth) / 2  +  (_k_w / 3 * CGFloat(index))
-            let imageBtn = UIButton.init(type: UIButtonType.custom)
-            imageBtn.tag = Int(1000 + index)
-            loadSotreImage(imageStr, imageBtn: imageBtn)
-            imageBtn.addTarget(self, action: #selector(storeImageClick(button:)), for: UIControlEvents.touchUpInside)
-            imageBackView?.addSubview(imageBtn)
-            imageViewArr.append(imageBtn)
-            imageBtn.snp.makeConstraints({ (make) in
+            let photoView = JYD_StorePhotoView.init(imageWidth: imageWidth, Image: UIImage.init(named: "storePhotoPlaceHolder_Icon")!, index:  Int(1000 + index))
+            photoView.photoImageTap = {[weak self] (indexNum) in
+                self?.storeImageClick(Index: indexNum)
+            }
+            loadSotreImage(imageStr, imageBtn: photoView.photoBtn!)
+            imageBackView?.addSubview(photoView)
+            imageViewArr.append(photoView)
+            photoArr.append(photoView.photoBtn!)
+            photoView.snp.makeConstraints({ (make) in
                 make.centerY.equalTo((imageBackView?.snp.centerY)!)
                 make.left.equalTo(imageLeft)
                 make.height.width.equalTo(imageWidth)
@@ -143,12 +146,13 @@ extension JYD_StoreDisplayPhotoView {
     }
     
     func loadSotreImage(_ urlStr:String,imageBtn:UIButton)  {
-//        SDWebImageDownloader.shared().setValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", forHTTPHeaderField: "Accept")
-        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.refreshCached) {[weak self] (image, error, cacheType, imageURL) in
+        imageBtn.sd_setImage(with: URL.init(string: urlStr), for: UIControlState.normal, placeholderImage: UIImage.init(named: "placeHolder_Icon"), options: SDWebImageOptions.avoidAutoSetImage) {[weak self] (image, error, cacheType, imageURL) in
             if image == nil {
                 return
             }
             let index = self?.photoStrs?.index(of: (imageURL?.absoluteString)!)
+            let photoView = self?.imageViewArr[index!]
+            photoView?.addPhotoImage(image: image!)
             self?.photos?.insert(image!, at: index!)
             self?.photos?.remove(at: index! + 1)
         }

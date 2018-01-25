@@ -28,6 +28,9 @@ enum JYD_StartExternalMapsType {
 class JYD_MapHandler: BaseHandler {
 
     var repositionBtn:UIButton?
+    var refreshImageView:UIImageView?
+    var isLocationResult:Bool = false
+    private var angle:CGFloat = 0
     var vc:UIViewController?
     var delegate:JYD_MapHandlerDelegate?
     
@@ -42,10 +45,32 @@ class JYD_MapHandler: BaseHandler {
         repositionBtn?.setBackgroundImage(UIImage.init(named: "repositionBtn_Icon"), for: UIControlState.normal)
         repositionBtn?.addTarget(self, action: #selector(addRepositionBtnClick), for: UIControlEvents.touchUpInside)
         vc?.view.addSubview(repositionBtn!)
+        
+        refreshImageView = UIImageView.init(image: UIImage.init(named: "refreshLocation_Icon"))
+        repositionBtn?.addSubview(refreshImageView!)
+        refreshImageView?.snp.makeConstraints { (make) in
+            make.center.equalTo((repositionBtn?.snp.center)!)
+        }
+    }
+    
+    func startAnimation()  {
+        repositionBtn?.isEnabled = false
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = Double.pi * 2.0
+        rotationAnimation.duration = 0.5
+        rotationAnimation.isCumulative = true
+        rotationAnimation.repeatCount = 99999
+        refreshImageView?.layer.add(rotationAnimation, forKey: "rotationAnimation")
+    }
+    
+    func endAnimation()  {
+        repositionBtn?.isEnabled = true
+        refreshImageView?.layer.removeAllAnimations()
     }
     
     @objc func addRepositionBtnClick() {
         if self.delegate != nil {
+            startAnimation()
             self.delegate?.addRepositionButtonClick()
         }
     }

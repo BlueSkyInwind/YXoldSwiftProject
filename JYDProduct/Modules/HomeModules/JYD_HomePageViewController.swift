@@ -318,6 +318,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         APPUtilityInfo.shareInstance.userCurrentLocation = currentLocation
         if isObtainAnn {
             isObtainAnn = false
+            handler?.endAnimation()
             _mapView?.setCenter(userLocation.location.coordinate, animated: true)
             _mapView?.updateLocationData(userLocation)
             obtainStoreLocationInfo(currentLocation!)

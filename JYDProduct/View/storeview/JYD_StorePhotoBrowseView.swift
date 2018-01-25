@@ -8,7 +8,7 @@
 
 import UIKit
 
-let  imageSpace:CGFloat = 10
+let  imageSpace:CGFloat = 5
 typealias ViewBackTapClick = () -> Void
 class JYD_StorePhotoBrowseView: UIView,UIScrollViewDelegate {
     
@@ -52,7 +52,6 @@ class JYD_StorePhotoBrowseView: UIView,UIScrollViewDelegate {
         browseScrollView?.setContentOffset(CGPoint.init(x:(browseScrollView?.bounds.size.width)!  * CGFloat(self.selectDisplayImage) , y: 0), animated: true)
         titleLabel?.text = "\(self.selectDisplayImage + 1)" + "/" + "\(images?.count ?? 1)"
 
-        
     }
 
     @objc func nextPhotoClick()  {

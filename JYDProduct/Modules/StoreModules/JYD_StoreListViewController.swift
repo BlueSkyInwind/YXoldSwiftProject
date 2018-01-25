@@ -17,7 +17,7 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = Home_NavTitle
+        self.title = "门店列表"
         self.addWhiteBackItem()
         configureView()
         // Do any additional setup after loading the view.
@@ -33,7 +33,6 @@ class JYD_StoreListViewController: BaseViewController,UITableViewDelegate,UITabl
         addNavStyle()
     }
     
-
     func configureView()  {
         
         tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
