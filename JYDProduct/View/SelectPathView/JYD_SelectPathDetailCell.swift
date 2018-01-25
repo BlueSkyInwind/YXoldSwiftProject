@@ -45,7 +45,8 @@ extension JYD_SelectPathDetailCell{
         self.addSubview(leftImageView!)
         leftImageView?.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(20)
-            make.top.equalTo(self.snp.top).offset(15)
+            make.centerY.equalTo(self.snp.centerY)
+//            make.top.equalTo(self.snp.top).offset(15)
             make.height.equalTo(18)
             make.width.equalTo(14)
         }
@@ -58,7 +59,8 @@ extension JYD_SelectPathDetailCell{
         contentLabel?.snp.makeConstraints { (make) in
             make.left.equalTo((leftImageView?.snp.right)!).offset(20)
             make.top.equalTo(self.snp.top).offset(2)
-            make.height.equalTo(40)
+//            make.height.equalTo(40)
+            make.bottom.equalTo(self.snp.bottom).offset(-2)
             make.right.equalTo(self.snp.right).offset(-27)
         }
         
