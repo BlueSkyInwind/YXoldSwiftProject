@@ -30,6 +30,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     var drivingDesc:String?
     var pathHandler:JYD_PathHandler?
     var bottomView : JYD_SelectPathDetailRouterView?
+    var tabHeight : CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }
         pathHandler = JYD_PathHandler.init()
         getRouteDetailInfo()
-        bottomView?.dataArray = dataArray
+        
         // Do any additional setup after loading the view.
     }
     
@@ -63,7 +64,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
 
     }
     
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         _mapView?.viewWillDisappear()
@@ -100,6 +100,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 }
             }
         }
+        
+        bottomView?.dataArray = dataArray
     }
     
     //获取驾车路线信息
@@ -111,6 +113,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             dataArray.add(transitStep.instruction)
     
         }
+        bottomView?.dataArray = dataArray
     }
     
     //获取步行路线信息
@@ -121,6 +124,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             let transitStep = routeLine.steps[i] as! BMKWalkingStep
             dataArray.add(transitStep.instruction)
         }
+        
+        bottomView?.dataArray = dataArray
     }
     
     //获取步行路线信息
@@ -132,6 +137,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             dataArray.add(transitStep.instruction)
             
         }
+        
+        bottomView?.dataArray = dataArray
     }
 
     //不通交通的规划路线
@@ -179,8 +186,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 let distanceStr = String(format:"%.1f",distance!)
                 bottomView?.distanceLabel?.text = distanceStr + Unit
             }
-//            let distanceStr = String(format:"%.2f",distance!)
-//            bottomView?.distanceLabel?.text = distanceStr + Unit
             
             if walkDistance! < 1.00 {
                 walkDistance = walkDistance! * 1000
@@ -191,10 +196,11 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 let walkStr = String(format:"%.1f",walkDistance!)
                 bottomView?.walkLabel?.text = WalkTitle + walkStr + Unit
             }
-//            let walkStr = String(format:"%.2f",walkDistance!)
-//            bottomView?.walkLabel?.text = WalkTitle + walkStr + Unit
+
             bottomView?.routerLabel?.font = UIFont.systemFont(ofSize: 13)
             getBusDetailRoute(routeLine: busRoute!)
+            setCellHeight()
+            
             break
         case 102?:
             
@@ -213,10 +219,9 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 bottomView?.distanceLabel?.text = distanceStr + Unit
             }
             
-//            let distanceStr = String(format:"%.2f",distance!)
-//            bottomView?.distanceLabel?.text = distanceStr + Unit
             bottomView?.routerLabel?.text = drivingDesc
             getDrivingDetailRoute(routeLine: drivingRoute!)
+            setCellHeight()
             break
 
         case 103?:
@@ -236,10 +241,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 bottomView?.distanceLabel?.text = distanceStr + Unit
             }
             
-//            let distanceStr = String(format:"%.2f",distance!)
-//            bottomView?.distanceLabel?.text = distanceStr + Unit
-            
             getWalkingDetailRoute(routeLine: walkingRoute!)
+            setCellHeight()
             break
 
         case 104?:
@@ -260,10 +263,9 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                 bottomView?.distanceLabel?.text = distanceStr + Unit
             }
             
-//            let distanceStr = String(format:"%.2f",distance!)
             bottomView?.distanceLabel?.textColor = StoreDetailImageTitle_Color
-//            bottomView?.distanceLabel?.text = distanceStr + Unit
             getRidingDetailRoute(routeLine: ridingRoute!)
+            setCellHeight()
             break
 
         default:
@@ -271,6 +273,22 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }
     }
 
+    
+    func setCellHeight(){
+        
+        tabHeight = (pathHandler?.calculatePathDetailTabHeight(datarray: dataArray))!
+        let bottomHeight = tabHeight + 88
+        bottomView?.snp.updateConstraints({ (make) in
+            make.height.equalTo(bottomHeight)
+            
+        })
+        
+        self.bottomView?.detailTab?.snp.updateConstraints({ (make) in
+            make.height.equalTo(tabHeight)
+        })
+        
+        
+    }
     //规划公交路线
     func showBusRoutePlan(){
         
@@ -628,12 +646,17 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 
                 if UI_IS_IPHONEX {
+                    
+                    let height = self.tabHeight + 78
+                    
                     self.bottomView?.snp.updateConstraints({ (make) in
-                        make.height.equalTo(228)
+                        make.height.equalTo(height)
                     })
                 }else{
+                    
+                    let height = self.tabHeight + 88
                     self.bottomView?.snp.updateConstraints({ (make) in
-                        make.height.equalTo(238)
+                        make.height.equalTo(height)
                     })
                 }
                 self.bottomView?.directionButton?.setImage(UIImage(named:"down_icon"), for: .normal)
@@ -643,6 +666,10 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }
     }
     
+    
+    func pathViewClick(isDown: Bool) {
+        directionImage(isDown: isDown)
+    }
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
 
@@ -694,7 +721,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     func mapView(_ mapView: BMKMapView!, viewFor overlay: BMKOverlay!) -> BMKOverlayView! {
         if overlay as! BMKPolyline? != nil {
             let polylineView = BMKPolylineView(overlay: overlay as! BMKPolyline)
-            polylineView?.strokeColor = UIColor(red: 0, green: 255, blue: 0, alpha: 1)
+            polylineView?.strokeColor = UIColor(red: 94/255.0, green: 151/255.0, blue: 255/255.0, alpha: 1)
             polylineView?.lineWidth = 5
             return polylineView
         }

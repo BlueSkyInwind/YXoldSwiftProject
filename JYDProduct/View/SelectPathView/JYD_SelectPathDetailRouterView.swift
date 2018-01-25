@@ -12,6 +12,8 @@ import UIKit
     
     //图标按钮
     func directionImage(isDown : Bool)
+    //pathView  tap
+    func pathViewClick(isDown : Bool)
     
 }
 
@@ -34,7 +36,11 @@ class JYD_SelectPathDetailRouterView: UIView ,UITableViewDelegate,UITableViewDat
     //总路线内容
     var dataArray : NSMutableArray = []
     var type : Int = 0
+    var isClick :Bool = false
+    var pathHandler:JYD_PathHandler?
 
+    var detailTab : UITableView?
+    
     @objc weak var delegate : JYD_SelectPathDetailRouterViewDelegate?
     
     /*
@@ -48,6 +54,7 @@ class JYD_SelectPathDetailRouterView: UIView ,UITableViewDelegate,UITableViewDat
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        pathHandler = JYD_PathHandler.init()
         setupUI()
     }
     
@@ -70,17 +77,10 @@ extension JYD_SelectPathDetailRouterView{
             make.height.equalTo(88)
         }
         
-//        let pathView = UIView()
-//        pathView.backgroundColor = UIColor.white
-//        pathBgView.addSubview(pathView)
-//        pathView.snp.makeConstraints { (make) in
-//            make.left.equalTo(pathBgView.snp.left).offset(0)
-//            make.right.equalTo(pathBgView.snp.right).offset(0)
-//            make.top.equalTo(pathBgView.snp.top).offset(0)
-//            make.height.equalTo(85)
-//        }
-        
         let pathView = UIImageView()
+        pathView.isUserInteractionEnabled = true
+        let tapGest = UITapGestureRecognizer(target: self, action: #selector(clickPathView(_:)))
+        pathView.addGestureRecognizer(tapGest)
         pathView.image = UIImage(named:"route_bg_icon")
         pathView.isUserInteractionEnabled = true
         pathBgView.addSubview(pathView)
@@ -140,20 +140,20 @@ extension JYD_SelectPathDetailRouterView{
             make.top.equalTo((timeLabel?.snp.top)!).offset(0)
         })
         
-        let detailTab = UITableView()
-        detailTab.delegate = self
-        detailTab.dataSource = self
-        detailTab.showsHorizontalScrollIndicator = false
-        detailTab.isScrollEnabled = true
-        detailTab.separatorStyle = .none
-        self.addSubview(detailTab)
-        detailTab.snp.makeConstraints { (make) in
+        detailTab = UITableView()
+        detailTab?.delegate = self
+        detailTab?.dataSource = self
+        detailTab?.showsHorizontalScrollIndicator = false
+        detailTab?.isScrollEnabled = true
+        detailTab?.separatorStyle = .none
+        
+        self.addSubview(detailTab!)
+        detailTab?.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(0)
             make.right.equalTo(self).offset(0)
             make.top.equalTo(pathBgView.snp.bottom).offset(0)
             make.height.equalTo(150)
         }
-    
     }
     
     //点击小图标，显示或隐藏
@@ -180,8 +180,16 @@ extension JYD_SelectPathDetailRouterView{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
-        return 50
+        let height = pathHandler?.calculatePathDetailTabCellHeight(cellContent: dataArray[indexPath.row] as! String)
+
+        let hei = Int(height!)
+        if hei < 27 {
+            return 50
+        }
+        
+        return height! + 30
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -263,8 +271,16 @@ extension JYD_SelectPathDetailRouterView{
         }
         return imageName
     }
+    
+    //点击pathView，显示或隐藏
+    @objc func clickPathView(_ tapGes : UITapGestureRecognizer){
+        
+        isClick = !isClick
+        if delegate != nil {
+            delegate?.pathViewClick(isDown: isClick)
+        }
+    }
 }
-
 
 
 extension JYD_SelectPathDetailRouterView{

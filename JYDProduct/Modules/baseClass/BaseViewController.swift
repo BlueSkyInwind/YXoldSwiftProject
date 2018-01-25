@@ -20,7 +20,7 @@ class BaseViewController: UIViewController {
     func addNavStyle()  {
         self.navigationController?.navigationBar.titleTextAttributes = {[NSAttributedStringKey.font:UIFont.systemFont(ofSize: 19), NSAttributedStringKey.foregroundColor:UIColor.white]}()
         //        self.navigationController?.navigationBar.backgroundColor = appMainBg
-        self.navigationController?.navigationBar.setBackgroundImage(APPTool.shareInstance.imageWithColor(color: appMainBg), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.setBackgroundImage(APPTool.shareInstance.imageWithColor(color: appMainBg1), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.isTranslucent = true
     }
     

@@ -136,7 +136,7 @@ class JYD_PathHandler: BaseHandler {
                             
                             continue
                         }
-                        routeStr.append("--")
+                        routeStr.append("—")
                     }
                 }
             }
@@ -198,5 +198,32 @@ class JYD_PathHandler: BaseHandler {
         }
         
         return ""
+    }
+    
+    
+    //计算tab的高度
+    func calculatePathDetailTabHeight(datarray : NSMutableArray)->CGFloat{
+        
+        var height : CGFloat = 0
+        for index in 0..<3 {
+        
+            let str = datarray[index] as! NSString
+            let length = str.boundingRect(with: CGSize.init(width: _k_w - 81, height: _k_h), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [:], context: nil).height
+            if length > 27{
+                
+                height += length + 30
+            }else{
+                
+                height += 50
+            }
+        }
+        return height
+    }
+    
+    func calculatePathDetailTabCellHeight(cellContent : String)-> CGFloat{
+        
+        let length = cellContent.boundingRect(with: CGSize.init(width: _k_w - 81, height: _k_h), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [:], context: nil).height
+        
+        return length
     }
 }
