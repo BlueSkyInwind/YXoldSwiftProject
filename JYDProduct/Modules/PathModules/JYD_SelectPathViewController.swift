@@ -560,7 +560,9 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
 
         }
     }
@@ -585,7 +587,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
         }
     }
     
@@ -610,7 +613,8 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
     
         }
     }
@@ -634,10 +638,13 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         }else{
             
             removeLoading()
-            MBPAlertView.shareInstance.showTextOnly(message: "检索失败", view: self.view)
+            let messageStr = handler?.setErrorMessage(errorCode: error)
+            MBPAlertView.shareInstance.showTextOnly(message: messageStr!, view: self.view)
     
         }
     }
+    
+    
     /*
     // MARK: - Navigation
 
