@@ -136,7 +136,7 @@ class JYD_PathHandler: BaseHandler {
                             
                             continue
                         }
-                        routeStr.append("--")
+                        routeStr.append("—")
                     }
                 }
             }

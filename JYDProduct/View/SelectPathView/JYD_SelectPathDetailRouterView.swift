@@ -12,6 +12,8 @@ import UIKit
     
     //图标按钮
     func directionImage(isDown : Bool)
+    //pathView  tap
+    func pathViewClick(isDown : Bool)
     
 }
 
@@ -34,6 +36,7 @@ class JYD_SelectPathDetailRouterView: UIView ,UITableViewDelegate,UITableViewDat
     //总路线内容
     var dataArray : NSMutableArray = []
     var type : Int = 0
+    var isClick :Bool = false
 
     @objc weak var delegate : JYD_SelectPathDetailRouterViewDelegate?
     
@@ -81,6 +84,9 @@ extension JYD_SelectPathDetailRouterView{
 //        }
         
         let pathView = UIImageView()
+        pathView.isUserInteractionEnabled = true
+        let tapGest = UITapGestureRecognizer(target: self, action: #selector(clickPathView(_:)))
+        pathView.addGestureRecognizer(tapGest)
         pathView.image = UIImage(named:"route_bg_icon")
         pathView.isUserInteractionEnabled = true
         pathBgView.addSubview(pathView)
@@ -263,8 +269,16 @@ extension JYD_SelectPathDetailRouterView{
         }
         return imageName
     }
+    
+    //点击pathView，显示或隐藏
+    @objc func clickPathView(_ tapGes : UITapGestureRecognizer){
+        
+        isClick = !isClick
+        if delegate != nil {
+            delegate?.pathViewClick(isDown: isClick)
+        }
+    }
 }
-
 
 
 extension JYD_SelectPathDetailRouterView{

@@ -63,7 +63,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
 
     }
     
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         _mapView?.viewWillDisappear()
@@ -643,6 +642,10 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         }
     }
     
+    
+    func pathViewClick(isDown: Bool) {
+        directionImage(isDown: isDown)
+    }
     //MARK:JYD_MapHandlerDelegate 地图控件
     func addRepositionButtonClick() {
 
@@ -694,7 +697,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     func mapView(_ mapView: BMKMapView!, viewFor overlay: BMKOverlay!) -> BMKOverlayView! {
         if overlay as! BMKPolyline? != nil {
             let polylineView = BMKPolylineView(overlay: overlay as! BMKPolyline)
-            polylineView?.strokeColor = UIColor(red: 0, green: 255, blue: 0, alpha: 1)
+            polylineView?.strokeColor = UIColor(red: 94/255.0, green: 151/255.0, blue: 255/255.0, alpha: 1)
             polylineView?.lineWidth = 5
             return polylineView
         }
