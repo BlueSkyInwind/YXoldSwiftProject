@@ -55,23 +55,25 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        _mapView?.viewWillAppear()
         
+        _mapView?.viewWillAppear()
         locationService.delegate = self
         _mapView?.delegate = self
         setUserLocation()
 
     }
     
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         _mapView?.viewWillDisappear()
         _mapView?.delegate = nil
-        locationService.delegate = self
+        locationService.delegate = nil
         locationService.stopUserLocationService()
         self.navigationController?.isNavigationBarHidden = true
     }
     
+
     //MRAK:用户定位
     func setUserLocation()  {
         locationService.startUserLocationService()

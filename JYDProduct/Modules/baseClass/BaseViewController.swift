@@ -29,8 +29,7 @@ class BaseViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(APPTool.shareInstance.imageWithColor(color: UIColor.white), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.isTranslucent = true
     }
-    
-    
+
     
     // MARK:  返回按钮
     func addBackItem() -> Void {
