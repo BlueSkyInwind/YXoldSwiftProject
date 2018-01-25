@@ -574,6 +574,10 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         
         if UI_IS_IPHONE5 {
             handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2 - 60))
+        }else if UI_IS_IPHONE4{
+            
+            handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2 - 80))
+            
         }else{
             
             handler?.addZoomView(CGPoint.init(x: _k_w - 60, y: _k_h / 2))
