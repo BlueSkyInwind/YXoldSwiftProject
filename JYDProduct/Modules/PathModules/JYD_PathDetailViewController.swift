@@ -12,7 +12,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     
     var _mapView:BMKMapView?
     //地图缩放尺寸
-    var zoomSize:Float = 14
+    var zoomSize:Float = 10
     //mapHandler
     var handler:JYD_MapHandler?
     var busRoute: BMKMassTransitRouteLine?
@@ -23,7 +23,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     var dataArray : NSMutableArray = []
     //交通工具tag值
     var tag : Int?
- 
+
+    
     //定位
     var locationService: BMKLocationService!
     //驾车描述
@@ -56,10 +57,9 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         _mapView?.viewWillAppear()
-        locationService.delegate = self
         _mapView?.delegate = self
+        locationService.delegate = self
         setUserLocation()
 
     }
@@ -160,6 +160,8 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
         default:
             break
         }
+        _mapView?.zoomLevel = zoomSize
+
     }
     //获取路线信息
     func getRouteDetailInfo(){
@@ -320,6 +322,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
                     startCoorIsNull = false
                 }
                 endCoor = subStep.exitCoor
+                
                 
                 planPointCount = Int(subStep.pointsCount) + planPointCount
                 
@@ -580,10 +583,12 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     //创建地图
     func mapView(){
         
-        locationService = BMKLocationService()
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
-        self.view.addSubview(_mapView!)
         _mapView?.zoomLevel = zoomSize
+        self.view.addSubview(_mapView!)
+        
+        locationService = BMKLocationService()
+
         addMapScaleBar()
         
         handler = JYD_MapHandler.init()

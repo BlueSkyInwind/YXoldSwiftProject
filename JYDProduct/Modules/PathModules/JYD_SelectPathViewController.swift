@@ -310,6 +310,10 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
     //cell点击事件
     func setController(controller:JYD_PathDetailViewController ,tag: String , index:Int){
         
+
+        let distance = (Maphandler?.distanceBetweenPoint(coordinateOne: startCoord!, coordinateTwo: endCoord!))! / 1000
+        let zoom = Maphandler?.pathTransformToLevel(String.init(format: "%.0lf", distance))
+        controller.zoomSize = zoom!
         let tag1 = Int(tag)
         controller.tag = tag1
         switch tag1 {

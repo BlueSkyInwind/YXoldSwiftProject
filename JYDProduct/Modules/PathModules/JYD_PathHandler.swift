@@ -226,4 +226,32 @@ class JYD_PathHandler: BaseHandler {
         
         return length
     }
+    
+    //MARK:距离转化地图缩放等级
+    func distanceTransformToLevel(_ distanceStr:String) -> Float {
+        var level = 14
+        let distance = Int(distanceStr)!
+        if distance >= 10 &&  distance <= 20 {
+            level = 13
+            if UI_IS_IPHONE5 {
+                level = 11
+            }
+        }
+        
+        if distance > 20 &&  distance <= 30 {
+            level = 12
+            if UI_IS_IPHONE5 {
+                level = 10
+            }
+        }
+        
+        if distance > 30 {
+            level = 11
+            if UI_IS_IPHONE5 {
+                level = 9
+            }
+        }
+        return Float(level)
+    }
+    
 }
