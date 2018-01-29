@@ -175,6 +175,7 @@ extension JYD_SelectPathHeaderView {
         busButton.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(50)
             make.top.equalTo(endImageView.snp.bottom).offset(15)
+            make.width.equalTo(35)
         }
         
         lineImageView = UIImageView()
@@ -185,8 +186,7 @@ extension JYD_SelectPathHeaderView {
             make.top.equalTo(busButton.snp.bottom).offset(1)
         }
         
-        
-        let width = (UIScreen.main.bounds.size.width - 220) / 3
+        let width = (UIScreen.main.bounds.size.width - 240) / 3
         
         let carButton = UIButton()
         carButton.setTitle(CarTitle, for: .normal)
@@ -198,6 +198,7 @@ extension JYD_SelectPathHeaderView {
         carButton.snp.makeConstraints { (make) in
             make.left.equalTo(busButton.snp.right).offset(width)
             make.top.equalTo(busButton.snp.top).offset(0)
+            make.width.equalTo(35)
         }
         
         let walkButton = UIButton()
@@ -210,6 +211,7 @@ extension JYD_SelectPathHeaderView {
         walkButton.snp.makeConstraints { (make) in
             make.left.equalTo(carButton.snp.right).offset(width)
             make.top.equalTo(busButton.snp.top).offset(0)
+            make.width.equalTo(35)
         }
         
         let ridingButton = UIButton()
@@ -222,6 +224,7 @@ extension JYD_SelectPathHeaderView {
         ridingButton.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-50)
             make.top.equalTo(busButton.snp.top).offset(0)
+            make.width.equalTo(35)
         }
         
     }

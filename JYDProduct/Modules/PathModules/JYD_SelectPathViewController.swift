@@ -87,7 +87,7 @@ class JYD_SelectPathViewController: BaseViewController ,UITableViewDelegate,UITa
         
         let footerView = setFooterView()
         footerView.backgroundColor = UIColor.clear
-        footerView.frame = CGRect(x:0,y:0,width:_k_w,height:109)
+        footerView.frame = CGRect(x:0,y:0,width:_k_w,height:119)
         tableView.tableFooterView = footerView
         
         tableView.tableFooterView?.isHidden = true
