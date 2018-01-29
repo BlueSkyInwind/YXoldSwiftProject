@@ -260,11 +260,13 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
   
     func addMapEnlargedButtonClick() {
         zoomSize += 1
+        zoomSize = zoomSize > 21 ? 21 :  zoomSize
         _mapView?.zoomLevel = zoomSize
     }
     
     func addMapShrinkButtonClick() {
         zoomSize -= 1
+        zoomSize = zoomSize < 3 ? 3 :  zoomSize
         _mapView?.zoomLevel = zoomSize
     }
 

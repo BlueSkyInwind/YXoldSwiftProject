@@ -682,11 +682,13 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     
     func addMapEnlargedButtonClick() {
         zoomSize += 1
+        zoomSize = zoomSize > 21 ? 21 :  zoomSize
         _mapView?.zoomLevel = zoomSize
     }
     
     func addMapShrinkButtonClick() {
         zoomSize -= 1
+        zoomSize = zoomSize < 3 ? 3 :  zoomSize
         _mapView?.zoomLevel = zoomSize
     }
     
