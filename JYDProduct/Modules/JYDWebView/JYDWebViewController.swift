@@ -101,7 +101,15 @@ class JYDWebViewController: BaseViewController,WKNavigationDelegate,WKUIDelegate
     }
     
     //MARK: WKNavigationDelegate
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let request = navigationAction.request
+        if request.url?.host == "itunes.apple.com" && UIApplication.shared.canOpenURL(navigationAction.request.url!){
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
+            }else{
+                UIApplication.shared.openURL(navigationAction.request.url!)
+            }
+        }
         decisionHandler(.allow)
     }
     

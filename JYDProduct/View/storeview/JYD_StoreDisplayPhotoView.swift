@@ -133,10 +133,10 @@ extension JYD_StoreDisplayPhotoView {
             photoView.photoImageTap = {[weak self] (indexNum) in
                 self?.storeImageClick(Index: indexNum)
             }
-            loadSotreImage(imageStr, imageBtn: photoView.photoBtn!)
             imageBackView?.addSubview(photoView)
             imageViewArr.append(photoView)
             photoArr.append(photoView.photoBtn!)
+            loadSotreImage(imageStr, imageBtn: photoView.photoBtn!)
             photoView.snp.makeConstraints({ (make) in
                 make.centerY.equalTo((imageBackView?.snp.centerY)!)
                 make.left.equalTo(imageLeft)

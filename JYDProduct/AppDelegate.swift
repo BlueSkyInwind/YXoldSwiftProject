@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BMKGeneralDelegate {
         let baseNav = BaseNavigationViewController.init(rootViewController: homePage)
         self.window?.rootViewController = baseNav
         self.window?.makeKeyAndVisible()
-
         return true
+        
     }
     
     /// 百度地图初始化
