@@ -48,7 +48,7 @@ extension JYD_PaopaoView {
         contentLabel?.textColor =  PaopaoTitleColor
         backGroundImage?.addSubview(contentLabel!)
         contentLabel?.snp.makeConstraints({ (make) in
-            make.centerY.equalTo((backGroundImage?.snp.centerY)!)
+            make.centerY.equalTo((backGroundImage?.snp.centerY)!).offset(-3)
             make.centerX.equalTo((backGroundImage?.snp.centerX)!).offset(-10)
         })
     }

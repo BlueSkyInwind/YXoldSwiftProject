@@ -58,17 +58,20 @@ extension JYD_PhotoModalAnimationDelegate {
         let currentController = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)  as! UINavigationController).topViewController as! JYD_StoreDetailViewController
         //图片的view
         let photoView = currentController.storeDisplayPhotoView
-        let imageBtn = photoView?.imageViewArr[index]
+        let imageView = photoView?.imageViewArr[index]
         // 新建一个imageview添加到目标view之上,做为动画view
         let annimateView = UIImageView()
         annimateView.image = photoView?.photos![index]
         annimateView.contentMode = .scaleAspectFill
         annimateView.clipsToBounds = true
-        // 被选中的cell到目标view上的座标转换
-        let originFrame = photoView?.convert(imageBtn!.frame, to: UIApplication.shared.keyWindow)
+        // 被选中的Image到目标view上的座标转换
+        let originFrame = imageView?.convert((imageView?.photoBtn?.frame)!, to: UIApplication.shared.keyWindow)
         annimateView.frame = originFrame!
         containerView.addSubview(annimateView)
-        let endFrame =  destinationImageView?.frame
+        var vframe = destinationImageView?.frame
+        let width = (vframe?.size.width)! - 10
+        vframe?.size.width = width
+        let endFrame = vframe
         destinationView?.alpha = 0
         UIView.animate(withDuration: 0.3, animations: {
             annimateView.frame = endFrame!
@@ -100,7 +103,7 @@ extension JYD_PhotoModalAnimationDelegate {
         // 取出要返回的控制器view
         let currentController = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)  as! UINavigationController).topViewController as! JYD_StoreDetailViewController
         let originView = currentController.storeDisplayPhotoView?.imageViewArr[(presentView?.selectDisplayImage)!]
-        let originFrame = currentController.storeDisplayPhotoView?.imageBackView?.convert((originView?.frame)!, to: UIApplication.shared.keyWindow)
+        let originFrame = originView?.convert((originView?.photoBtn?.frame)!, to: UIApplication.shared.keyWindow)
         UIView.animate(withDuration: 0.5, animations: {
             annimateView.frame = originFrame!
             transitionView?.alpha = 0

@@ -21,7 +21,7 @@ class JYD_homeBottomView: UIView {
     var distanceLabel:UILabel?
     var displayPathTapClick:DisplayPathTapClick?
     var storeDetailTapClick:StoreDetailTapClick?
-    var bottonViewHeight:CGFloat = 100
+    var bottonViewHeight:CGFloat = 90
 
     var VC:UIViewController?
 
@@ -48,7 +48,7 @@ class JYD_homeBottomView: UIView {
         self.distanceLabel?.text = distanceStr
         
         let addressHeight = APPTool.shareInstance.obtainLabelHeight(address: addressStr as NSString, width: _k_w - self.bounds.size.height)
-        bottonViewHeight = 100 + addressHeight / 2
+        bottonViewHeight = 90 + addressHeight
         
     }
     
@@ -119,12 +119,12 @@ extension JYD_homeBottomView {
         self.addSubview(pathView!)
         pathView?.snp.makeConstraints({ (make) in
             make.right.top.bottom.equalTo(self)
-            make.width.equalTo(APPTool.obtainDisplaySize(size: 100))
+            make.width.equalTo(APPTool.obtainDisplaySize(size: 90))
         })
         
         timeLabel = UILabel()
         timeLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
-        timeLabel?.textColor = homeHeaderTitleColor
+        timeLabel?.textColor = SelectPathTime_Color
         self.addSubview(timeLabel!)
         timeLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(self.snp.left).offset(APPTool.obtainDisplaySize(size: 20))
@@ -133,7 +133,7 @@ extension JYD_homeBottomView {
         
         adressLabel = UILabel()
         adressLabel?.font = UIFont.FitSystemFontOfSize(fontSize: 13)
-        adressLabel?.textColor = homeHeaderTitleColor
+        adressLabel?.textColor = SelectPathTime_Color
         adressLabel?.numberOfLines = 0
         self.addSubview(adressLabel!)
         adressLabel?.snp.makeConstraints({ (make) in
@@ -160,7 +160,6 @@ extension JYD_homeBottomView {
             make.centerY.equalTo((pathView?.snp.centerY)!).offset(10)
         })
     }
-
 }
 
 
