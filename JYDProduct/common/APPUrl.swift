@@ -12,7 +12,8 @@ import Foundation
 
 //let _Main_url = "http://h5.dev.fxds/apigw/client/jyd/"
 //let _Main_url = "http://h5.test.fxds/apigw/client/jyd/"
-let _Main_url = "http://uat.faxindai.com/apigw/client/jyd/"
+//let _Main_url = "http://uat.faxindai.com/apigw/client/jyd/"
+let _Main_url = "https://h5.faxindai.com/apigw/client/jyd/"
 
 #else
     
