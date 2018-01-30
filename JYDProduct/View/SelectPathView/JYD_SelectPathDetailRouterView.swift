@@ -109,7 +109,7 @@ extension JYD_SelectPathDetailRouterView{
         pathView.addSubview(routerLabel!)
         routerLabel?.snp.makeConstraints({ (make) in
             make.left.equalTo(pathView.snp.left).offset(20)
-            make.top.equalTo((directionButton?.snp.bottom)!).offset(10)
+            make.top.equalTo((directionButton?.snp.bottom)!).offset(5)
             make.right.equalTo(pathView.snp.right).offset(-20)
         })
         

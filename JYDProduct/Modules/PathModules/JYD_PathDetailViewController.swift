@@ -36,7 +36,7 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = Home_NavTitle
+        self.title = "路线详情"
         addBackItem()
         mapView()
         bottomView = JYD_SelectPathDetailRouterView()
@@ -161,7 +161,6 @@ class JYD_PathDetailViewController: BaseViewController ,BMKMapViewDelegate,JYD_S
             break
         }
         _mapView?.zoomLevel = zoomSize
-
     }
     //获取路线信息
     func getRouteDetailInfo(){

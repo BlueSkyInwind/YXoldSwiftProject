@@ -74,7 +74,7 @@ extension JYD_SelectPathHeaderView {
         }
         
         let titleLabel = UILabel()
-        titleLabel.text = Home_NavTitle
+        titleLabel.text = "Home_NavTitle"
         titleLabel.font = UIFont.systemFont(ofSize: 17)
         titleLabel.textColor = UIColor.white
         self.addSubview(titleLabel)

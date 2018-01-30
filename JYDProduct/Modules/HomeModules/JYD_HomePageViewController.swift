@@ -143,6 +143,9 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         //清空位置信息
         _mapView?.removeAnnotations(storeLocations)
         storeLocations?.removeAll()
+        if bottomView != nil {
+            cancelBottomView()
+        }
         //缩放地图
         let zoom = handler?.pathTransformToLevel(distanceRadius!)
         self.zoomSize = zoom!
@@ -193,7 +196,6 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
             if annotationView == nil {
                 annotationView = BMKAnnotationView.init(annotation: annotation, reuseIdentifier: AnnotationViewID)
             }
-//            annotationView?.animatesDrop = true
             annotationView?.annotation = annotation
             annotationView?.image = UIImage.init(named: "storeLocation_Icon")
             annotationView?.isDraggable = false
