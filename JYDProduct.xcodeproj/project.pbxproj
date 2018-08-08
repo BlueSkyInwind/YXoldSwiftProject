@@ -64,13 +64,14 @@
 		84B5A3C02005BA960031F8C2 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3BF2005BA960031F8C2 /* OpenGLES.framework */; };
 		84B5A3C22005BABE0031F8C2 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3C12005BABE0031F8C2 /* libsqlite3.0.tbd */; };
 		84B5A3C42005BACA0031F8C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5A3C32005BACA0031F8C2 /* CoreLocation.framework */; };
-		84B5A3C82005E27C0031F8C2 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84B5A3C72005E27C0031F8C2 /* mapapi.bundle */; };
 		84B5A3CA2005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5A3C92005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift */; };
 		84B5A3CC20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5A3CB20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift */; };
 		84EBDB4D20033ED300873C1D /* JYD_StoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */; };
 		84EBDB4F200365C200873C1D /* JYD_StoreDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */; };
 		84EBDB51200365D400873C1D /* JYD_StoreDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */; };
 		84EBDB532003763E00873C1D /* JYD_StoreDisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */; };
+		84FF5A9B202159FF00FC3E2E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84FF5A9A202159FF00FC3E2E /* Info.plist */; };
+		84FF5A9D20215B7D00FC3E2E /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84FF5A9C20215B7D00FC3E2E /* mapapi.bundle */; };
 		CC58B0851FFF50CD00142282 /* JYD_SelectPathHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */; };
 		CC58B0871FFF64FA00142282 /* JYD_SelectePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */; };
 		CCB287ED20035080004B3941 /* JYD_SelectPathDetailRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */; };
@@ -108,7 +109,6 @@
 		848FC65D1FFE182300918CE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		848FC65F1FFE182300918CE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		848FC6621FFE182300918CE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		848FC6641FFE182300918CE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		848FC6691FFE182300918CE9 /* JYDProductTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JYDProductTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		848FC66D1FFE182300918CE9 /* JYDProductTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYDProductTests.swift; sourceTree = "<group>"; };
 		848FC66F1FFE182300918CE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,13 +171,14 @@
 		84B5A3BF2005BA960031F8C2 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		84B5A3C12005BABE0031F8C2 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		84B5A3C32005BACA0031F8C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		84B5A3C72005E27C0031F8C2 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		84B5A3C92005EF120031F8C2 /* JYD_StorePhotoBrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StorePhotoBrowseView.swift; sourceTree = "<group>"; };
 		84B5A3CB20060BFB0031F8C2 /* JYD_StorePhotoBrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StorePhotoBrowseViewController.swift; sourceTree = "<group>"; };
 		84EBDB4C20033ED300873C1D /* JYD_StoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreListTableViewCell.swift; sourceTree = "<group>"; };
 		84EBDB4E200365C200873C1D /* JYD_StoreDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDetailHeaderView.swift; sourceTree = "<group>"; };
 		84EBDB50200365D400873C1D /* JYD_StoreDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JYD_StoreDetailHeaderView.xib; sourceTree = "<group>"; };
 		84EBDB522003763E00873C1D /* JYD_StoreDisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_StoreDisplayPhotoView.swift; sourceTree = "<group>"; };
+		84FF5A9A202159FF00FC3E2E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84FF5A9C20215B7D00FC3E2E /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		CC58B0841FFF50CD00142282 /* JYD_SelectPathHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathHeaderView.swift; sourceTree = "<group>"; };
 		CC58B0861FFF64FA00142282 /* JYD_SelectePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectePathCell.swift; sourceTree = "<group>"; };
 		CCB287EC20035080004B3941 /* JYD_SelectPathDetailRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYD_SelectPathDetailRouterView.swift; sourceTree = "<group>"; };
@@ -434,8 +435,8 @@
 		848FC6CE1FFE297300918CE9 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				84B5A3C72005E27C0031F8C2 /* mapapi.bundle */,
-				848FC6641FFE182300918CE9 /* Info.plist */,
+				84FF5A9C20215B7D00FC3E2E /* mapapi.bundle */,
+				84FF5A9A202159FF00FC3E2E /* Info.plist */,
 				848FC6B61FFE28A400918CE9 /* AppColors.plist */,
 				848FC6CD1FFE295300918CE9 /* JYDProduct-Bridging-Header.h */,
 			);
@@ -682,11 +683,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				848FC6B71FFE28A500918CE9 /* AppColors.plist in Resources */,
+				84FF5A9B202159FF00FC3E2E /* Info.plist in Resources */,
 				848FC6631FFE182300918CE9 /* LaunchScreen.storyboard in Resources */,
 				848FC6601FFE182300918CE9 /* Assets.xcassets in Resources */,
-				84B5A3C82005E27C0031F8C2 /* mapapi.bundle in Resources */,
 				848FC65E1FFE182300918CE9 /* Main.storyboard in Resources */,
 				84EBDB51200365D400873C1D /* JYD_StoreDetailHeaderView.xib in Resources */,
+				84FF5A9D20215B7D00FC3E2E /* mapapi.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

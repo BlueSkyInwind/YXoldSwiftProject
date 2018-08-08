@@ -45,7 +45,7 @@ let Fxd_AccountId = "AccountId"
 //用户名
 let Fxd_userName = "userName"
 
-let BMK_AK = "BzL71nwZdHQ3EUIzPHmxa28HwFAfzCoM"
+let BMK_AK = "VUXcELleaabDItNw9fLfq3Yg57hnTFAe"
 
 let Umeng_Key = "5a616260f43e4828e5000041"
 

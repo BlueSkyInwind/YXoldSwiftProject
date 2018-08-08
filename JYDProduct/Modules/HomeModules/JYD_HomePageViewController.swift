@@ -11,7 +11,7 @@ import UIKit
 class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapHandlerDelegate, BMKLocationServiceDelegate {
 
     var _mapView:BMKMapView?
-    var locationService: BMKLocationService!
+    var locationService: BMKLocationService?
 
     var circleView:BMKCircle?
     var handler:JYD_MapHandler?
@@ -46,13 +46,12 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     
     func configureView()  {
         
-        locationService = BMKLocationService()
-
         _mapView = BMKMapView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height:  UIScreen.main.bounds.size.height))
         self.view.addSubview(_mapView!)
         _mapView?.zoomLevel = zoomSize
         addMapScaleBar()
-        
+        locationService = BMKLocationService()
+
         handler = JYD_MapHandler.init()
         handler?.delegate = self
         handler?.vc = self
@@ -91,7 +90,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         super.viewWillAppear(animated)
         _mapView?.viewWillAppear()
         _mapView?.delegate = self
-        locationService.delegate = self
+        locationService?.delegate = self
         setUserLocation()
     }
     
@@ -99,6 +98,8 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
         super.viewWillAppear(animated)
         _mapView?.viewWillDisappear()
         _mapView?.delegate = nil
+        locationService?.delegate = nil
+        locationService?.stopUserLocationService()
     }
     
     func addMapScaleBar()  {
@@ -117,10 +118,10 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
     }  
     //MRAK:用户定位
     func setUserLocation()  {
-        locationService.startUserLocationService()
+        locationService?.startUserLocationService()
         isObtainAnn = true
-        locationService.allowsBackgroundLocationUpdates = false
-        locationService.desiredAccuracy = kCLLocationAccuracyBest
+        locationService?.allowsBackgroundLocationUpdates = false
+        locationService?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         _mapView?.showsUserLocation = false//先关闭显示的定位图层
         _mapView?.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
         _mapView?.showsUserLocation = true//显示定位图层
@@ -257,7 +258,7 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
 //        zoomSize = 14
         _mapView?.zoomLevel = zoomSize
         isObtainAnn = true
-        locationService.startUserLocationService()
+        locationService?.startUserLocationService()
     }
   
     func addMapEnlargedButtonClick() {
@@ -335,6 +336,10 @@ class JYD_HomePageViewController: BaseViewController,BMKMapViewDelegate,JYD_MapH
      */
     func didStopLocatingUser() {
         print("didStopLocatingUser")
+    }
+    
+    func didFailToLocateUserWithError(_ error: Error!) {
+        DPrint(message: error)
     }
     
     //MARK:页面跳转
